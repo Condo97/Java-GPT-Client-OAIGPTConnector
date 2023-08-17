@@ -1,26 +1,22 @@
 package oaigptconnector;
 
 import com.oaigptconnector.Constants;
-import com.oaigptconnector.core.HttpsClientHelper;
-import com.oaigptconnector.core.OpenAIGPTHttpsClientHelper;
-import com.oaigptconnector.keys.Keys;
+import com.oaigptconnector.core.OpenAIGPTHttpsHandler;
+import keys.Keys;
 import com.oaigptconnector.model.generation.OpenAIGPTModels;
-import com.oaigptconnector.model.http.client.openaigpt.Role;
-import com.oaigptconnector.model.http.client.openaigpt.exception.OpenAIGPTException;
-import com.oaigptconnector.model.http.client.openaigpt.request.chat.completion.OAIGPTChatCompletionRequest;
-import com.oaigptconnector.model.http.client.openaigpt.request.chat.completion.OAIGPTChatCompletionRequestMessage;
-import com.oaigptconnector.model.http.client.openaigpt.response.chat.completion.http.OAIGPTChatCompletionResponse;
+import com.oaigptconnector.model.Role;
+import com.oaigptconnector.model.exception.OpenAIGPTException;
+import com.oaigptconnector.model.request.chat.completion.OAIGPTChatCompletionRequest;
+import com.oaigptconnector.model.request.chat.completion.OAIGPTChatCompletionRequestMessage;
+import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class Tests {
@@ -42,7 +38,7 @@ public class Tests {
         OAIGPTChatCompletionRequest completionRequest = new OAIGPTChatCompletionRequest(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, List.of(completionMessage));
 
         // Get response
-        Object response = OpenAIGPTHttpsClientHelper.postChatCompletion(completionRequest, Keys.openAiAPI);
+        Object response = OpenAIGPTHttpsHandler.postChatCompletion(completionRequest, Keys.openAiAPI);
 
         // Ensure response is OAIGPTChatCompletionResponse
         assert(response instanceof OAIGPTChatCompletionResponse);
@@ -66,7 +62,7 @@ public class Tests {
         OAIGPTChatCompletionRequest completionRequest = new OAIGPTChatCompletionRequest(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, true, List.of(completionMessage));
 
         // Get response stream
-        Stream<String> stream = OpenAIGPTHttpsClientHelper.postChatCompletionStream(completionRequest, Keys.openAiAPI);
+        Stream<String> stream = OpenAIGPTHttpsHandler.postChatCompletionStream(completionRequest, Keys.openAiAPI);
 
         // Ensure stream is not null
         assert(stream != null);

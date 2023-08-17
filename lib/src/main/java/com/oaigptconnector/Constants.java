@@ -1,7 +1,5 @@
 package com.oaigptconnector;
 
-import com.oaigptconnector.model.http.client.openaigpt.Role;
-
 import java.net.URI;
 
 public final class Constants {

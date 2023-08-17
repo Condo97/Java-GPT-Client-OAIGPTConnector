@@ -3,4 +3,4 @@
 
 # Ignore Gradle build output directory
 build
-/lib/src/main/java/com/oaigptconnector/keys/
+/lib/src/test/java/keys/
