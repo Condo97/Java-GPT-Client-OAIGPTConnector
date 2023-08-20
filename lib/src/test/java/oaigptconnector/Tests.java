@@ -1,12 +1,15 @@
 package oaigptconnector;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.Constants;
-import com.oaigptconnector.core.OpenAIGPTHttpsHandler;
+import com.oaigptconnector.model.*;
+import com.oaigptconnector.model.fcobjects.ifcbase.FCBase;
 import keys.Keys;
 import com.oaigptconnector.model.generation.OpenAIGPTModels;
-import com.oaigptconnector.model.Role;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
-import com.oaigptconnector.model.request.chat.completion.OAIGPTChatCompletionRequest;
+import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequest;
 import com.oaigptconnector.model.request.chat.completion.OAIGPTChatCompletionRequestMessage;
 import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
 import org.junit.jupiter.api.BeforeAll;
@@ -35,10 +38,10 @@ public class Tests {
         OAIGPTChatCompletionRequestMessage completionMessage = new OAIGPTChatCompletionRequestMessage(Role.USER, "Write me a short joke about cats");
 
         // Create chat request object
-        OAIGPTChatCompletionRequest completionRequest = new OAIGPTChatCompletionRequest(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, List.of(completionMessage));
+        OAIChatCompletionRequest completionRequest = new OAIChatCompletionRequest(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, List.of(completionMessage));
 
         // Get response
-        Object response = OpenAIGPTHttpsHandler.postChatCompletion(completionRequest, Keys.openAiAPI);
+        Object response = OAIConnector.postChatCompletion(completionRequest, Keys.openAiAPI);
 
         // Ensure response is OAIGPTChatCompletionResponse
         assert(response instanceof OAIGPTChatCompletionResponse);
@@ -59,16 +62,58 @@ public class Tests {
         OAIGPTChatCompletionRequestMessage completionMessage = new OAIGPTChatCompletionRequestMessage(Role.USER, "Write me a short joke about cats");
 
         // Create chat request object
-        OAIGPTChatCompletionRequest completionRequest = new OAIGPTChatCompletionRequest(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, true, List.of(completionMessage));
+        OAIChatCompletionRequest completionRequest = new OAIChatCompletionRequest(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, true, List.of(completionMessage));
 
         // Get response stream
-        Stream<String> stream = OpenAIGPTHttpsHandler.postChatCompletionStream(completionRequest, Keys.openAiAPI);
+        Stream<String> stream = OAIConnector.postChatCompletionStream(completionRequest, Keys.openAiAPI);
 
         // Ensure stream is not null
         assert(stream != null);
 
         // Print each received object to console
         stream.forEach(s -> System.out.println(s));
+    }
+
+    @Test
+    @DisplayName("Test OAIFunctionCallSerializer")
+    void testOAIFunctionCallSerializer() {
+        @FunctionCall(name = "test_function")
+        class SerializeTest {
+
+            class InnerClassTest {
+
+                @FCParameter
+                String innerParameterFirst;
+
+            }
+
+            @FCParameter
+            String firstParameter;
+
+            @FCParameter(name = "SecondParameter!", description = "asdfasdf")
+            String secondParameter;
+
+            @FCParameter
+            InnerClassTest thirdParameter;
+
+        }
+
+        // Get map from SerializeTest class using OAIFunctionCallSerializer
+        try {
+            FCBase map = OAIFunctionCallSerializer.objectify(SerializeTest.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(map));
+        } catch (OAISerializerException e) {
+            throw new RuntimeException(e);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @Test

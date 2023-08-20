@@ -7,7 +7,7 @@ import com.oaigptconnector.model.request.chat.completion.function.OAIGPTChatComp
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OAIGPTChatCompletionRequest {
+public class OAIChatCompletionRequest {
     private String model;
     private int max_tokens;
     private int n;
@@ -17,11 +17,11 @@ public class OAIGPTChatCompletionRequest {
     private OAIGPTChatCompletionRequestFunctionCall function_call;
     private List<OAIGPTChatCompletionRequestFunction> functions;
 
-    public OAIGPTChatCompletionRequest() {
+    public OAIChatCompletionRequest() {
 
     }
 
-    public OAIGPTChatCompletionRequest(String model, int max_tokens, double temperature, List<OAIGPTChatCompletionRequestMessage> messages) {
+    public OAIChatCompletionRequest(String model, int max_tokens, double temperature, List<OAIGPTChatCompletionRequestMessage> messages) {
         this.model = model;
         this.max_tokens = max_tokens;
         this.temperature = temperature;
@@ -31,7 +31,7 @@ public class OAIGPTChatCompletionRequest {
         this.n = 1;
     }
 
-    public OAIGPTChatCompletionRequest(String model, int max_tokens, double temperature, boolean stream, List<OAIGPTChatCompletionRequestMessage> messages) {
+    public OAIChatCompletionRequest(String model, int max_tokens, double temperature, boolean stream, List<OAIGPTChatCompletionRequestMessage> messages) {
         this.model = model;
         this.max_tokens = max_tokens;
         this.temperature = temperature;
@@ -41,7 +41,7 @@ public class OAIGPTChatCompletionRequest {
         this.n = 1;
     }
 
-    public OAIGPTChatCompletionRequest(String model, int max_tokens, double temperature, boolean stream, List<OAIGPTChatCompletionRequestMessage> messages, OAIGPTChatCompletionRequestFunctionCall function_call, List<OAIGPTChatCompletionRequestFunction> functions) {
+    public OAIChatCompletionRequest(String model, int max_tokens, double temperature, boolean stream, List<OAIGPTChatCompletionRequestMessage> messages, OAIGPTChatCompletionRequestFunctionCall function_call, List<OAIGPTChatCompletionRequestFunction> functions) {
         this.model = model;
         this.max_tokens = max_tokens;
         this.temperature = temperature;
@@ -53,7 +53,7 @@ public class OAIGPTChatCompletionRequest {
         this.n = 1;
     }
 
-    public OAIGPTChatCompletionRequest(String model, int max_tokens, int n, double temperature, boolean stream, List<OAIGPTChatCompletionRequestMessage> messages, OAIGPTChatCompletionRequestFunctionCall function_call, List<OAIGPTChatCompletionRequestFunction> functions) {
+    public OAIChatCompletionRequest(String model, int max_tokens, int n, double temperature, boolean stream, List<OAIGPTChatCompletionRequestMessage> messages, OAIGPTChatCompletionRequestFunctionCall function_call, List<OAIGPTChatCompletionRequestFunction> functions) {
         this.model = model;
         this.max_tokens = max_tokens;
         this.n = n;
