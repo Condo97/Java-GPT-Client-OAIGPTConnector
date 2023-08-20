@@ -10,4 +10,8 @@ public class OAISerializerException extends Exception {
         super(message, cause);
     }
 
+    public OAISerializerException(Throwable cause) {
+        super(cause);
+    }
+
 }

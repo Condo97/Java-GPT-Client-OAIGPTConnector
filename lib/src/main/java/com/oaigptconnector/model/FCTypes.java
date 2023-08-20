@@ -7,6 +7,7 @@ public enum FCTypes {
     OBJECT("object"),
     ARRAY("array"),
     INTEGER("integer"),
+    NUMBER("number"),
     BOOLEAN("boolean"),
     STRING("string");
 

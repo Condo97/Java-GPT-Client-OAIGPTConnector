@@ -10,7 +10,7 @@ import keys.Keys;
 import com.oaigptconnector.model.generation.OpenAIGPTModels;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
 import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequest;
-import com.oaigptconnector.model.request.chat.completion.OAIGPTChatCompletionRequestMessage;
+import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequestMessage;
 import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -35,13 +35,13 @@ public class Tests {
     @DisplayName("Post Chat Completion Testing")
     void testPostCompletion() throws IOException, InterruptedException, OpenAIGPTException {
         // Create chat request message object
-        OAIGPTChatCompletionRequestMessage completionMessage = new OAIGPTChatCompletionRequestMessage(Role.USER, "Write me a short joke about cats");
+        OAIChatCompletionRequestMessage completionMessage = new OAIChatCompletionRequestMessage(Role.USER, "Write me a short joke about cats");
 
         // Create chat request object
-        OAIChatCompletionRequest completionRequest = new OAIChatCompletionRequest(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, List.of(completionMessage));
+        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, List.of(completionMessage));
 
         // Get response
-        Object response = OAIConnector.postChatCompletion(completionRequest, Keys.openAiAPI);
+        Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI);
 
         // Ensure response is OAIGPTChatCompletionResponse
         assert(response instanceof OAIGPTChatCompletionResponse);
@@ -59,13 +59,13 @@ public class Tests {
     @DisplayName("Stream Chat Completion Testing")
     void testStreamCompletion() throws IOException, InterruptedException {
         // Create chat request message object
-        OAIGPTChatCompletionRequestMessage completionMessage = new OAIGPTChatCompletionRequestMessage(Role.USER, "Write me a short joke about cats");
+        OAIChatCompletionRequestMessage completionMessage = new OAIChatCompletionRequestMessage(Role.USER, "Write me a short joke about cats");
 
         // Create chat request object
-        OAIChatCompletionRequest completionRequest = new OAIChatCompletionRequest(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, true, List.of(completionMessage));
+        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, true, List.of(completionMessage));
 
         // Get response stream
-        Stream<String> stream = OAIConnector.postChatCompletionStream(completionRequest, Keys.openAiAPI);
+        Stream<String> stream = OAIClient.postChatCompletionStream(completionRequest, Keys.openAiAPI);
 
         // Ensure stream is not null
         assert(stream != null);

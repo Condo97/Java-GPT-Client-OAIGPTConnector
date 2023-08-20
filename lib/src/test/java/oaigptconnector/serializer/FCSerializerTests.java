@@ -1,4 +1,4 @@
-package oaigptconnector;
+package oaigptconnector.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.model.OAIFunctionCallSerializer;
 import com.oaigptconnector.model.OAISerializerException;
 import com.oaigptconnector.model.fcobjects.ifcbase.FCBase;
-import oaigptconnector.testobjects.*;
+import oaigptconnector.serializer.testobjects.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

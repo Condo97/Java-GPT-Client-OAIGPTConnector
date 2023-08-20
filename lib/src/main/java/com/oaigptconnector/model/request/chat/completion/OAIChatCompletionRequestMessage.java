@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.oaigptconnector.model.Role;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OAIGPTChatCompletionRequestMessage {
+public class OAIChatCompletionRequestMessage {
 
     private Role role;
     private String content;
 
-    public OAIGPTChatCompletionRequestMessage(Role role, String content) {
+    public OAIChatCompletionRequestMessage(Role role, String content) {
         this.role = role;
         this.content = content;
     }

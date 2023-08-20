@@ -1,4 +1,4 @@
-package oaigptconnector.testobjects;
+package oaigptconnector.serializer.testobjects;
 
 import com.oaigptconnector.model.FunctionCall;
 

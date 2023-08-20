@@ -15,6 +15,13 @@ public class OAIFunctionCallSerializer {
 
     // Converts to JSON from function call class
 
+    /***
+     * Converts a class annotated with FunctionCall and FCParameters into a FCBase object in the proper format for a GPT FunctionCall request
+     *
+     * @param fcClass - The annotated class to serialize
+     * @return - The serialized FCBase, ready for the function call
+     * @throws OAISerializerException - If no FunctionCall annotation or no FCParameters at all found
+     */
     public static FCBase objectify(Class<?> fcClass) throws OAISerializerException {
         // Ensure fcClass has FunctionCall annotation, otherwise throw OAISerializerException
         if (!fcClass.isAnnotationPresent(FunctionCall.class))
@@ -51,6 +58,24 @@ public class OAIFunctionCallSerializer {
     }
 
     /***
+     * Gets the function name from the FunctionCall annotation in a FunctionCall annotated class
+     *
+     * @param fcClass - The annotated class to get the FunctionCall annotation name value
+     * @return - The FunctionCall annotation name value
+     * @throws OAISerializerException - If there is no FunctionCall annotation found
+     */
+    public static String getFunctionName(Class<?> fcClass) throws OAISerializerException {
+        // Ensure fcClass has FunctionCall annotation, otherwise throw OAISerializerException
+        if (!fcClass.isAnnotationPresent(FunctionCall.class))
+            throw new OAISerializerException("FunctionCall annotation not present in class");
+
+        // Get and return functionName
+        return fcClass.getAnnotation(FunctionCall.class).name();
+    }
+
+    /* Private Methods */
+
+    /***
      * Maps object properties for a FunctionCall annotated class,
      *
      *
@@ -59,10 +84,6 @@ public class OAIFunctionCallSerializer {
      * @throws OAISerializerException
      */
     private static Map<String, IFCObject> mapObjectProperties(Class dbClass) throws OAISerializerException {
-//        // Ensure class annotation is present, otherwise throw OAISerializerException
-//        if (!dbClass.isAnnotationPresent(FunctionCall.class))
-//            throw new OAISerializerException("FunctionCall annotation not present for class " + dbClass);
-
         // Create object properties map
         Map<String, IFCObject> op = new HashMap<>();
 
@@ -119,9 +140,10 @@ public class OAIFunctionCallSerializer {
 
     private static IFCObject getIFCObject(Type genericType, String description) throws OAISerializerException {
         // Get FCType from type
-        FCTypes fcType = FCTypeFromClass.getFCType(genericType);
+        FCTypes fcType = FCTypeFactory.get(genericType);
         return switch(fcType) {
             case INTEGER -> new FCInteger(description);
+            case NUMBER -> new FCNumber(description);
             case BOOLEAN -> new FCBoolean(description);
             case STRING -> new FCString(description);
             case ARRAY -> new FCArray(
