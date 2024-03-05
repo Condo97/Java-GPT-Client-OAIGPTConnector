@@ -5,8 +5,20 @@ import com.oaigptconnector.model.response.error.OpenAIGPTErrorResponse;
 
 public class OpenAIGPTException extends ResponseException {
 
-    public OpenAIGPTException(OpenAIGPTErrorResponse errorObject) {
+    public OpenAIGPTException(Object errorObject) {
         super(errorObject);
+    }
+
+    public OpenAIGPTException(String message, Object errorObject) {
+        super(message, errorObject);
+    }
+
+    public OpenAIGPTException(String message, Throwable cause, Object errorObject) {
+        super(message, cause, errorObject);
+    }
+
+    public OpenAIGPTException(Throwable cause, Object errorObject) {
+        super(cause, errorObject);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatComplet
 import keys.Keys;
 import oaigptconnector.TestConstants;
 import oaigptconnector.fcclient.testobjects.ComplexFunctionCall;
+import oaigptconnector.fcclient.testobjects.ComplexFunctionCallRoute;
 import oaigptconnector.fcclient.testobjects.SimpleFunctionCall;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,22 +23,26 @@ public class FCClientTests {
     @Test
     @DisplayName("Test Simple Function Call Completion")
     void testSimpleFunctionCallCompletion() {
-        // Get function call class and create messages
-        Class fcClass = SimpleFunctionCall.class;
-        List<OAIChatCompletionRequestMessage> messages = new OAIChatCompletionRequestMessagesBuilder()
-                .addSystem("You are a function call tester.")
-                .addUser("Fill the function with test values.")
+        // Create system message
+        OAIChatCompletionRequestMessage systemMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.SYSTEM)
+                .addText("You are a function call tester.")
                 .build();
+
+        // Create user message
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Fill the function with test values.")
+                .build();
+
+        // Get function call class
+        Class fcClass = SimpleFunctionCall.class;
 
         // Get response from FCClient
         try {
             OAIGPTChatCompletionResponse response = FCClient.serializedChatCompletion(
                     fcClass,
-                    messages,
-                    TestConstants.gpt4ModelName,
-                    800,
-                    1,
-                    Keys.openAiAPI
+                    TestConstants.gpt4ModelName, 800, 1, Keys.openAiAPI,
+                    systemMessage,
+                    userMessage
             );
 
             // Deserialize to the function call class :)
@@ -64,26 +69,36 @@ public class FCClientTests {
     @Test
     @DisplayName("Test Complex Function Call Completion")
     void testComplexFunctionCallCompletion() {
+        // Create system message
+        OAIChatCompletionRequestMessage systemMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.SYSTEM)
+                .addText("You are a function call tester.")
+                .build();
+
+        // Create user message
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Fill the function with test values.")
+                .build();
+
         // Get function call class and create messages
         Class fcClass = ComplexFunctionCall.class;
-        List<OAIChatCompletionRequestMessage> messages = new OAIChatCompletionRequestMessagesBuilder()
-                .addSystem("You are a function call tester.")
-                .addUser("Fill the function with test values.")
-                .build();
 
         // Get the response from FCClient
         try {
             OAIGPTChatCompletionResponse response = FCClient.serializedChatCompletion(
                     fcClass,
-                    messages,
                     TestConstants.gpt4ModelName,
                     800,
                     1,
-                    Keys.openAiAPI
+                    Keys.openAiAPI,
+                    systemMessage,
+                    userMessage
             );
 
             // Deserialize to the function call class :)
             ComplexFunctionCall cfc = OAIFunctionCallDeserializer.deserialize(response.getChoices()[0].getMessage().getFunction_call().getArguments(), ComplexFunctionCall.class);
+
+            // Ensure first subroute is instanceof ComplexFunctionCallRoute
+            assert(cfc.getSubroutes().get(0) instanceof ComplexFunctionCallRoute);
 
             System.out.println(new ObjectMapper().writeValueAsString(cfc));
         } catch (OAISerializerException e) {

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.Constants;
 import com.oaigptconnector.model.*;
 import com.oaigptconnector.model.fcobjects.ifcbase.FCBase;
+import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
+import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentText;
 import keys.Keys;
 import com.oaigptconnector.model.generation.OpenAIGPTModels;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
@@ -16,11 +18,21 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.net.http.HttpClient;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class Tests {
 
@@ -34,11 +46,14 @@ public class Tests {
     @Test
     @DisplayName("Post Chat Completion Testing")
     void testPostCompletion() throws IOException, InterruptedException, OpenAIGPTException {
+        // Create text content
+        List<OAIChatCompletionRequestMessageContent> content = List.of( new OAIChatCompletionRequestMessageContentText("Write a short joke about cats") );
+
         // Create chat request message object
-        OAIChatCompletionRequestMessage completionMessage = new OAIChatCompletionRequestMessage(Role.USER, "Write me a short joke about cats");
+        OAIChatCompletionRequestMessage completionMessage = new OAIChatCompletionRequestMessage(CompletionRole.USER, content);
 
         // Create chat request object
-        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, List.of(completionMessage));
+        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.getName(), 400, 0.7, List.of(completionMessage));
 
         // Get response
         Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI);
@@ -59,10 +74,12 @@ public class Tests {
     @DisplayName("Stream Chat Completion Testing")
     void testStreamCompletion() throws IOException, InterruptedException {
         // Create chat request message object
-        OAIChatCompletionRequestMessage completionMessage = new OAIChatCompletionRequestMessage(Role.USER, "Write me a short joke about cats");
+        OAIChatCompletionRequestMessage completionMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Write me a short joke about cats")
+                .build();
 
         // Create chat request object
-        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.name, 400, 0.7, true, List.of(completionMessage));
+        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.getName(), 400, 0.7, true, List.of(completionMessage));
 
         // Get response stream
         Stream<String> stream = OAIClient.postChatCompletionStream(completionRequest, Keys.openAiAPI);
@@ -114,6 +131,79 @@ public class Tests {
         }
 
 
+    }
+
+    @Test
+    @DisplayName("Test Image Completion")
+    void testImageCompletion() throws IOException, InterruptedException {
+        // Get image data base64 encoded string
+        URL imageURL = getClass().getResource("/testImage.png");
+
+        assertNotNull(imageURL);
+
+        Path resourcePath = Path.of(imageURL.getPath());
+        String imageDataBase64EncodedString;
+        try {
+            byte imageData[] = Files.readAllBytes(resourcePath);
+            imageDataBase64EncodedString = Base64.getEncoder().encodeToString(imageData);
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Create user message with text and image
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Describe the image")
+                .addImage(imageDataBase64EncodedString)
+                .build();
+
+        // Create request
+        OAIChatCompletionRequest request = OAIChatCompletionRequest.build(
+                OpenAIGPTModels.GPT_4_VISION.getName(),
+                800,
+                1,
+                true,
+                userMessage);
+
+
+        System.out.println(new ObjectMapper().writeValueAsString(request));
+
+        // Get response stream
+        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI);
+
+        assertNotNull(stream);
+
+        stream.forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("Test Image URL Completion")
+    void testImageURLCompletion() throws IOException, InterruptedException {
+        // Create user message with text and image
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Can you write out the text in the image for me?")
+                .addImageURL("https://images.squarespace-cdn.com/content/v1/57b71e086a49637a9109a3f9/1519796241690-Z9YNU20RXTK83JA4WQPH/A+Wrinkle+In+Time+First+Page.JPG")
+                .build();
+
+        // Create request
+        OAIChatCompletionRequest request = OAIChatCompletionRequest.build(
+                OpenAIGPTModels.GPT_4_VISION.getName(),
+                800,
+                1,
+                true,
+                userMessage);
+
+
+        System.out.println(new ObjectMapper().writeValueAsString(request));
+
+        // Get response stream
+        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI);
+
+        assertNotNull(stream);
+
+        stream.forEach(System.out::println);
     }
 
     @Test

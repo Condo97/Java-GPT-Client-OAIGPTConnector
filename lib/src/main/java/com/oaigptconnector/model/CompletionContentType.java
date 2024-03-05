@@ -3,27 +3,28 @@ package com.oaigptconnector.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-public enum Role {
 
-    SYSTEM("system"),
-    USER("user"),
-    ASSISTANT("assistant");
+public enum CompletionContentType {
+
+    TEXT("text"),
+    IMAGE("image"),
+    IMAGE_URL("image_url");
 
     private String string;
 
-    Role(String string) {
+    CompletionContentType(String string) {
         this.string = string;
     }
 
     @JsonCreator
-    public static Role fromString(@JsonProperty("role") String string) {
-        Role[] values = Role.values();
-        for (Role value: values) {
+    public static CompletionContentType fromString(@JsonProperty("type") String string) {
+        CompletionContentType[] values = CompletionContentType.values();
+        for (CompletionContentType value: values) {
             if (value.string.equals(string))
                 return value;
         }
 
-        throw new IllegalArgumentException("Could not find Role from String");
+        throw new IllegalArgumentException("Could not find Completion Content Type from String");
     }
 
     @JsonValue
@@ -35,5 +36,4 @@ public enum Role {
     public String toString() {
         return string;
     }
-
 }

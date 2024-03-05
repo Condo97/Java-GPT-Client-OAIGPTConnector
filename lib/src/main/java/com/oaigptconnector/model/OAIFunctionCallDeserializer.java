@@ -8,7 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OAIFunctionCallDeserializer {
@@ -21,7 +24,7 @@ public class OAIFunctionCallDeserializer {
         }
     }
 
-    public static <T> T deserialize(Map json, Class<T> fcClass) throws OAIDeserializerException {
+    public static <T> T deserialize(Map<?, ?> json, Class<T> fcClass) throws OAIDeserializerException {
         // Instantiate fcObject from fcClass
         T fcObject = null;
         try {
@@ -69,8 +72,34 @@ public class OAIFunctionCallDeserializer {
 
         try {
             try {
+                // Custom Object List HANDLING - If field and value are List and field List parameter is not LinkedHashMap but value List parameter is LinkedHashMap, create a List, loop through value List objects deserializing each with the field List parameter as the class
+                if ((field.getType() == List.class && value instanceof List)) {
+                    // Due to Java type erasure, the parameterized type of value as a List is not available at runtime, so the type of the first object needs to be used instead
+                    List valueAsList = (List)value;
+                    if (valueAsList.size() > 0) {
+                        // Get value type from first element in list
+                        Class<?> valueType = valueAsList.get(0).getClass();
+
+                        if (TypeAdapter.getFirstParameterType(field.getGenericType()) != LinkedHashMap.class && valueType == LinkedHashMap.class) {
+                            // Field most likely expects a list of a custom object, so create that list by deserializing each LinkedHashMap in value list
+                            List<Object> customObjectList = new ArrayList<>();
+                            List valueList = (List)value;
+                            Class<?> fieldParameterClass = TypeAdapter.getClass(TypeAdapter.getFirstParameterType(field.getGenericType()));
+
+                            // Adapt valueList to customObjectList using deserialize to the fieldParameterClass
+                            for (Object valueListValue: valueList) {
+                                customObjectList.add(deserialize((LinkedHashMap)valueListValue, fieldParameterClass));
+                            }
+
+                            // Set value to customObjectList so it will be set by field.set :)
+                            value = customObjectList;
+                        }
+                    }
+                }
+
                 // Try to set field
                 field.set(object, value);
+
             } catch (IllegalArgumentException e) {
                 // If field.set throws IllegalArgumentException meaning an object value mismatch, check to see if the field expects an Integer and it's trying to insert a Double, and see if it can be set after casting, otherwise throw e to have it caught by the enclosing try block TODO: It seems that Double is what ObjectMapper sets decimal numbers to pretty consistently, however this should be further tested to see if there are more cases of fixable type inconsistency :)
                 if (field.getType() == Integer.class && value.getClass() == Double.class) {

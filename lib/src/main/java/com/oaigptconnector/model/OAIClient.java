@@ -16,7 +16,11 @@ import java.time.Duration;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-public class OAIClient extends Httpson {
+public final class OAIClient extends Httpson {
+
+    private OAIClient() {
+
+    }
 
     private static final HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
 
@@ -40,7 +44,7 @@ public class OAIClient extends Httpson {
         } catch (JsonProcessingException e) {
             System.out.println("Issue Mapping OAIGPTChatCompletionResponse: " + response);
 
-            throw new OpenAIGPTException(new ObjectMapper().treeToValue(response, OpenAIGPTErrorResponse.class));
+            throw new OpenAIGPTException(e, new ObjectMapper().treeToValue(response, OpenAIGPTErrorResponse.class));
         }
     }
 

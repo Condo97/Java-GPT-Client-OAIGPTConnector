@@ -30,16 +30,32 @@ public class OAIChatCompletionRequest {
         this.functions = functions;
     }
 
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, temperature, List.of(messages));
+    }
+
     public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, List<OAIChatCompletionRequestMessage> messages) {
         return build(model, max_tokens, temperature, false, messages);
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, temperature, stream, List.of(messages));
     }
 
     public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, List<OAIChatCompletionRequestMessage> messages) {
         return build(model, max_tokens, 1, temperature, stream, messages);
     }
 
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, n, temperature, List.of(messages));
+    }
+
     public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, List<OAIChatCompletionRequestMessage> messages) {
         return build(model, max_tokens, n, temperature, false, messages);
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, n, temperature, stream, List.of(messages));
     }
 
     public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, List<OAIChatCompletionRequestMessage> messages) {

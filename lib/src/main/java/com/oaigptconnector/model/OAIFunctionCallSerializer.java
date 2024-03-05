@@ -148,7 +148,7 @@ public class OAIFunctionCallSerializer {
             case STRING -> new FCString(description);
             case ARRAY -> new FCArray(
                     description,
-                    getIFCObject(getFirstParameterType(genericType), null)
+                    getIFCObject(TypeAdapter.getFirstParameterType(genericType), null)
             );
             case OBJECT -> {
                 // Get object properties, throw OAISerializerException if null since there is a FCParameter annotation on a non-serializable type, otherwise yield FCObject with object properties
@@ -163,25 +163,6 @@ public class OAIFunctionCallSerializer {
                 );
             }
         };
-    }
-
-    private static Type getFirstParameterType(Type genericType) {
-        // If genericType is ParameterizedType, get and return the first parameter type
-        if (genericType instanceof ParameterizedType) {
-            // Cast to ParameterizedType
-            ParameterizedType parameterizedType = (ParameterizedType)genericType;
-
-            // Get actual type arguments
-            Type[] typeArguments = parameterizedType.getActualTypeArguments();
-
-            // If typeArguments length is less than 1, return null, otherwise return first typeArgument
-            if (typeArguments.length < 1)
-                return null;
-
-            return typeArguments[0];
-        }
-
-        return null;
     }
 
     private static List<String> getRequiredProperties(Class dbClass) throws OAISerializerException {
