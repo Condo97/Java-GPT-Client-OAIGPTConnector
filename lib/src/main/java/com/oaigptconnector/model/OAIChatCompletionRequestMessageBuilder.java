@@ -26,14 +26,26 @@ public class OAIChatCompletionRequestMessageBuilder {
         return this;
     }
 
-    public OAIChatCompletionRequestMessageBuilder addImage(String base64EncodedImage) {
-        content.add(new OAIChatCompletionRequestMessageContentImage(base64EncodedImage));
+    public OAIChatCompletionRequestMessageBuilder addImage(String base64EncodedImage, InputImageDetail detail) {
+        // Create contentImageURL child with base64EncodedImage and detail
+        OAIChatCompletionRequestMessageContentImage.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImage.ImageURL(
+                base64EncodedImage,
+                detail
+        );
+
+        // Add imageURL in image request parent
+        content.add(new OAIChatCompletionRequestMessageContentImage(contentImageURL));
 
         return this;
     }
 
-    public OAIChatCompletionRequestMessageBuilder addImageURL(String imageURL) {
-        content.add(new OAIChatCompletionRequestMessageContentImageURL(imageURL));
+    public OAIChatCompletionRequestMessageBuilder addImageURL(String imageURL, InputImageDetail detail) {
+        // Create contentImageURL child with imageURL and detail
+        OAIChatCompletionRequestMessageContentImage.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImage.ImageURL(
+                imageURL,
+                detail
+        );
+        content.add(new OAIChatCompletionRequestMessageContentImage(contentImageURL));
 
         return this;
     }

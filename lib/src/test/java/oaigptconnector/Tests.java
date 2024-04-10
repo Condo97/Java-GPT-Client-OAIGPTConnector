@@ -156,7 +156,7 @@ public class Tests {
         // Create user message with text and image
         OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
                 .addText("Describe the image")
-                .addImage(imageDataBase64EncodedString)
+                .addImage(imageDataBase64EncodedString, InputImageDetail.AUTO)
                 .build();
 
         // Create request
@@ -184,7 +184,7 @@ public class Tests {
         // Create user message with text and image
         OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
                 .addText("Can you write out the text in the image for me?")
-                .addImageURL("https://images.squarespace-cdn.com/content/v1/57b71e086a49637a9109a3f9/1519796241690-Z9YNU20RXTK83JA4WQPH/A+Wrinkle+In+Time+First+Page.JPG")
+                .addImageURL("https://images.squarespace-cdn.com/content/v1/57b71e086a49637a9109a3f9/1519796241690-Z9YNU20RXTK83JA4WQPH/A+Wrinkle+In+Time+First+Page.JPG", InputImageDetail.AUTO)
                 .build();
 
         // Create request

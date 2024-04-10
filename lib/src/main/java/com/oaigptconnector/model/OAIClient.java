@@ -33,7 +33,9 @@ public final class OAIClient extends Httpson {
             requestBuilder.setHeader("Authorization", "Bearer " + apiKey);
         };
 
-        JsonNode response = sendPOST(requestObject, OAIClient.getClient(), Constants.OPENAI_URI, c);
+        JsonNode response = sendPOST(requestObject, OAIClient.getClient(), Constants.OPENAI_CHAT_COMPLETION_URI, c);
+
+        System.out.println(response);
 
         try {
             OAIGPTChatCompletionResponse oaiChatcompletionResponse = new ObjectMapper().treeToValue(response, OAIGPTChatCompletionResponse.class);
@@ -54,7 +56,7 @@ public final class OAIClient extends Httpson {
             requestBuilder.setHeader("Authorization", "Bearer " + apiKey);
         };
 
-        Stream<String> stream = sendPOSTStream(requestObject, OAIClient.getClient(), Constants.OPENAI_URI, c);
+        Stream<String> stream = sendPOSTStream(requestObject, OAIClient.getClient(), Constants.OPENAI_CHAT_COMPLETION_URI, c);
         return stream;
     }
 
