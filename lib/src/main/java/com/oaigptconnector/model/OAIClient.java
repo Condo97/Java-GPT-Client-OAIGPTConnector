@@ -16,26 +16,24 @@ import java.time.Duration;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-public final class OAIClient extends Httpson {
+public final class OAIClient {
 
     private OAIClient() {
 
     }
 
-    private static final HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+//    private static final HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
 
-    private static HttpClient getClient() {
-        return client;
-    }
+//    private HttpClient getClient() {
+//        return client;
+//    }
 
-    public static OAIGPTChatCompletionResponse postChatCompletion(Object requestObject, String apiKey) throws OpenAIGPTException, IOException, InterruptedException {
+    public static OAIGPTChatCompletionResponse postChatCompletion(Object requestObject, String apiKey, HttpClient httpClient) throws OpenAIGPTException, IOException, InterruptedException {
         Consumer<HttpRequest.Builder> c = requestBuilder -> {
             requestBuilder.setHeader("Authorization", "Bearer " + apiKey);
         };
 
-        JsonNode response = sendPOST(requestObject, OAIClient.getClient(), Constants.OPENAI_CHAT_COMPLETION_URI, c);
-
-        System.out.println(response);
+        JsonNode response = Httpson.sendPOST(requestObject, httpClient, Constants.OPENAI_CHAT_COMPLETION_URI, c);
 
         try {
             OAIGPTChatCompletionResponse oaiChatcompletionResponse = new ObjectMapper().treeToValue(response, OAIGPTChatCompletionResponse.class);
@@ -50,13 +48,13 @@ public final class OAIClient extends Httpson {
         }
     }
 
-    public static Stream<String> postChatCompletionStream(Object requestObject, String apiKey) throws IOException, InterruptedException {
+    public static Stream<String> postChatCompletionStream(Object requestObject, String apiKey, HttpClient httpClient) throws IOException, InterruptedException {
         // TODO: Make this better
         Consumer<HttpRequest.Builder> c = requestBuilder -> {
             requestBuilder.setHeader("Authorization", "Bearer " + apiKey);
         };
 
-        Stream<String> stream = sendPOSTStream(requestObject, OAIClient.getClient(), Constants.OPENAI_CHAT_COMPLETION_URI, c);
+        Stream<String> stream = Httpson.sendPOSTStream(requestObject, httpClient, Constants.OPENAI_CHAT_COMPLETION_URI, c);
         return stream;
     }
 

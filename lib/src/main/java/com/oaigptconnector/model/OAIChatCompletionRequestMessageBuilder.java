@@ -21,12 +21,19 @@ public class OAIChatCompletionRequestMessageBuilder {
     }
 
     public OAIChatCompletionRequestMessageBuilder addText(String text) {
+        // Null check
+        if (text == null) return this;
+
+        // Add text
         content.add(new OAIChatCompletionRequestMessageContentText(text));
 
         return this;
     }
 
     public OAIChatCompletionRequestMessageBuilder addImage(String base64EncodedImage, InputImageDetail detail) {
+        // Null check
+        if (base64EncodedImage == null) return this;
+
         // Create contentImageURL child with base64EncodedImage and detail
         OAIChatCompletionRequestMessageContentImage.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImage.ImageURL(
                 base64EncodedImage,
@@ -40,6 +47,9 @@ public class OAIChatCompletionRequestMessageBuilder {
     }
 
     public OAIChatCompletionRequestMessageBuilder addImageURL(String imageURL, InputImageDetail detail) {
+        // Null check
+        if (imageURL == null || detail == null) return this;
+
         // Create contentImageURL child with imageURL and detail
         OAIChatCompletionRequestMessageContentImage.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImage.ImageURL(
                 imageURL,

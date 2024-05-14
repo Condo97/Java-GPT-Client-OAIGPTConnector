@@ -40,7 +40,7 @@ public class OAIChatCompletionRequestMessageContentImage implements OAIChatCompl
 
     }
 
-    private final CompletionContentType type = CompletionContentType.IMAGE;
+    private final CompletionContentType type = CompletionContentType.IMAGE_URL;
     private ImageURL image_url;
 
     public OAIChatCompletionRequestMessageContentImage() {

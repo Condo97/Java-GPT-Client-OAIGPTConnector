@@ -55,8 +55,11 @@ public class Tests {
         // Create chat request object
         OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.getName(), 400, 0.7, List.of(completionMessage));
 
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
         // Get response
-        Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI);
+        Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI, httpClient);
 
         // Ensure response is OAIGPTChatCompletionResponse
         assert(response instanceof OAIGPTChatCompletionResponse);
@@ -81,8 +84,11 @@ public class Tests {
         // Create chat request object
         OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.getName(), 400, 0.7, true, List.of(completionMessage));
 
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
         // Get response stream
-        Stream<String> stream = OAIClient.postChatCompletionStream(completionRequest, Keys.openAiAPI);
+        Stream<String> stream = OAIClient.postChatCompletionStream(completionRequest, Keys.openAiAPI, httpClient);
 
         // Ensure stream is not null
         assert(stream != null);
@@ -170,8 +176,11 @@ public class Tests {
 
         System.out.println(new ObjectMapper().writeValueAsString(request));
 
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
         // Get response stream
-        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI);
+        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI, httpClient);
 
         assertNotNull(stream);
 
@@ -198,8 +207,11 @@ public class Tests {
 
         System.out.println(new ObjectMapper().writeValueAsString(request));
 
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
         // Get response stream
-        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI);
+        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI, httpClient);
 
         assertNotNull(stream);
 

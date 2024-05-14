@@ -16,6 +16,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.net.http.HttpClient;
+import java.time.Duration;
 import java.util.List;
 
 public class FCClientTests {
@@ -36,11 +38,18 @@ public class FCClientTests {
         // Get function call class
         Class fcClass = SimpleFunctionCall.class;
 
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(com.oaigptconnector.Constants.AI_TIMEOUT_MINUTES)).build();
+
         // Get response from FCClient
         try {
             OAIGPTChatCompletionResponse response = FCClient.serializedChatCompletion(
                     fcClass,
-                    TestConstants.gpt4ModelName, 800, 1, Keys.openAiAPI,
+                    TestConstants.gpt4ModelName,
+                    800,
+                    1,
+                    Keys.openAiAPI,
+                    httpClient,
                     systemMessage,
                     userMessage
             );
@@ -82,6 +91,9 @@ public class FCClientTests {
         // Get function call class and create messages
         Class fcClass = ComplexFunctionCall.class;
 
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(com.oaigptconnector.Constants.AI_TIMEOUT_MINUTES)).build();
+
         // Get the response from FCClient
         try {
             OAIGPTChatCompletionResponse response = FCClient.serializedChatCompletion(
@@ -90,6 +102,7 @@ public class FCClientTests {
                     800,
                     1,
                     Keys.openAiAPI,
+                    httpClient,
                     systemMessage,
                     userMessage
             );
