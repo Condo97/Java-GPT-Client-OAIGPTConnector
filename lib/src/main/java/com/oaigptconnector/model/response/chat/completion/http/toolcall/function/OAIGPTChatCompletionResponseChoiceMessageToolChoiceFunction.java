@@ -1,15 +1,15 @@
-package com.oaigptconnector.model.response.chat.completion.http.function;
+package com.oaigptconnector.model.response.chat.completion.http.toolcall.function;
 
-public class OAIGPTChatCompletionResponseChoiceMessageFunctionCall {
+public class OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction {
 
     private String name;
     private String arguments;
 
-    public OAIGPTChatCompletionResponseChoiceMessageFunctionCall() {
+    public OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction() {
 
     }
 
-    public OAIGPTChatCompletionResponseChoiceMessageFunctionCall(String name, String arguments) {
+    public OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction(String name, String arguments) {
         this.name = name;
         this.arguments = arguments;
     }

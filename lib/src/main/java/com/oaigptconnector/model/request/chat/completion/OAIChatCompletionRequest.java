@@ -12,22 +12,22 @@ public class OAIChatCompletionRequest {
     private double temperature;
     private boolean stream;
     private List<OAIChatCompletionRequestMessage> messages;
-    private OAIChatCompletionRequestFunctionCall function_call;
-    private List<Object> functions;
+    private OAIChatCompletionRequestToolChoice tool_choice; // "none", "required", or OAIChatCompletionRequestToolChoiceFunction
+    private List<OAIChatCompletionRequestTool> tools;
 
     private OAIChatCompletionRequest() {
 
     }
 
-    private OAIChatCompletionRequest(String model, int max_tokens, int n, double temperature, boolean stream, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestFunctionCall function_call, List<Object> functions) {
+    private OAIChatCompletionRequest(String model, int max_tokens, int n, double temperature, boolean stream, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice tool_choice, List<OAIChatCompletionRequestTool> tools) {
         this.model = model;
         this.max_tokens = max_tokens;
         this.n = n;
         this.temperature = temperature;
         this.stream = stream;
         this.messages = messages;
-        this.function_call = function_call;
-        this.functions = functions;
+        this.tool_choice = tool_choice;
+        this.tools = tools;
     }
 
     public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, OAIChatCompletionRequestMessage... messages) {
@@ -62,19 +62,31 @@ public class OAIChatCompletionRequest {
         return build(model, max_tokens, n, temperature, stream, messages, null, null);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestFunctionCall function_call, List<Object> functions) {
-        return build(model, max_tokens, temperature, false, messages, function_call, functions);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice toolChoice, List<Object> functions) {
+        return build(model, max_tokens, temperature, false, messages, toolChoice, functions);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestFunctionCall functionCall, List<Object> functions) {
-        return build(model, max_tokens, 1, temperature, stream, messages, functionCall, functions);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice toolChoice, List<Object> functions) {
+        return build(model, max_tokens, 1, temperature, stream, messages, toolChoice, functions);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestFunctionCall functionCall, List<Object> functions) {
-        return build(model, max_tokens, n, temperature, false, messages, functionCall, functions);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice toolChoice, List<Object> functions) {
+        return build(model, max_tokens, n, temperature, false, messages, toolChoice, functions);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestFunctionCall function_call, List<Object> functions) {
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice tool_choice, List<Object> functions) {
+        // TODO: Implement tools better.. right now it just translates functions to tools
+        List<OAIChatCompletionRequestTool> tools = null;
+
+        if (functions != null && !functions.isEmpty()) {
+            tools = functions.stream()
+                    .map(f -> new OAIChatCompletionRequestTool(
+                            OAIChatCompletionRequestToolType.FUNCTION,
+                            f
+                    ))
+                    .toList();
+        }
+
         return new OAIChatCompletionRequest(
                 model,
                 max_tokens,
@@ -82,8 +94,8 @@ public class OAIChatCompletionRequest {
                 temperature,
                 stream,
                 messages,
-                function_call,
-                functions
+                tool_choice,
+                tools
         );
     }
 
@@ -135,20 +147,20 @@ public class OAIChatCompletionRequest {
         this.messages = messages;
     }
 
-    public OAIChatCompletionRequestFunctionCall getFunction_call() {
-        return function_call;
+    public OAIChatCompletionRequestToolChoice getTool_choice() {
+        return tool_choice;
     }
 
-    public void setFunction_call(OAIChatCompletionRequestFunctionCall function_call) {
-        this.function_call = function_call;
+    public void setTool_choice(OAIChatCompletionRequestToolChoice tool_choice) {
+        this.tool_choice = tool_choice;
     }
 
-    public List<Object> getFunctions() {
-        return functions;
+    public List<OAIChatCompletionRequestTool> getTools() {
+        return tools;
     }
 
-    public void setFunctions(List<Object> functions) {
-        this.functions = functions;
+    public void setTools(List<OAIChatCompletionRequestTool> tools) {
+        this.tools = tools;
     }
 
 
@@ -161,8 +173,8 @@ public class OAIChatCompletionRequest {
                 ", temperature=" + temperature +
                 ", stream=" + stream +
                 ", messages=" + messages +
-                ", function_call=" + function_call +
-                ", functions=" + functions +
+                ", tool_choice=" + tool_choice +
+                ", tools=" + tools +
                 '}';
     }
 

@@ -55,7 +55,7 @@ public class FCClientTests {
             );
 
             // Deserialize to the function call class :)
-            SimpleFunctionCall sfc = OAIFunctionCallDeserializer.deserialize(response.getChoices()[0].getMessage().getFunction_call().getArguments(), SimpleFunctionCall.class);
+            SimpleFunctionCall sfc = OAIFunctionCallDeserializer.deserialize(response.getChoices()[0].getMessage().getTool_calls().get(0).getFunction().getArguments(), SimpleFunctionCall.class);
 
             System.out.println(new ObjectMapper().writeValueAsString(sfc));
         } catch (OAISerializerException e) {
@@ -108,7 +108,7 @@ public class FCClientTests {
             );
 
             // Deserialize to the function call class :)
-            ComplexFunctionCall cfc = OAIFunctionCallDeserializer.deserialize(response.getChoices()[0].getMessage().getFunction_call().getArguments(), ComplexFunctionCall.class);
+            ComplexFunctionCall cfc = OAIFunctionCallDeserializer.deserialize(response.getChoices()[0].getMessage().getTool_calls().get(0).getFunction().getArguments(), ComplexFunctionCall.class);
 
             // Ensure first subroute is instanceof ComplexFunctionCallRoute
             assert(cfc.getSubroutes().get(0) instanceof ComplexFunctionCallRoute);

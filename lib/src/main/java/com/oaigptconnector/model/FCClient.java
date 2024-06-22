@@ -1,10 +1,9 @@
 package com.oaigptconnector.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.Constants;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
-import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequest;
-import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequestFunctionCall;
-import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequestMessage;
+import com.oaigptconnector.model.request.chat.completion.*;
 import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
 
 import java.io.IOException;
@@ -110,8 +109,14 @@ public final class FCClient {
             serializedFCObjects.add(OAIFunctionCallSerializer.objectify(fcClass));
         }
 
-        // Create requestFunctionCall
-        OAIChatCompletionRequestFunctionCall requestFunctionCall = new OAIChatCompletionRequestFunctionCall(fcToCallName);
+//        // Create requestFunctionCall
+//        OAIChatCompletionRequestFunctionCall requestFunctionCall = new OAIChatCompletionRequestFunctionCall(fcToCallName);
+
+        // Create requestToolChoiceFunction for function requestToolChoice
+        OAIChatCompletionRequestToolChoiceFunction.Function requestToolChoiceFunction = new OAIChatCompletionRequestToolChoiceFunction.Function(fcToCallName);
+
+        // Create requestToolChoice as Function tool choice
+        OAIChatCompletionRequestToolChoice requestToolChoice = new OAIChatCompletionRequestToolChoiceFunction(requestToolChoiceFunction);
 
         // Create OAIChatCompletionRequest
         OAIChatCompletionRequest request = OAIChatCompletionRequest.build(
@@ -119,7 +124,7 @@ public final class FCClient {
                 maxTokens,
                 temperature,
                 messages,
-                requestFunctionCall,
+                requestToolChoice,
                 serializedFCObjects
         );
 
