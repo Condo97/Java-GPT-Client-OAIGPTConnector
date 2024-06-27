@@ -1,5 +1,7 @@
 package com.oaigptconnector.model.generation;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum OpenAIGPTModels {
 
     GPT_3_5_TURBO("gpt-3.5-turbo", false),
@@ -17,6 +19,7 @@ public enum OpenAIGPTModels {
         this.isVision = isVision;
     }
 
+    @JsonValue
     public String getName() {
         return name;
     }
