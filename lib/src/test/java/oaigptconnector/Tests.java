@@ -55,7 +55,6 @@ public class Tests {
                 400,
                 0.7,
                 new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
-                new OAIChatCompletionRequestStreamOptions(true),
                 List.of(completionMessage));
 
         // Create HttpClient
@@ -63,6 +62,8 @@ public class Tests {
 
         // Get response
         Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI, httpClient);
+
+        System.out.println(response);
 
         // Ensure response is OAIGPTChatCompletionResponse
         assert(response instanceof OAIGPTChatCompletionResponse);
