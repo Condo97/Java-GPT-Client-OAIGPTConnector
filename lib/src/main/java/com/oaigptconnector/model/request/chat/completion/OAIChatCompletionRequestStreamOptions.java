@@ -19,4 +19,8 @@ public class OAIChatCompletionRequestStreamOptions {
         return include_usage;
     }
 
+    public void setInclude_usage(Boolean include_usage) {
+        this.include_usage = include_usage;
+    }
+
 }
