@@ -1,8 +1,9 @@
 package com.oaigptconnector.model;
 
+import com.oaigptconnector.model.request.chat.completion.CompletionRole;
+import com.oaigptconnector.model.request.chat.completion.content.InputImageDetail;
 import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequestMessage;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
-import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentImage;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentImageURL;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentText;
 
@@ -35,13 +36,13 @@ public class OAIChatCompletionRequestMessageBuilder {
         if (base64EncodedImage == null) return this;
 
         // Create contentImageURL child with base64EncodedImage and detail
-        OAIChatCompletionRequestMessageContentImage.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImage.ImageURL(
+        OAIChatCompletionRequestMessageContentImageURL.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImageURL.ImageURL(
                 base64EncodedImage,
                 detail
         );
 
         // Add imageURL in image request parent
-        content.add(new OAIChatCompletionRequestMessageContentImage(contentImageURL));
+        content.add(new OAIChatCompletionRequestMessageContentImageURL(contentImageURL));
 
         return this;
     }
@@ -51,11 +52,11 @@ public class OAIChatCompletionRequestMessageBuilder {
         if (imageURL == null || detail == null) return this;
 
         // Create contentImageURL child with imageURL and detail
-        OAIChatCompletionRequestMessageContentImage.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImage.ImageURL(
+        OAIChatCompletionRequestMessageContentImageURL.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImageURL.ImageURL(
                 imageURL,
                 detail
         );
-        content.add(new OAIChatCompletionRequestMessageContentImage(contentImageURL));
+        content.add(new OAIChatCompletionRequestMessageContentImageURL(contentImageURL));
 
         return this;
     }

@@ -1,7 +1,7 @@
-package com.oaigptconnector.model;
+package com.oaigptconnector.model.request.chat.completion;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonValue;
 public enum CompletionRole {
 
@@ -15,7 +15,7 @@ public enum CompletionRole {
         this.string = string;
     }
 
-    @JsonCreator
+    @JsonSetter
     public static CompletionRole fromString(@JsonProperty("role") String string) {
         CompletionRole[] values = CompletionRole.values();
         for (CompletionRole value: values) {

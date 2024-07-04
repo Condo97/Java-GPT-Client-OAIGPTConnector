@@ -1,7 +1,6 @@
 package com.oaigptconnector.model.request.chat.completion;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.oaigptconnector.model.CompletionRole;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
 
 import java.util.List;
@@ -11,6 +10,10 @@ public class OAIChatCompletionRequestMessage {
 
     private CompletionRole role;
     private List<OAIChatCompletionRequestMessageContent> content;
+
+    public OAIChatCompletionRequestMessage() {
+
+    }
 
     public OAIChatCompletionRequestMessage(CompletionRole role, List<OAIChatCompletionRequestMessageContent> content) {
         this.role = role;

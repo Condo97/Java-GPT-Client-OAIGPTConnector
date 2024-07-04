@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.model.*;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
-import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequestMessage;
+import com.oaigptconnector.model.request.chat.completion.*;
 import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
 import keys.Keys;
 import oaigptconnector.TestConstants;
@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.time.Duration;
-import java.util.List;
 
 public class FCClientTests {
 
@@ -48,6 +47,8 @@ public class FCClientTests {
                     TestConstants.gpt4ModelName,
                     800,
                     1,
+                    new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                    new OAIChatCompletionRequestStreamOptions(true),
                     Keys.openAiAPI,
                     httpClient,
                     systemMessage,
@@ -101,6 +102,8 @@ public class FCClientTests {
                     TestConstants.gpt4ModelName,
                     800,
                     1,
+                    new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                    new OAIChatCompletionRequestStreamOptions(true),
                     Keys.openAiAPI,
                     httpClient,
                     systemMessage,

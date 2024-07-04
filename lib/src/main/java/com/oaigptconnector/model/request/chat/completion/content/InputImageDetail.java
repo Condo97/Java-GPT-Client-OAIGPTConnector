@@ -1,7 +1,8 @@
-package com.oaigptconnector.model;
+package com.oaigptconnector.model.request.chat.completion.content;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum InputImageDetail {
@@ -16,8 +17,9 @@ public enum InputImageDetail {
         this.string = string;
     }
 
-    @JsonCreator
-    public static InputImageDetail fromString(@JsonProperty("detail") String string) {
+    @JsonSetter
+//    public static InputImageDetail fromString(@JsonProperty("detail") String string) {
+    public static InputImageDetail fromString(String string) {
         // Null check though it doesn't matter in this case but still good practice and I'm nervous :)
         if (string == null) {
             return InputImageDetail.LOW;

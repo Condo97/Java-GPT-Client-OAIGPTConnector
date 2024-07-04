@@ -6,20 +6,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.Constants;
 import com.oaigptconnector.model.*;
 import com.oaigptconnector.model.fcobjects.ifcbase.FCBase;
+import com.oaigptconnector.model.request.chat.completion.*;
+import com.oaigptconnector.model.request.chat.completion.content.InputImageDetail;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentText;
 import keys.Keys;
 import com.oaigptconnector.model.generation.OpenAIGPTModels;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
-import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequest;
-import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequestMessage;
 import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +25,6 @@ import java.net.http.HttpClient;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Stream;
@@ -53,7 +50,13 @@ public class Tests {
         OAIChatCompletionRequestMessage completionMessage = new OAIChatCompletionRequestMessage(CompletionRole.USER, content);
 
         // Create chat request object
-        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.getName(), 400, 0.7, List.of(completionMessage));
+        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(
+                OpenAIGPTModels.GPT_3_5_TURBO.getName(),
+                400,
+                0.7,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                new OAIChatCompletionRequestStreamOptions(true),
+                List.of(completionMessage));
 
         // Create HttpClient
         final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
@@ -82,7 +85,16 @@ public class Tests {
                 .build();
 
         // Create chat request object
-        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(OpenAIGPTModels.GPT_3_5_TURBO.getName(), 400, 0.7, true, List.of(completionMessage));
+        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(
+                OpenAIGPTModels.GPT_3_5_TURBO.getName(),
+                400,
+                0.7,
+                true,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                new OAIChatCompletionRequestStreamOptions(true),
+                List.of(completionMessage));
+
+        System.out.println(new ObjectMapper().writeValueAsString(completionRequest));
 
         // Create HttpClient
         final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
@@ -171,6 +183,8 @@ public class Tests {
                 800,
                 1,
                 true,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                new OAIChatCompletionRequestStreamOptions(true),
                 userMessage);
 
 
@@ -202,6 +216,8 @@ public class Tests {
                 800,
                 1,
                 true,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                new OAIChatCompletionRequestStreamOptions(true),
                 userMessage);
 
 
@@ -216,6 +232,18 @@ public class Tests {
         assertNotNull(stream);
 
         stream.forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("Test deserializing OAIChatCompletionRequest")
+    void testDeserializingOAIChatCompletionRequest() throws IOException {
+        String testString = "{\"model\":\"gpt-4o\",\"stream\":true,\"messages\":[{\"role\":\"system\",\"content\":[{\"type\":\"text\",\"text\":\"You are an AI coding helper service in an IDE so you must format all your responses in tex code that would be valid in an IDE.\"}]},{\"role\":\"user\",\"content\":[{\"text\":\"You are an AI coding helper in an IDE so all responses must be in tex code that would be valid in an IDE.\\nHere are other files from my project to reference\",\"type\":\"text\"}]},{\"role\":\"user\",\"content\":[{\"text\":\"You are an AI coding helper in an IDE so all responses must be in tex code that would be valid in an IDE.\\nComment the following code.\\nasdfasdfasdf\",\"type\":\"text\"}]}]}";
+
+        OAIChatCompletionRequest oaiChatCompletionRequest = new ObjectMapper().readValue(testString, OAIChatCompletionRequest.class);
+
+        String outputString = new ObjectMapper().writeValueAsString(oaiChatCompletionRequest);
+
+        System.out.println(outputString);
     }
 
     @Test
