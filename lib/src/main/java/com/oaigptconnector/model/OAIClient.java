@@ -29,11 +29,23 @@ public final class OAIClient {
 //    }
 
     public static OAIGPTChatCompletionResponse postChatCompletion(Object requestObject, String apiKey, HttpClient httpClient) throws OpenAIGPTException, IOException, InterruptedException {
+        return postChatCompletion(
+                requestObject,
+                apiKey,
+                httpClient,
+                false
+        );
+    }
+
+    public static OAIGPTChatCompletionResponse postChatCompletion(Object requestObject, String apiKey, HttpClient httpClient, boolean printResponse) throws OpenAIGPTException, IOException, InterruptedException {
         Consumer<HttpRequest.Builder> c = requestBuilder -> {
             requestBuilder.setHeader("Authorization", "Bearer " + apiKey);
         };
 
         JsonNode response = Httpson.sendPOST(requestObject, httpClient, Constants.OPENAI_CHAT_COMPLETION_URI, c);
+
+        if (printResponse)
+            System.out.println(new ObjectMapper().writeValueAsString(response));
 
         try {
             OAIGPTChatCompletionResponse oaiChatcompletionResponse = new ObjectMapper().treeToValue(response, OAIGPTChatCompletionResponse.class);

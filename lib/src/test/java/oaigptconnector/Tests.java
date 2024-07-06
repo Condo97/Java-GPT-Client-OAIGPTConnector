@@ -61,7 +61,7 @@ public class Tests {
         final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
 
         // Get response
-        Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI, httpClient);
+        Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI, httpClient, false);
 
         System.out.println(response);
 

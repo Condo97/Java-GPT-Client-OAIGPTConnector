@@ -93,7 +93,7 @@ public class OAIFunctionCallSerializer {
             if (!field.isAnnotationPresent(FCParameter.class))
                 continue;
 
-            // Get name and IFCObject from field
+            // Get name, IFCObject, and stringEnumValues from field
             String name = getName(field);
             IFCObject ifcObject = getIFCObject(field);
 
@@ -131,24 +131,25 @@ public class OAIFunctionCallSerializer {
         if (!field.isAnnotationPresent(FCParameter.class))
             throw new OAISerializerException("FCParameter annotation not present in field " + field);
 
-        // Get description and field type and return getIFCObject
+        // Get description, field type, and stringEnumValues and return getIFCObject
         String description = field.getAnnotation(FCParameter.class).description();
         Type genericType = field.getGenericType();
+        String[] stringEnumValues = field.getAnnotation(FCParameter.class).stringEnumValues();
 
-        return getIFCObject(genericType, description);
+        return getIFCObject(genericType, description, stringEnumValues);
     }
 
-    private static IFCObject getIFCObject(Type genericType, String description) throws OAISerializerException {
+    private static IFCObject getIFCObject(Type genericType, String description, String[] stringEnumValues) throws OAISerializerException {
         // Get FCType from type
         FCTypes fcType = FCTypeFactory.get(genericType);
         return switch(fcType) {
             case INTEGER -> new FCInteger(description);
             case NUMBER -> new FCNumber(description);
             case BOOLEAN -> new FCBoolean(description);
-            case STRING -> new FCString(description);
+            case STRING -> new FCString(description, stringEnumValues == null || stringEnumValues.length == 0 ? null : stringEnumValues);
             case ARRAY -> new FCArray(
                     description,
-                    getIFCObject(TypeAdapter.getFirstParameterType(genericType), null)
+                    getIFCObject(TypeAdapter.getFirstParameterType(genericType), null, null)
             );
             case OBJECT -> {
                 // Get object properties, throw OAISerializerException if null since there is a FCParameter annotation on a non-serializable type, otherwise yield FCObject with object properties

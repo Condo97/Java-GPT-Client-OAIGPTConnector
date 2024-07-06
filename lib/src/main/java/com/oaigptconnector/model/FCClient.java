@@ -16,74 +16,49 @@ public final class FCClient {
     }
 
     public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
-        return serializedChatCompletion(
-                fcClass,
-                model,
-                maxTokens,
-                temperature,
-                responseFormatType,
-                apiKey,
-                httpClient,
-                List.of(messages));
+        return serializedChatCompletion(fcClass, model, maxTokens, temperature, responseFormatType, apiKey, httpClient, List.of(messages));
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, boolean printResponse, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClass, model, maxTokens, temperature, responseFormatType, apiKey, httpClient, List.of(messages), printResponse);
     }
 
     public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
-        return serializedChatCompletion(
-                fcClass,
-                model,
-                maxTokens,
-                1,
-                temperature,
-                responseFormatType,
-                apiKey,
-                httpClient,
-                messages
-        );
+        return serializedChatCompletion(fcClass, model, maxTokens, 1, temperature, responseFormatType, apiKey, httpClient, messages);
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages, boolean printResponse) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClass, model, maxTokens, 1, temperature, responseFormatType, apiKey, httpClient, messages, printResponse);
     }
 
     public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
-        return serializedChatCompletion(
-                fcClass,
-                model,
-                maxTokens,
-                n,
-                temperature,
-                responseFormatType,
-                apiKey,
-                httpClient,
-                List.of(messages));
+        return serializedChatCompletion(fcClass, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, List.of(messages));
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, boolean printResponse, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClass, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, List.of(messages), printResponse);
     }
 
     public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
-        // Get the function call name from fcClass using OAIFunctionCallSerializer
         String fcName = OAIFunctionCallSerializer.getFunctionName(fcClass);
+        return serializedChatCompletion(List.of(fcClass), fcName, model, maxTokens, n, temperature, responseFormatType, apiKey, HttpClient.newHttpClient(), messages, false);
+    }
 
-        return serializedChatCompletion(
-                List.of(fcClass),
-                fcName,
-                model,
-                maxTokens,
-                n,
-                temperature,
-                responseFormatType,
-                apiKey,
-                httpClient,
-                messages
-        );
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages, boolean printResponse) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        String fcName = OAIFunctionCallSerializer.getFunctionName(fcClass);
+        return serializedChatCompletion(List.of(fcClass), fcName, model, maxTokens, n, temperature, responseFormatType, apiKey, HttpClient.newHttpClient(), messages, printResponse);
     }
 
     public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
-        return serializedChatCompletion(
-                fcClasses,
-                fcToCallName,
-                model,
-                maxTokens,
-                n,
-                temperature,
-                responseFormatType,
-                apiKey,
-                httpClient,
-                List.of(messages));
+        return serializedChatCompletion(fcClasses, fcToCallName, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, List.of(messages));
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, boolean printResponse, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClasses, fcToCallName, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, List.of(messages), printResponse);
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClasses, fcToCallName, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, messages, false);
     }
 
 
@@ -104,7 +79,7 @@ public final class FCClient {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages, boolean printResponse) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
         // Adapt to list of FCBase serializedFCObjects
         List<Object> serializedFCObjects = new ArrayList<>();
         for (Class fcClass: fcClasses) {
@@ -138,7 +113,8 @@ public final class FCClient {
         OAIGPTChatCompletionResponse response = OAIClient.postChatCompletion(
                 request,
                 apiKey,
-                httpClient
+                httpClient,
+                printResponse
         );
 
         return response;
