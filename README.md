@@ -199,6 +199,153 @@ public class FCClientExample {
 }
 ```
 
+### Advanced Function Call Capability
+
+The OAIGPTConnector supports complex function calls with various parameter types and nested classes. This section provides additional examples to help understand how to create and use more advanced function call classes.
+
+#### Example: Using Various Types and Nested Classes
+
+Here's an advanced example demonstrating various types, including nested static classes with correct annotations:
+
+```java
+package your.package;
+
+import com.oaigptconnector.model.FCParameter;
+import com.oaigptconnector.model.FunctionCall;
+
+@FunctionCall(name = "complex_function_call", functionDescription = "This is a complex function call with various types.")
+public class ComplexFunctionCall {
+
+    @FCParameter(name = "stringParam", description = "A string parameter")
+    private String stringParam;
+
+    @FCParameter(name = "intParam", description = "An integer parameter")
+    private Integer intParam;
+
+    @FCParameter(name = "booleanParam", description = "A boolean parameter")
+    private Boolean booleanParam;
+    
+    @FCParameter(name = "doubleParam", description = "A double parameter")
+    private Double doubleParam;
+
+    @FCParameter(name = "enumParam", description = "A parameter with enum options", stringEnumValues = {"Option1", "Option2", "Option3"})
+    private String enumParam;
+
+    @FCParameter(name = "nestedObject", description = "A nested object")
+    private NestedObject nestedObject;
+
+    public ComplexFunctionCall() {
+        // Default constructor
+    }
+
+    // Constructor with parameters
+    public ComplexFunctionCall(String stringParam, Integer intParam, Boolean booleanParam, Double doubleParam, String enumParam, NestedObject nestedObject) {
+        this.stringParam = stringParam;
+        this.intParam = intParam;
+        this.booleanParam = booleanParam;
+        this.doubleParam = doubleParam;
+        this.enumParam = enumParam;
+        this.nestedObject = nestedObject;
+    }
+
+    // Getters and setters...
+
+    @FunctionCall(name = "nested_object_function_call", functionDescription = "A nested static class function call")
+    public static class NestedObject {
+
+        @FCParameter(name = "listParam", description = "A list parameter")
+        private List<String> listParam;
+
+        @FCParameter(name = "innerObject", description = "An inner object")
+        private InnerObject innerObject;
+
+        public NestedObject() {
+            // Default constructor
+        }
+
+        // Constructor with parameters
+        public NestedObject(List<String> listParam, InnerObject innerObject) {
+            this.listParam = listParam;
+            this.innerObject = innerObject;
+        }
+
+        // Getters and setters...
+
+        @FunctionCall(name = "inner_object_function_call", functionDescription = "An inner static class function call")
+        public static class InnerObject {
+
+            @FCParameter(name = "innerStringParam", description = "An inner string parameter")
+            private String innerStringParam;
+
+            @FCParameter(name = "innerIntParam", description = "An inner integer parameter")
+            private Integer innerIntParam;
+
+            public InnerObject() {
+                // Default constructor
+            }
+
+            // Constructor with parameters
+            public InnerObject(String innerStringParam, Integer innerIntParam) {
+                this.innerStringParam = innerStringParam;
+                this.innerIntParam = innerIntParam;
+            }
+
+            // Getters and setters...
+        }
+    }
+}
+```
+
+Performing a function call with `FCClient` using the complex class:
+
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oaigptconnector.model.*;
+import com.oaigptconnector.model.request.chat.completion.*;
+import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
+import keys.Keys;
+
+import java.net.http.HttpClient;
+import java.time.Duration;
+import java.util.List;
+
+public class AdvancedFCClientExample {
+    public static void main(String[] args) throws Exception {
+        // Create system message
+        OAIChatCompletionRequestMessage systemMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.SYSTEM)
+                .addText("You are a function call tester.")
+                .build();
+
+        // Create user message
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Fill the function with test values.")
+                .build();
+
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(4)).build();
+
+        // Get response
+        OAIGPTChatCompletionResponse response = FCClient.serializedChatCompletion(
+                ComplexFunctionCall.class,
+                "gpt-4",
+                800,
+                1,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                Keys.openAiAPI,
+                httpClient,
+                systemMessage,
+                userMessage
+        );
+
+        // Deserialize the function call arguments from the response
+        ComplexFunctionCall cfc = OAIFunctionCallDeserializer.deserialize(response.getChoices()[0].getMessage().getTool_calls().get(0).getFunction().getArguments(), ComplexFunctionCall.class);
+
+        // Print out the deserialized arguments for the complex function call
+        System.out.println(new ObjectMapper().writeValueAsString(cfc));
+    }
+}
+```
+
 ## Contributing
 Feel free to file issues or submit pull requests. Contributions are welcome!
 
