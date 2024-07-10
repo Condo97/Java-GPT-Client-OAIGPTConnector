@@ -1,4 +1,4 @@
-# OAIGPTConnector
+# Java-GPT-Client-OAIGPTConnector
 
 A Java library for interacting with OpenAI's GPT APIs, including support for chat completions, streaming responses, and function calls.
 
