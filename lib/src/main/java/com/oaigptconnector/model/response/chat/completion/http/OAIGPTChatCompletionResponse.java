@@ -1,8 +1,12 @@
 package com.oaigptconnector.model.response.chat.completion.http;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -13,14 +17,13 @@ public class OAIGPTChatCompletionResponse {
     private String model;
     private Long created;
     private OAIGPTChatCompletionResponseUsage usage;
-    @JsonProperty(required = true)
     private OAIGPTChatCompletionResponseChoice[] choices;
 
     public OAIGPTChatCompletionResponse() {
 
     }
 
-    public OAIGPTChatCompletionResponse(String id, String object, String model, Long created, OAIGPTChatCompletionResponseUsage usage, OAIGPTChatCompletionResponseChoice[] choices) {
+    public OAIGPTChatCompletionResponse(String id, String object, String model, Long created, OAIGPTChatCompletionResponseUsage usage, @JsonProperty(required = true) OAIGPTChatCompletionResponseChoice[] choices) {
         this.id = id;
         this.object = object;
         this.model = model;
