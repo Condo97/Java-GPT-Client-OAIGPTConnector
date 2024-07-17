@@ -106,6 +106,8 @@ public final class FCClient {
                 serializedFCObjects
         );
 
+        System.out.println(request);
+
 //        // Create HttpClient
 //        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
 

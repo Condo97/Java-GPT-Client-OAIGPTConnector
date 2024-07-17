@@ -1,14 +1,19 @@
 package com.oaigptconnector.model.response.chat.completion.http;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Arrays;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OAIGPTChatCompletionResponse {
-    private String id, object, model;
+
+    private String id;
+    private String object;
+    private String model;
     private Long created;
     private OAIGPTChatCompletionResponseUsage usage;
+    @JsonProperty(required = true)
     private OAIGPTChatCompletionResponseChoice[] choices;
 
     public OAIGPTChatCompletionResponse() {
