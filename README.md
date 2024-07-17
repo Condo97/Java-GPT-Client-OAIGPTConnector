@@ -1,4 +1,6 @@
-# OAIGPTConnector
+# Java-GPT-Client-OAIGPTConnector
+
+Actively maintaned library making GPT function calls easy in Java. 
 
 A Java library for interacting with OpenAI's GPT APIs, including support for chat completions, streaming responses, and function calls.
 
@@ -8,6 +10,70 @@ A Java library for interacting with OpenAI's GPT APIs, including support for cha
 - Stream chat responses in real-time.
 - Serialize custom function calls with annotations.
 - Deserialize function call responses back into Java objects.
+
+### Simple Function Call Demo
+
+Here's an ultra-simple segment to demonstrate how to define and use a basic function call with OAIGPTConnector.
+
+#### Define a Function Call Class
+
+Create a class representing your function call with the required fields and annotations:
+
+```java
+@FunctionCall(name = "simple_function_call", functionDescription = "A simple function call example")
+public class SimpleFunctionCall {
+
+    @FCParameter(name = "message", description = "A message parameter")
+    private String message;
+
+    public SimpleFunctionCall() {
+        // Default constructor
+    }
+
+    public SimpleFunctionCall(String message) {
+        this.message = message;
+    }
+
+    // Getter and setter
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
+}
+```
+
+#### Perform the Function Call
+
+Use the `FCClient` to serialize the function call, send it to the OpenAI API, and deserialize the response:
+
+```java
+// Define function call messages
+OAIChatCompletionRequestMessage systemMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.SYSTEM)
+    .addText("You are a function call tester.")
+    .build();
+
+OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+    .addText("Say hello.")
+    .build();
+
+// Create HTTP client and get response
+HttpClient httpClient = HttpClient.newHttpClient();
+OAIGPTChatCompletionResponse response = FCClient.serializedChatCompletion(
+    SimpleFunctionCall.class,
+    "gpt-4",
+    800,
+    1,
+    new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+    "YOUR_OPENAI_API_KEY",
+    httpClient,
+    systemMessage,
+    userMessage
+);
+
+// Deserialize the function call arguments from the response
+SimpleFunctionCall functionCall = OAIFunctionCallDeserializer.deserialize(response.getChoices()[0].getMessage().getTool_calls().get(0).getFunction().getArguments(), SimpleFunctionCall.class);
+
+// Print out the deserialized message
+System.out.println("Message: " + functionCall.getMessage());
+```
 
 ## Installation
 
