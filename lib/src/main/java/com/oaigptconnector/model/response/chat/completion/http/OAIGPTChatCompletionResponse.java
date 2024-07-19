@@ -23,7 +23,7 @@ public class OAIGPTChatCompletionResponse {
 
     }
 
-    public OAIGPTChatCompletionResponse(String id, String object, String model, Long created, OAIGPTChatCompletionResponseUsage usage, @JsonProperty(required = true) OAIGPTChatCompletionResponseChoice[] choices) {
+    public OAIGPTChatCompletionResponse(String id, String object, String model, Long created, OAIGPTChatCompletionResponseUsage usage, OAIGPTChatCompletionResponseChoice[] choices) {
         this.id = id;
         this.object = object;
         this.model = model;

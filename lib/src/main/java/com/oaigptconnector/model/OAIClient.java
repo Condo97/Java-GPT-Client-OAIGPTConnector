@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.Constants;
+import com.oaigptconnector.model.exception.JsonNullRequiredObjectException;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
 import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
 import com.oaigptconnector.model.response.error.OpenAIGPTErrorResponse;
@@ -49,11 +50,11 @@ public final class OAIClient {
 
         try {
             OAIGPTChatCompletionResponse oaiChatcompletionResponse = new ObjectMapper().treeToValue(response, OAIGPTChatCompletionResponse.class);
-            if (oaiChatcompletionResponse == null)
-                throw new RuntimeException("");
+            if (oaiChatcompletionResponse.getChoices() == null)
+                throw new JsonNullRequiredObjectException();
 
             return oaiChatcompletionResponse;
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException | JsonNullRequiredObjectException e) {
             System.out.println("Issue Mapping OAIGPTChatCompletionResponse: " + response);
 
             throw new OpenAIGPTException(e, new ObjectMapper().treeToValue(response, OpenAIGPTErrorResponse.class));

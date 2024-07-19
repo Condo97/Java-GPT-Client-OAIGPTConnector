@@ -51,7 +51,7 @@ public class Tests {
 
         // Create chat request object
         OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(
-                OpenAIGPTModels.GPT_3_5_TURBO.getName(),
+                OpenAIGPTModels.GPT_4_MINI.getName(),
                 400,
                 0.7,
                 new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
@@ -87,7 +87,7 @@ public class Tests {
 
         // Create chat request object
         OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(
-                OpenAIGPTModels.GPT_3_5_TURBO.getName(),
+                OpenAIGPTModels.GPT_4_MINI.getName(),
                 400,
                 0.7,
                 true,
