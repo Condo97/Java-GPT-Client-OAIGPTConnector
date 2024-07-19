@@ -81,7 +81,7 @@ public final class FCClient {
      */
     public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages, boolean printResponse) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
         // Adapt to list of FCBase serializedFCObjects
-        List<Object> serializedFCObjects = new ArrayList<>();
+        List<java.lang.Object> serializedFCObjects = new ArrayList<>();
         for (Class fcClass: fcClasses) {
             serializedFCObjects.add(OAIFunctionCallSerializer.objectify(fcClass));
         }
@@ -93,7 +93,7 @@ public final class FCClient {
         OAIChatCompletionRequestToolChoiceFunction.Function requestToolChoiceFunction = new OAIChatCompletionRequestToolChoiceFunction.Function(fcToCallName);
 
         // Create requestToolChoice as Function tool choice
-        OAIChatCompletionRequestToolChoice requestToolChoice = new OAIChatCompletionRequestToolChoiceFunction(requestToolChoiceFunction);
+        Object requestToolChoice = new OAIChatCompletionRequestToolChoiceFunction(requestToolChoiceFunction);
 
         // Create OAIChatCompletionRequest
         OAIChatCompletionRequest request = OAIChatCompletionRequest.build(

@@ -1,6 +1,6 @@
 package com.oaigptconnector.model.request.chat.completion;
 
-public class OAIChatCompletionRequestToolChoiceFunction implements OAIChatCompletionRequestToolChoice {
+public class OAIChatCompletionRequestToolChoiceFunction {
 
     public static class Function {
 
@@ -20,7 +20,7 @@ public class OAIChatCompletionRequestToolChoiceFunction implements OAIChatComple
 
     }
 
-    private String type = "function";
+    private OAIChatCompletionRequestToolType type = OAIChatCompletionRequestToolType.FUNCTION;
     private Function function;
 
     public OAIChatCompletionRequestToolChoiceFunction() {
@@ -31,17 +31,12 @@ public class OAIChatCompletionRequestToolChoiceFunction implements OAIChatComple
         this.function = function;
     }
 
-    public String getType() {
+    public OAIChatCompletionRequestToolType getType() {
         return type;
     }
 
     public Function getFunction() {
         return function;
-    }
-
-    @Override
-    public Object tool_choice() {
-        return this;
     }
 
 }

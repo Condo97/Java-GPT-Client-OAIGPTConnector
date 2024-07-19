@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.model.*;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
+import com.oaigptconnector.model.generation.OpenAIGPTModels;
 import com.oaigptconnector.model.request.chat.completion.*;
 import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
 import keys.Keys;
@@ -18,8 +19,52 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FCClientTests {
+
+    @Test
+    @DisplayName("Test Function Call Deserialization")
+    void testFunctionCallDeserialization() throws OAISerializerException, IOException {
+        // Create system message
+        OAIChatCompletionRequestMessage systemMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.SYSTEM)
+                .addText("You are a function call tester.")
+                .build();
+
+        // Create user message
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Fill the function with test values.")
+                .build();
+
+        // Get function call class and create messages
+        Class fcClass = ComplexFunctionCall.class;
+
+        // Adapt to FCBase serializedFCObjects
+        Object serializedFCObject = OAIFunctionCallSerializer.objectify(fcClass);
+
+        // Get fcName
+        String fcName = OAIFunctionCallSerializer.getFunctionName(fcClass);
+
+        // Create requestToolChoiceFunction for function requestToolChoice
+        OAIChatCompletionRequestToolChoiceFunction.Function requestToolChoiceFunction = new OAIChatCompletionRequestToolChoiceFunction.Function(fcName);
+
+        // Create requestToolChoice as Function tool choice
+        Object requestToolChoice = new OAIChatCompletionRequestToolChoiceFunction(requestToolChoiceFunction);
+
+        // Create OAIChatCompletionRequest
+        OAIChatCompletionRequest request = OAIChatCompletionRequest.build(
+                OpenAIGPTModels.GPT_4.getName(),
+                1000,
+                1,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                List.of(systemMessage, userMessage),
+                requestToolChoice,
+                List.of(serializedFCObject)
+        );
+
+        System.out.println(new ObjectMapper().writeValueAsString(request));
+    }
 
     @Test
     @DisplayName("Test Simple Function Call Completion")
