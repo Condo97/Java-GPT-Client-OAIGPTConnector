@@ -86,7 +86,7 @@ public class OAIFunctionCallSerializer {
     private static Map<String, IFCObject> mapObjectProperties(Class dbClass) throws OAISerializerException {
         // Create object properties map
         Map<String, IFCObject> op = new HashMap<>();
-
+        
         // Loop through each field, adding name and corresponding FCObject to op map
         for (Field field: dbClass.getDeclaredFields()) {
             // Ensure field annotation is present, otherwise continue

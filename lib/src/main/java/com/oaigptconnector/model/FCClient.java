@@ -1,5 +1,6 @@
 package com.oaigptconnector.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
 import com.oaigptconnector.model.request.chat.completion.*;
 import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
@@ -106,7 +107,11 @@ public final class FCClient {
                 serializedFCObjects
         );
 
-        System.out.println(request);
+        try {
+            System.out.println(new ObjectMapper().writeValueAsString(request));
+        } catch (Exception e) {
+
+        }
 
 //        // Create HttpClient
 //        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
