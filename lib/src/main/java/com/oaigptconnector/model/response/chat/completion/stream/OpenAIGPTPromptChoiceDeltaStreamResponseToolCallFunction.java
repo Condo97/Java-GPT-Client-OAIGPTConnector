@@ -2,13 +2,15 @@ package com.oaigptconnector.model.response.chat.completion.stream;
 
 public class OpenAIGPTPromptChoiceDeltaStreamResponseToolCallFunction {
 
+    private String name;
     private String arguments;
 
     public OpenAIGPTPromptChoiceDeltaStreamResponseToolCallFunction() {
 
     }
 
-    public OpenAIGPTPromptChoiceDeltaStreamResponseToolCallFunction(String arguments) {
+    public OpenAIGPTPromptChoiceDeltaStreamResponseToolCallFunction(String name, String arguments) {
+        this.name = name;
         this.arguments = arguments;
     }
 
@@ -20,10 +22,19 @@ public class OpenAIGPTPromptChoiceDeltaStreamResponseToolCallFunction {
         this.arguments = arguments;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "OpenAIGPTPromptChoiceDeltaStreamResponseToolCallFunction{" +
-                "arguments='" + arguments + '\'' +
+                "name='" + name + '\'' +
+                ", arguments='" + arguments + '\'' +
                 '}';
     }
 
