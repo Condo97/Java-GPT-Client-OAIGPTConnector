@@ -1,8 +1,9 @@
 package oaigptconnector;
 
+import com.oaigptconnector.model.generation.OpenAIGPTModels;
+
 public class TestConstants {
 
-    public static String gpt4ModelName = "gpt-4";
-    public static String gpt3TurboModelName = "gpt-3-turbo";
+    public static String gpt4ModelName = OpenAIGPTModels.GPT_4.getName();
 
 }

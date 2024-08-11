@@ -5,8 +5,8 @@ import com.oaigptconnector.model.JSONSchema;
 
 import java.util.List;
 
-@JSONSchema(name = "train_schedule", functionDescription = "Generates a train schedule for multiple town train routes")
-public class ComplexFunctionCall {
+@JSONSchema(name = "train_schedule", functionDescription = "Generates a train schedule for multiple town train routes", strict = JSONSchema.NullableBool.TRUE)
+public class ComplexFunctionCallStrict {
 
     @JSONSchemaParameter(name = "city_name", description = "The name of the city the train is in")
     private String cityName;
@@ -22,11 +22,11 @@ public class ComplexFunctionCall {
 
 //    @FCParameter()
 
-    public ComplexFunctionCall() {
+    public ComplexFunctionCallStrict() {
 
     }
 
-    public ComplexFunctionCall(String cityName, List<ComplexFunctionCallRoute> subroutes, ComplexFunctionCallRoute mainRoute, List<Integer> allTrainNumbers) {
+    public ComplexFunctionCallStrict(String cityName, List<ComplexFunctionCallRoute> subroutes, ComplexFunctionCallRoute mainRoute, List<Integer> allTrainNumbers) {
         this.cityName = cityName;
         this.subroutes = subroutes;
         this.mainRoute = mainRoute;

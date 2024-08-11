@@ -1,12 +1,12 @@
 package oaigptconnector.serializer.testobjects;
 
-import com.oaigptconnector.model.FCParameter;
-import com.oaigptconnector.model.FunctionCall;
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
 
-@FunctionCall(name = "Non_Annotated_Non_Serializable_Types_With_Annotated_And_Non_Annotated_Serializable_Parameter")
+@JSONSchema(name = "Non_Annotated_Non_Serializable_Types_With_Annotated_And_Non_Annotated_Serializable_Parameter")
 public class NonAnnotatedNonSerializableTypesWithAnnotatedAndNonAnnotatedSerializableParameter {
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private String serializableString;
 
     private String nonSerializedString;

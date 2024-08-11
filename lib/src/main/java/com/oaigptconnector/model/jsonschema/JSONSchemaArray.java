@@ -1,26 +1,24 @@
-package com.oaigptconnector.model.fcobjects.ifcobject;
+package com.oaigptconnector.model.jsonschema;
 
-import com.oaigptconnector.model.FCTypes;
+import com.oaigptconnector.model.JSONSchemaTypes;
 
-import java.util.List;
+public class JSONSchemaArray implements IJSONSchemaObject {
 
-public class FCArray implements IFCObject {
-
-    private final FCTypes type = FCTypes.ARRAY;
+    private final JSONSchemaTypes type = JSONSchemaTypes.ARRAY;
     private String description;
-    private IFCObject items;
+    private IJSONSchemaObject items;
 
-    public FCArray() {
+    public JSONSchemaArray() {
 
     }
 
-    public FCArray(String description, IFCObject items) {
+    public JSONSchemaArray(String description, IJSONSchemaObject items) {
         this.description = description;
         this.items = items;
     }
 
     @Override
-    public FCTypes getType() {
+    public JSONSchemaTypes getType() {
         return type;
     }
 
@@ -29,7 +27,7 @@ public class FCArray implements IFCObject {
         return description;
     }
 
-    public IFCObject getItems() {
+    public IJSONSchemaObject getItems() {
         return items;
     }
 

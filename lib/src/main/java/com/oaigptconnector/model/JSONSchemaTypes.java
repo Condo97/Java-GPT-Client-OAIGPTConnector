@@ -2,7 +2,7 @@ package com.oaigptconnector.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum FCTypes {
+public enum JSONSchemaTypes {
 
     OBJECT("object"),
     ARRAY("array"),
@@ -13,12 +13,12 @@ public enum FCTypes {
 
     private String stringValue;
 
-    FCTypes(String stringValue) {
+    JSONSchemaTypes(String stringValue) {
         this.stringValue = stringValue;
     }
 
-    public static FCTypes fromString(String string) {
-        for (FCTypes fcType: FCTypes.values())
+    public static JSONSchemaTypes fromString(String string) {
+        for (JSONSchemaTypes fcType: JSONSchemaTypes.values())
             if (fcType.getStringValue().equals(string))
                 return fcType;
 

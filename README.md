@@ -181,8 +181,8 @@ Define your function call class with appropriate annotations:
 ```java
 package your.package;
 
-import com.oaigptconnector.model.FCParameter;
-import com.oaigptconnector.model.FunctionCall;
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
 
 @FunctionCall(name = "example_function", functionDescription = "This is a sample function call.")
 public class ExampleFunctionCall {
@@ -276,8 +276,8 @@ Here's an advanced example demonstrating various types, including nested static 
 ```java
 package your.package;
 
-import com.oaigptconnector.model.FCParameter;
-import com.oaigptconnector.model.FunctionCall;
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
 
 @FunctionCall(name = "complex_function_call", functionDescription = "This is a complex function call with various types.")
 public class ComplexFunctionCall {

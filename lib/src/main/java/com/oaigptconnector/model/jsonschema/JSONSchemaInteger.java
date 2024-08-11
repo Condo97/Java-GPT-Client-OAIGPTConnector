@@ -1,18 +1,18 @@
-package com.oaigptconnector.model.fcobjects.ifcobject;
+package com.oaigptconnector.model.jsonschema;
 
-import com.oaigptconnector.model.FCTypes;
+import com.oaigptconnector.model.JSONSchemaTypes;
 
-public class FCNumber implements IFCObject {
+public class JSONSchemaInteger implements IJSONSchemaObject {
 
-    private final FCTypes type = FCTypes.NUMBER;
+    private final JSONSchemaTypes type = JSONSchemaTypes.INTEGER;
     private String description;
 
-    public FCNumber(String description) {
+    public JSONSchemaInteger(String description) {
         this.description = description;
     }
 
     @Override
-    public FCTypes getType() {
+    public JSONSchemaTypes getType() {
         return type;
     }
 
@@ -24,7 +24,7 @@ public class FCNumber implements IFCObject {
 
     @Override
     public String toString() {
-        return "FCNumber{" +
+        return "FCInteger{" +
                 "type=" + type +
                 ", description='" + description + '\'' +
                 '}';

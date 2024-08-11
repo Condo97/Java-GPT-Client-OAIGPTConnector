@@ -1,20 +1,20 @@
 package oaigptconnector.fcclient.testobjects;
 
-import com.oaigptconnector.model.FCParameter;
-import com.oaigptconnector.model.FunctionCall;
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
 
 import java.util.List;
 
-@FunctionCall(name = "bus_schedule", functionDescription = "Generates a bus schedule for a town bus route")
+@JSONSchema(name = "bus_schedule", functionDescription = "Generates a bus schedule for a town bus route")
 public class SimpleFunctionCall {
 
-    @FCParameter(name = "route_name", description = "The name of the route")
+    @JSONSchemaParameter(name = "route_name", description = "The name of the route")
     private String routeName;
 
-    @FCParameter(name = "length_in_miles", description = "The length of the route in miles")
+    @JSONSchemaParameter(name = "length_in_miles", description = "The length of the route in miles")
     private Integer routeLength;
 
-    @FCParameter(description = "List of arrivals for the current day")
+    @JSONSchemaParameter(description = "List of arrivals for the current day")
     private List<String> arrivals;
 
     public SimpleFunctionCall() {

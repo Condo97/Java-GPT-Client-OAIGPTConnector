@@ -1,30 +1,30 @@
-package com.oaigptconnector.model.fcobjects.ifcobject;
+package com.oaigptconnector.model.jsonschema;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.oaigptconnector.model.FCTypes;
+import com.oaigptconnector.model.JSONSchemaTypes;
 
 import java.util.Arrays;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FCString implements IFCObject {
+public class JSONSchemaString implements IJSONSchemaObject {
 
-    private final FCTypes type = FCTypes.STRING;
+    private final JSONSchemaTypes type = JSONSchemaTypes.STRING;
     private String description;
     @JsonProperty("enum")
     private String[] stringEnumValues;
 
-    public FCString() {
+    public JSONSchemaString() {
 
     }
 
-    public FCString(String description, String[] stringEnumValues) {
+    public JSONSchemaString(String description, String[] stringEnumValues) {
         this.description = description;
         this.stringEnumValues = stringEnumValues;
     }
 
     @Override
-    public FCTypes getType() {
+    public JSONSchemaTypes getType() {
         return type;
     }
 

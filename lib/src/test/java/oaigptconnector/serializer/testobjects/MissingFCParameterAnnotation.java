@@ -1,8 +1,8 @@
 package oaigptconnector.serializer.testobjects;
 
-import com.oaigptconnector.model.FunctionCall;
+import com.oaigptconnector.model.JSONSchema;
 
-@FunctionCall(name = "Missing_FC_Parameter_Annotations")
+@JSONSchema(name = "Missing_FC_Parameter_Annotations")
 public class MissingFCParameterAnnotation {
 
     private String baseString;

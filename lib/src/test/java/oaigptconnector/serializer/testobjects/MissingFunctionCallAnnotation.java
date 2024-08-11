@@ -1,13 +1,13 @@
 package oaigptconnector.serializer.testobjects;
 
-import com.oaigptconnector.model.FCParameter;
+import com.oaigptconnector.model.JSONSchemaParameter;
 
 public class MissingFunctionCallAnnotation {
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private String baseString;
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private Integer baseInteger;
 
     public MissingFunctionCallAnnotation() {

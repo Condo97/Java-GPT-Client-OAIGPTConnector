@@ -1,21 +1,21 @@
 package oaigptconnector.serializer.testobjects;
 
-import com.oaigptconnector.model.FCParameter;
-import com.oaigptconnector.model.FunctionCall;
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
 
 import java.util.List;
 
-@FunctionCall(name = "Complex_Type_Serializable", functionDescription = "Function Description :)", baseObjectDescription = "Base Object Description :)")
+@JSONSchema(name = "Complex_Type_Serializable", functionDescription = "Function Description :)", baseObjectDescription = "Base Object Description :)")
 public class ComplexTypeSerializable {
 
     public class FirstInnerClass {
 
         public class SecondInnerClass {
 
-            @FCParameter()
+            @JSONSchemaParameter()
             private String secondInnerString;
 
-            @FCParameter(description = "the second inner Integer description")
+            @JSONSchemaParameter(description = "the second inner Integer description")
             private Integer secondInnerInteger;
 
             public SecondInnerClass() {
@@ -37,13 +37,13 @@ public class ComplexTypeSerializable {
 
         }
 
-        @FCParameter()
+        @JSONSchemaParameter()
         private List<SecondInnerClass> firstInnerSecondInnerClassList;
 
-        @FCParameter()
+        @JSONSchemaParameter()
         private SecondInnerClass firstInnerSecondInnerClass;
 
-        @FCParameter()
+        @JSONSchemaParameter()
         private String firstInnerString;
 
         public FirstInnerClass() {
@@ -70,13 +70,13 @@ public class ComplexTypeSerializable {
 
     }
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private List<FirstInnerClass> baseFirstInnerClassList;
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private FirstInnerClass baseFirstInnerClass;
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private FirstInnerClass.SecondInnerClass baseSecondInnerClass;
 
     public ComplexTypeSerializable() {

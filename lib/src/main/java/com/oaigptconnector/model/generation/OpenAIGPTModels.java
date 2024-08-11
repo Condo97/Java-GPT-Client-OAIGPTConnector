@@ -6,7 +6,7 @@ public enum OpenAIGPTModels {
 
     GPT_4_MINI("gpt-4o-mini", true),
 //    GPT_3_5_TURBO_0613("gpt-3.5-turbo-0613", false),
-    GPT_4("gpt-4o", true),
+    GPT_4("gpt-4o-2024-08-06", true),
     GPT_4_VISION("gpt-4o", true);
 
     private String name;

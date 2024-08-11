@@ -1,8 +1,7 @@
-package com.oaigptconnector.model.fcobjects.ifcbase;
+package com.oaigptconnector.model.jsonschema.ifcbase;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.oaigptconnector.model.fcobjects.ifcobject.FCObject;
-import com.oaigptconnector.model.fcobjects.ifcobject.IFCObject;
+import com.oaigptconnector.model.jsonschema.JSONSchemaObject;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public interface IFCBase {
@@ -13,10 +12,12 @@ public interface IFCBase {
      * name - Required, used as the name of the function
      * description - Optional, used as the description of the function
      * parameters - Required, must be FCObject here, used as the base description of the function call's parameters
+     * strict - Optional, if set to true will follow exact parameters, defaults to false
      */
 
     String getName();
     String getDescription();
-    FCObject getParameters();
+    JSONSchemaObject getParameters();
+    Boolean getStrict();
 
 }

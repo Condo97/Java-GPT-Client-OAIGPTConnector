@@ -1,18 +1,18 @@
-package com.oaigptconnector.model.fcobjects.ifcobject;
+package com.oaigptconnector.model.jsonschema;
 
-import com.oaigptconnector.model.FCTypes;
+import com.oaigptconnector.model.JSONSchemaTypes;
 
-public class FCBoolean implements IFCObject {
+public class JSONSchemaNumber implements IJSONSchemaObject {
 
-    private final FCTypes type = FCTypes.BOOLEAN;
+    private final JSONSchemaTypes type = JSONSchemaTypes.NUMBER;
     private String description;
 
-    public FCBoolean(String description) {
+    public JSONSchemaNumber(String description) {
         this.description = description;
     }
 
     @Override
-    public FCTypes getType() {
+    public JSONSchemaTypes getType() {
         return type;
     }
 
@@ -24,7 +24,7 @@ public class FCBoolean implements IFCObject {
 
     @Override
     public String toString() {
-        return "FCBoolean{" +
+        return "FCNumber{" +
                 "type=" + type +
                 ", description='" + description + '\'' +
                 '}';

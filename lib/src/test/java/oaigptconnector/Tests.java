@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oaigptconnector.Constants;
 import com.oaigptconnector.model.*;
-import com.oaigptconnector.model.fcobjects.ifcbase.FCBase;
+import com.oaigptconnector.model.jsonschema.ifcbase.FCBase;
 import com.oaigptconnector.model.request.chat.completion.*;
 import com.oaigptconnector.model.request.chat.completion.content.InputImageDetail;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
@@ -113,30 +113,30 @@ public class Tests {
     @Test
     @DisplayName("Test OAIFunctionCallSerializer")
     void testOAIFunctionCallSerializer() {
-        @FunctionCall(name = "test_function")
+        @JSONSchema(name = "test_function")
         class SerializeTest {
 
             class InnerClassTest {
 
-                @FCParameter
+                @JSONSchemaParameter
                 String innerParameterFirst;
 
             }
 
-            @FCParameter
+            @JSONSchemaParameter
             String firstParameter;
 
-            @FCParameter(name = "SecondParameter!", description = "asdfasdf")
+            @JSONSchemaParameter(name = "SecondParameter!", description = "asdfasdf")
             String secondParameter;
 
-            @FCParameter
+            @JSONSchemaParameter
             InnerClassTest thirdParameter;
 
         }
 
         // Get map from SerializeTest class using OAIFunctionCallSerializer
         try {
-            FCBase map = OAIFunctionCallSerializer.objectify(SerializeTest.class);
+            FCBase map = FCJSONSchemaSerializer.objectify(SerializeTest.class);
 
             System.out.println(new ObjectMapper().writeValueAsString(map));
         } catch (OAISerializerException e) {

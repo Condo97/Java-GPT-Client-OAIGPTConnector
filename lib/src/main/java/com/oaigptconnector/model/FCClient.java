@@ -41,12 +41,12 @@ public final class FCClient {
     }
 
     public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
-        String fcName = OAIFunctionCallSerializer.getFunctionName(fcClass);
+        String fcName = JSONSchemaSerializer.getFunctionName(fcClass);
         return serializedChatCompletion(List.of(fcClass), fcName, model, maxTokens, n, temperature, responseFormatType, apiKey, HttpClient.newHttpClient(), messages, false);
     }
 
     public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages, boolean printResponse) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
-        String fcName = OAIFunctionCallSerializer.getFunctionName(fcClass);
+        String fcName = JSONSchemaSerializer.getFunctionName(fcClass);
         return serializedChatCompletion(List.of(fcClass), fcName, model, maxTokens, n, temperature, responseFormatType, apiKey, HttpClient.newHttpClient(), messages, printResponse);
     }
 
@@ -84,7 +84,7 @@ public final class FCClient {
         // Adapt to list of FCBase serializedFCObjects
         List<java.lang.Object> serializedFCObjects = new ArrayList<>();
         for (Class fcClass: fcClasses) {
-            serializedFCObjects.add(OAIFunctionCallSerializer.objectify(fcClass));
+            serializedFCObjects.add(FCJSONSchemaSerializer.objectify(fcClass));
         }
 
 //        // Create requestFunctionCall

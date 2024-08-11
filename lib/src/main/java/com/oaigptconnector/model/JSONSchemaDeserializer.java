@@ -1,49 +1,45 @@
 package com.oaigptconnector.model;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OAIFunctionCallDeserializer {
+public class JSONSchemaDeserializer {
 
-    public static <T> T deserialize(String jsonString, Class<T> fcClass) throws OAIDeserializerException {
+    public static <T> T deserialize(String jsonString, Class<T> fcClass) throws JSONSchemaDeserializerException {
         try {
             return deserialize(new ObjectMapper().readValue(jsonString, Map.class), fcClass);
         } catch (IOException e) {
-            throw new OAIDeserializerException("Cannot convert provided jsonString to JsonNode!", e);
+            throw new JSONSchemaDeserializerException("Cannot convert provided jsonString to JsonNode!", e);
         }
     }
 
-    public static <T> T deserialize(Map<?, ?> json, Class<T> fcClass) throws OAIDeserializerException {
+    public static <T> T deserialize(Map<?, ?> json, Class<T> fcClass) throws JSONSchemaDeserializerException {
         // Instantiate fcObject from fcClass
         T fcObject = null;
         try {
             fcObject = fcClass.getDeclaredConstructor().newInstance();
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new OAIDeserializerException("Error creating new instance of target class " + fcClass, e);
+            throw new JSONSchemaDeserializerException("Error creating new instance of target class " + fcClass, e);
         }
 
         // Loop through fcObject fields using annotation name value if provided and field name as keys for the json, setting with values from the json
         for (Field field: fcObject.getClass().getDeclaredFields()) {
             // Ensure FCParameter annotation is present, otherwise continue
-            if (!field.isAnnotationPresent(FCParameter.class))
+            if (!field.isAnnotationPresent(JSONSchemaParameter.class))
                 continue;
 
             // Set field to be accessible
             field.setAccessible(true);
 
             // If FCParameter annotation name is not blank, and it will never be null, and if the json value for the key is not null, set field value to json value and continue, catching unchecked IllegalArgumentException (to avoid runtime exception  and checked IllegalAccessException and throwing OAIDeserializerException
-            String fcParameterAnnotationName = field.getAnnotation(FCParameter.class).name();
+            String fcParameterAnnotationName = field.getAnnotation(JSONSchemaParameter.class).name();
             if (!fcParameterAnnotationName.isBlank()) {
                 Object jsonValue = json.get(fcParameterAnnotationName);
                 if (jsonValue != null) {
@@ -66,7 +62,7 @@ public class OAIFunctionCallDeserializer {
         return fcObject;
     }
 
-    private static void setField(Field field, Object object, Object value) throws OAIDeserializerException {
+    private static void setField(Field field, Object object, Object value) throws JSONSchemaDeserializerException {
         // Set field to be accessible
         field.setAccessible(true);
 
@@ -111,9 +107,9 @@ public class OAIFunctionCallDeserializer {
                 }
             }
         } catch (IllegalArgumentException e) {
-            throw new OAIDeserializerException("Type mismatch for field " + field + " and json value " + value + (value != null ? " of type " + value.getClass() : "") + "!", e);
+            throw new JSONSchemaDeserializerException("Type mismatch for field " + field + " and json value " + value + (value != null ? " of type " + value.getClass() : "") + "!", e);
         } catch (IllegalAccessException e) {
-            throw new OAIDeserializerException("Illegal access for field... this should never happen!", e);
+            throw new JSONSchemaDeserializerException("Illegal access for field... this should never happen!", e);
         }
     }
 

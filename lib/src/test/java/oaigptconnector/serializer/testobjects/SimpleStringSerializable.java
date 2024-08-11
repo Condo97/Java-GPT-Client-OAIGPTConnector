@@ -1,21 +1,21 @@
 package oaigptconnector.serializer.testobjects;
 
-import com.oaigptconnector.model.FCParameter;
-import com.oaigptconnector.model.FunctionCall;
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
 
-@FunctionCall(name = "Simple_String_Serializable")
+@JSONSchema(name = "Simple_String_Serializable")
 public class SimpleStringSerializable {
 
-    @FCParameter
+    @JSONSchemaParameter
     private String firstString;
 
-    @FCParameter(name = "second_string_FCParameter_name")
+    @JSONSchemaParameter(name = "second_string_FCParameter_name")
     private String secondString;
 
-    @FCParameter(description = "third string FCParameter description :)")
+    @JSONSchemaParameter(description = "third string FCParameter description :)")
     private String thirdString;
 
-    @FCParameter(name = "fourth_string_FCParameter_name", description = "fourth string FCParameter description!")
+    @JSONSchemaParameter(name = "fourth_string_FCParameter_name", description = "fourth string FCParameter description!")
     private String fourthString;
 
     private String fifthStringNoParameter;

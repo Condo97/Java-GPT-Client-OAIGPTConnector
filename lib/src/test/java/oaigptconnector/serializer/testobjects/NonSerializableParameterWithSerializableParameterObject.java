@@ -1,21 +1,21 @@
 package oaigptconnector.serializer.testobjects;
 
-import com.oaigptconnector.model.FCParameter;
-import com.oaigptconnector.model.FunctionCall;
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
 
-@FunctionCall(name = "Non_Serializable_Parameter_With_Serializable_Parameter")
+@JSONSchema(name = "Non_Serializable_Parameter_With_Serializable_Parameter")
 public class NonSerializableParameterWithSerializableParameterObject {
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private Object nonSerializableObject;
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private String serializableString;
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private Double nonSerializableDouble;
 
-    @FCParameter()
+    @JSONSchemaParameter()
     private Integer serializableInteger;
 
     public NonSerializableParameterWithSerializableParameterObject() {

@@ -1,31 +1,31 @@
 package oaigptconnector.serializer.testobjects;
 
-import com.oaigptconnector.model.FCParameter;
-import com.oaigptconnector.model.FunctionCall;
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
 
 import java.util.List;
 
-@FunctionCall(name = "Multi_Type_Serializable", functionDescription = "multi type serializable function description")
+@JSONSchema(name = "Multi_Type_Serializable", functionDescription = "multi type serializable function description")
 public class MultiTypeSerializable {
 
     public class InnerClassSerializable {
 
-        @FCParameter(description = "Inner String type variable")
+        @JSONSchemaParameter(description = "Inner String type variable")
         private String innerString;
 
-        @FCParameter(description = "Inner Boolean type variable")
+        @JSONSchemaParameter(description = "Inner Boolean type variable")
         private Boolean innerBooleanType;
 
-        @FCParameter(description = "Inner boolean type variable")
+        @JSONSchemaParameter(description = "Inner boolean type variable")
         private boolean innerBooleanPrimitiveType;
 
-        @FCParameter(description = "Inner Integer type variable")
+        @JSONSchemaParameter(description = "Inner Integer type variable")
         private Integer innerInteger;
 
-        @FCParameter(description = "Inner int type variable")
+        @JSONSchemaParameter(description = "Inner int type variable")
         private int innerInt;
 
-        @FCParameter(description = "Inner List type variable")
+        @JSONSchemaParameter(description = "Inner List type variable")
         private List<String> stringListType;
 
         public InnerClassSerializable() {
@@ -67,28 +67,28 @@ public class MultiTypeSerializable {
 
     }
 
-    @FCParameter(description = "String type variable")
+    @JSONSchemaParameter(description = "String type variable")
     private String stringType;
 
-    @FCParameter(description = "Boolean type variable")
+    @JSONSchemaParameter(description = "Boolean type variable")
     private Boolean booleanType;
 
-    @FCParameter(description = "boolean type variable")
+    @JSONSchemaParameter(description = "boolean type variable")
     private boolean booleanPrimitiveType;
 
-    @FCParameter(description = "Integer type variable")
+    @JSONSchemaParameter(description = "Integer type variable")
     private Integer integerType;
 
-    @FCParameter(description = "int type variable")
+    @JSONSchemaParameter(description = "int type variable")
     private int intType;
 
-    @FCParameter(description = "String list type variable")
+    @JSONSchemaParameter(description = "String list type variable")
     private List<String> stringListType;
 
-    @FCParameter(description = "Integer list type variable")
+    @JSONSchemaParameter(description = "Integer list type variable")
     private List<Integer> integerListType;
 
-    @FCParameter(description = "Sub-object type variable")
+    @JSONSchemaParameter(description = "Sub-object type variable")
     private InnerClassSerializable subObjectType;
 
     public MultiTypeSerializable() {
