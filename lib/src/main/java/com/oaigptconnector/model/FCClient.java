@@ -107,11 +107,11 @@ public final class FCClient {
                 serializedFCObjects
         );
 
-        try {
-            System.out.println(new ObjectMapper().writeValueAsString(request));
-        } catch (Exception e) {
-
-        }
+//        try {
+//            System.out.println(new ObjectMapper().writeValueAsString(request));
+//        } catch (Exception e) {
+//
+//        }
 
 //        // Create HttpClient
 //        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
