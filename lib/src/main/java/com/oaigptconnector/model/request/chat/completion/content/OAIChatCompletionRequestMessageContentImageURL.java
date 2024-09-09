@@ -27,8 +27,16 @@ public class OAIChatCompletionRequestMessageContentImageURL implements OAIChatCo
             return url;
         }
 
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
         public InputImageDetail getDetail() {
             return detail;
+        }
+
+        public void setDetail(InputImageDetail detail) {
+            this.detail = detail;
         }
 
         @Override
@@ -59,6 +67,10 @@ public class OAIChatCompletionRequestMessageContentImageURL implements OAIChatCo
 
     public ImageURL getImage_url() {
         return image_url;
+    }
+
+    public void setImage_url(ImageURL image_url) {
+        this.image_url = image_url;
     }
 
     @Override

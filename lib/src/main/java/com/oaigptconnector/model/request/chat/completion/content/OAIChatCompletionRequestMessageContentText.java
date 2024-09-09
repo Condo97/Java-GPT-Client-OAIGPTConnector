@@ -28,6 +28,9 @@ public class OAIChatCompletionRequestMessageContentText implements OAIChatComple
         return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
 
     @Override
     public String toString() {
