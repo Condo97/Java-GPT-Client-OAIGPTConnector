@@ -93,8 +93,18 @@ public class JSONSchemaDeserializer {
                     }
                 }
 
-                // Try to set field
-                field.set(object, value);
+//                // Try to set field
+//                field.set(object, value);
+                // TODO: Resolve hot fix for fields that are double with values that are Integer, this should work for all types
+                // Check if the field is of type Double and value is Integer
+                if (field.getType().equals(Double.class) && value instanceof Integer) {
+                    // Convert Integer to Double
+                    Double doubleValue = ((Integer) value).doubleValue();
+                    field.set(object, doubleValue);
+                } else {
+                    // Handle other types or throw an exception
+                    field.set(object, value);
+                }
 
             } catch (IllegalArgumentException e) {
                 // If field.set throws IllegalArgumentException meaning an object value mismatch, check to see if the field expects an Integer and it's trying to insert a Double, and see if it can be set after casting, otherwise throw e to have it caught by the enclosing try block TODO: It seems that Double is what ObjectMapper sets decimal numbers to pretty consistently, however this should be further tested to see if there are more cases of fixable type inconsistency :)

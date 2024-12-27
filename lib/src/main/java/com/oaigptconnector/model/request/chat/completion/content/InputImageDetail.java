@@ -9,7 +9,7 @@ public enum InputImageDetail {
 
     LOW("low"),
     HIGH("high"),
-    AUTO(null);
+    AUTO("auto");
 
     private String string;
 
@@ -22,7 +22,7 @@ public enum InputImageDetail {
     public static InputImageDetail fromString(String string) {
         // Null check though it doesn't matter in this case but still good practice and I'm nervous :)
         if (string == null) {
-            return InputImageDetail.LOW;
+            return InputImageDetail.LOW; // TODO: Test and ensure this should not default to Auto
         }
 
         // Search for parameter string from enum values' strings returning enum value when found
