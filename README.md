@@ -76,13 +76,44 @@ SimpleFunctionCall functionCall = OAIFunctionCallDeserializer.deserialize(respon
 System.out.println("Message: " + functionCall.getMessage());
 ```
 
-## Installation
+# Installation
 
-1. Configure 
+## Prerequisites
+- Java JDK 8 or higher installed
+- Build tool (Maven/Gradle) configured (optional)
+- Basic understanding of dependency management
 
-2. 
+## Step 1: Download the Release
 
-## Usage
+### Option 1: GitHub Releases
+1. Visit the [GitHub Releases page](https://github.com/Condo97/Java-GPT-Client-OAIGPTConnector/releases)
+2. Locate the desired version in the release list
+3. Download `OAIGPTConnector-1.0.0.jar` (compiled binary)
+
+### Option 2: Direct Download
+```bash
+wget https://github.com/Condo97/Java-GPT-Client-OAIGPTConnector/releases/download/Release/OAIGPTConnector-1.0.0.jar
+```
+
+
+# Compilation
+
+1. Clone project
+```sh
+git clone https://github.com/Condo97/Java-GPT-Client-OAIGPTConnector.git
+```
+2. **To pass tests,** create .env file in /lib
+```sh
+cd Java-GPT-Client-OAIGPTConnector
+cd lib
+touch .env
+```
+3. Add OPEN_AI_API_KEY={your OpenAI API key}
+```txt
+OPEN_AI_API_KEY=your_open_ai_api_key
+```
+
+# Usage
 
 ### Basic Chat Completion
 ```java
@@ -401,13 +432,13 @@ public class AdvancedFCClientExample {
 }
 ```
 
-## Contributing
+# Contributing
 Feel free to file issues or submit pull requests. Contributions are welcome!
 
-## License
+# License
 [MIT License](LICENSE)
 
-## Contact
+# Contact
 For more information or queries, please contact [acoundou@gmail.com](mailto:acoundou@gmail.com).
 
 Enjoy using OAIGPTConnector for your AI-powered applications!
