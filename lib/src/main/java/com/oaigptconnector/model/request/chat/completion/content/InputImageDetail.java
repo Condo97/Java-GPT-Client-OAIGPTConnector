@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum InputImageDetail {
 
     LOW("low"),
-    HIGH("high"),
-    AUTO("auto");
+    HIGH("high");
+//    AUTO("auto");
 
     private String string;
 
@@ -17,12 +17,12 @@ public enum InputImageDetail {
         this.string = string;
     }
 
-    @JsonSetter
+    @JsonCreator
 //    public static InputImageDetail fromString(@JsonProperty("detail") String string) {
     public static InputImageDetail fromString(String string) {
         // Null check though it doesn't matter in this case but still good practice and I'm nervous :)
         if (string == null) {
-            return InputImageDetail.LOW; // TODO: Test and ensure this should not default to Auto
+            return null;//InputImageDetail.LOW; // TODO: Test and ensure this should not default to Auto
         }
 
         // Search for parameter string from enum values' strings returning enum value when found
@@ -33,7 +33,7 @@ public enum InputImageDetail {
         }
 
         // Default to low quality if not found
-        return InputImageDetail.LOW;
+        return null;//InputImageDetail.LOW;
     }
 
     @JsonValue
