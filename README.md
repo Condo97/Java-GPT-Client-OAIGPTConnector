@@ -419,6 +419,6 @@ Feel free to file issues or submit pull requests. Contributions are welcome!
 [MIT License](LICENSE)
 
 ## Contact
-For more information or queries, please contact [yourname@yourdomain.com](mailto:yourname@yourdomain.com).
+For more information or queries, please contact [acoundou@gmail.com](mailto:acoundou@gmail.com).
 
 Enjoy using OAIGPTConnector for your AI-powered applications!
