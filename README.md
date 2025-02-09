@@ -1,9 +1,23 @@
 # Java-GPT-Client
 ### Connect Java to your favorite GPT model
 
-Actively maintaned library making GPT function calls easy in Java. 
+Actively maintaned library making GPT function calls easy in Java.  
 
 A Java library for interacting with OpenAI's GPT APIs, including support for chat completions, streaming responses, and function calls.
+
+## Table of Contents
+- [Features](#features)
+  - [Simple Function Call Demo](#simple-function-call-demo)
+- [Installation](#installation)
+- [Compilation](#compilation)
+- [Usage](#usage)
+  - [Basic Chat Completion](#basic-chat-completion)
+  - [Streaming Chat Completion](#streaming-chat-completion)
+  - [Using FCClient for Function Calls](#using-fcclient-for-function-calls)
+  - [Advanced Function Call Capability](#advanced-function-call-capability)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ## Features
 
@@ -76,27 +90,26 @@ SimpleFunctionCall functionCall = OAIFunctionCallDeserializer.deserialize(respon
 System.out.println("Message: " + functionCall.getMessage());
 ```
 
-# Installation
+## Installation
 
-## Prerequisites
+### Prerequisites
 - Java JDK 8 or higher installed
 - Build tool (Maven/Gradle) configured (optional)
 - Basic understanding of dependency management
 
-## Step 1: Download the Release
+### Step 1: Download the Release
 
-### Option 1: GitHub Releases
+#### Option 1: GitHub Releases
 1. Visit the [GitHub Releases page](https://github.com/Condo97/Java-GPT-Client-OAIGPTConnector/releases)
 2. Locate the desired version in the release list
 3. Download `OAIGPTConnector-1.0.0.jar` (compiled binary)
 
-### Option 2: Direct Download
+#### Option 2: Direct Download
 ```bash
 wget https://github.com/Condo97/Java-GPT-Client-OAIGPTConnector/releases/download/Release/OAIGPTConnector-1.0.0.jar
 ```
 
-
-# Compilation
+## Compilation
 
 1. Clone project
 ```sh
@@ -113,7 +126,7 @@ touch .env
 OPEN_AI_API_KEY=your_open_ai_api_key
 ```
 
-# Usage
+## Usage
 
 ### Basic Chat Completion
 ```java
@@ -432,13 +445,13 @@ public class AdvancedFCClientExample {
 }
 ```
 
-# Contributing
+## Contributing
 Feel free to file issues or submit pull requests. Contributions are welcome!
 
-# License
+## License
 [MIT License](LICENSE)
 
-# Contact
+## Contact
 For more information or queries, please contact [acoundou@gmail.com](mailto:acoundou@gmail.com).
 
 Enjoy using OAIGPTConnector for your AI-powered applications!
