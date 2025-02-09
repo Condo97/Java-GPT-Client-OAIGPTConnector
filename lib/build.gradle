@@ -47,8 +47,8 @@ dependencies {
     // java-jwt for JWT
     implementation 'com.auth0:java-jwt:4.4.0'
 
-    // Httpson for handling HTTPS requests with JsonNode and Jackson
-    implementation 'com.github.condo97:Httpson:1.0.0'
+//    // Httpson for handling HTTPS requests with JsonNode and Jackson
+//    implementation 'com.github.condo97:Httpson:1.0.0'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

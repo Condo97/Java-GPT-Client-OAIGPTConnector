@@ -3,17 +3,16 @@ package com.oaigptconnector.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.http.Httpson;
 import com.oaigptconnector.Constants;
 import com.oaigptconnector.model.exception.JsonNullRequiredObjectException;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
 import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
 import com.oaigptconnector.model.response.error.OpenAIGPTErrorResponse;
-import httpson.Httpson;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.time.Duration;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
