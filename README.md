@@ -1,4 +1,5 @@
-# Java-GPT-Client-OAIGPTConnector
+# Java-GPT-Client
+### Connect Java to your favorite GPT model
 
 Actively maintaned library making GPT function calls easy in Java. 
 
@@ -77,21 +78,9 @@ System.out.println("Message: " + functionCall.getMessage());
 
 ## Installation
 
-Include the library in your project by adding the following dependency in your `pom.xml` for Maven or `build.gradle` for Gradle.
+1. Configure 
 
-### Maven
-```xml
-<dependency>
-    <groupId>com.yourgroup</groupId>
-    <artifactId>oaigptconnector</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
-
-### Gradle
-```groovy
-implementation 'com.yourgroup:oaigptconnector:1.0.0'
-```
+2. 
 
 ## Usage
 
