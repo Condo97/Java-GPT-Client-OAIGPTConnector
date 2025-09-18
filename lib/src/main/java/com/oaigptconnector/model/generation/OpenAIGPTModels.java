@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum OpenAIGPTModels implements ChatModel {
 
+    // OpenRouter
+    OPENROUTER_GPT_5("openai/gpt-5", true),
+    OPENROUTER_GPT_5_MINI("openai/gpt-5-mini", true),
+
+    // OpenAI
+
     GPT_5("gpt-5", true),
     GPT_5_MINI("gpt-5-mini", true),
     GPT_4_MINI("gpt-4o-mini", true),
