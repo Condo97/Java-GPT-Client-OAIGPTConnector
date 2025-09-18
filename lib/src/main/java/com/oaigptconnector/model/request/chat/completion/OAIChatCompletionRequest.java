@@ -16,12 +16,13 @@ public class OAIChatCompletionRequest {
     private List<OAIChatCompletionRequestMessage> messages;
     private Object tool_choice; // "none", "required", or OAIChatCompletionRequestToolChoiceFunction
     private List<OAIChatCompletionRequestTool> tools;
+    private String reasoning;
 
     private OAIChatCompletionRequest() {
 
     }
 
-    private OAIChatCompletionRequest(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat response_format, OAIChatCompletionRequestStreamOptions stream_options, List<OAIChatCompletionRequestMessage> messages, Object tool_choice, List<OAIChatCompletionRequestTool> tools) {
+    private OAIChatCompletionRequest(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat response_format, OAIChatCompletionRequestStreamOptions stream_options, List<OAIChatCompletionRequestMessage> messages, Object tool_choice, List<OAIChatCompletionRequestTool> tools, String reasoning) {
         this.model = model;
         this.max_tokens = max_tokens;
         this.n = n;
@@ -32,53 +33,54 @@ public class OAIChatCompletionRequest {
         this.messages = messages;
         this.tool_choice = tool_choice;
         this.tools = tools;
+        this.reasoning = reasoning;
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestMessage... messages) {
-        return build(model, max_tokens, temperature, responseFormatType, List.of(messages));
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, String reasoning, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, temperature, reasoning, responseFormatType, List.of(messages));
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, List<OAIChatCompletionRequestMessage> messages) {
-        return build(model, max_tokens, temperature, false, responseFormatType, null, messages);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, String reasoning, OAIChatCompletionRequestResponseFormat responseFormatType, List<OAIChatCompletionRequestMessage> messages) {
+        return build(model, max_tokens, temperature, reasoning, false, responseFormatType, null, messages);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, OAIChatCompletionRequestMessage... messages) {
-        return build(model, max_tokens, temperature, stream, responseFormatType, streamOptions, List.of(messages));
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, String reasoning, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, temperature, reasoning, stream, responseFormatType, streamOptions, List.of(messages));
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages) {
-        return build(model, max_tokens, 1, temperature, stream, responseFormatType, streamOptions, messages);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, String reasoning, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages) {
+        return build(model, max_tokens, 1, temperature, reasoning, stream, responseFormatType, streamOptions, messages);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, OAIChatCompletionRequestMessage... messages) {
-        return build(model, max_tokens, n, temperature, responseFormatType, streamOptions, List.of(messages));
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, String reasoning, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, n, temperature, reasoning, responseFormatType, streamOptions, List.of(messages));
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages) {
-        return build(model, max_tokens, n, temperature, false, responseFormatType, streamOptions, messages);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, String reasoning, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages) {
+        return build(model, max_tokens, n, temperature, reasoning, false, responseFormatType, streamOptions, messages);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, OAIChatCompletionRequestMessage... messages) {
-        return build(model, max_tokens, n, temperature, stream, responseFormatType, streamOptions, List.of(messages));
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, String reasoning, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, n, temperature, reasoning, stream, responseFormatType, streamOptions, List.of(messages));
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages) {
-        return build(model, max_tokens, n, temperature, stream, responseFormatType, streamOptions, messages, null, null);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, String reasoning, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages) {
+        return build(model, max_tokens, n, temperature, reasoning, stream, responseFormatType, streamOptions, messages, null, null);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, List<OAIChatCompletionRequestMessage> messages, Object toolChoice, List<java.lang.Object> functions) {
-        return build(model, max_tokens, temperature, false, responseFormatType, null, messages, toolChoice, functions);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, String reasoning, OAIChatCompletionRequestResponseFormat responseFormatType, List<OAIChatCompletionRequestMessage> messages, Object toolChoice, List<java.lang.Object> functions) {
+        return build(model, max_tokens, temperature, reasoning, false, responseFormatType, null, messages, toolChoice, functions);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages, Object toolChoice, List<java.lang.Object> functions) {
-        return build(model, max_tokens, 1, temperature, stream, responseFormatType, streamOptions, messages, toolChoice, functions);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, String reasoning, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages, Object toolChoice, List<java.lang.Object> functions) {
+        return build(model, max_tokens, 1, temperature, reasoning, stream, responseFormatType, streamOptions, messages, toolChoice, functions);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, List<OAIChatCompletionRequestMessage> messages, Object toolChoice, List<java.lang.Object> functions) {
-        return build(model, max_tokens, n, temperature, false, responseFormatType, null, messages, toolChoice, functions);
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, String reasoning, OAIChatCompletionRequestResponseFormat responseFormatType, List<OAIChatCompletionRequestMessage> messages, Object toolChoice, List<java.lang.Object> functions) {
+        return build(model, max_tokens, n, temperature, reasoning, false, responseFormatType, null, messages, toolChoice, functions);
     }
 
-    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages, Object tool_choice, List<java.lang.Object> functions) {
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, String reasoning, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages, Object tool_choice, List<java.lang.Object> functions) {
         // TODO: Implement tools better.. right now it just translates functions to tools
         List<OAIChatCompletionRequestTool> tools = null;
 
@@ -101,7 +103,8 @@ public class OAIChatCompletionRequest {
                 streamOptions,
                 messages,
                 tool_choice,
-                tools
+                tools,
+                reasoning
         );
     }
 

@@ -54,6 +54,7 @@ public class Tests {
                 OpenAIGPTModels.GPT_4_MINI.getName(),
                 400,
                 0.7,
+                "minimal",
                 new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                 List.of(completionMessage));
 
@@ -90,6 +91,7 @@ public class Tests {
                 OpenAIGPTModels.GPT_4_MINI.getName(),
                 400,
                 0.7,
+                "minimal",
                 true,
                 new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                 new OAIChatCompletionRequestStreamOptions(true),
@@ -183,6 +185,7 @@ public class Tests {
                 OpenAIGPTModels.GPT_4_VISION.getName(),
                 800,
                 1,
+                "minimal",
                 true,
                 new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                 new OAIChatCompletionRequestStreamOptions(true),
@@ -216,6 +219,7 @@ public class Tests {
                 OpenAIGPTModels.GPT_4_VISION.getName(),
                 800,
                 1,
+                "minimal",
                 true,
                 new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                 new OAIChatCompletionRequestStreamOptions(true),

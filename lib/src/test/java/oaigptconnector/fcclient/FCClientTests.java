@@ -53,11 +53,14 @@ public class FCClientTests {
         // Create requestToolChoice as Function tool choice
         Object requestToolChoice = new OAIChatCompletionRequestToolChoiceFunction(requestToolChoiceFunction);
 
+        String reasoning = "minimal";
+
         // Create OAIChatCompletionRequest
         OAIChatCompletionRequest request = OAIChatCompletionRequest.build(
                 OpenAIGPTModels.GPT_4.getName(),
                 1000,
                 1,
+                reasoning,
                 new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                 List.of(systemMessage, userMessage),
                 requestToolChoice,
@@ -93,6 +96,7 @@ public class FCClientTests {
                     TestConstants.gpt4ModelName,
                     800,
                     1,
+                    "minimal",
                     new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                     Keys.openAiAPI,
                     httpClient,
@@ -148,6 +152,7 @@ public class FCClientTests {
                     TestConstants.gpt4ModelName,
                     800,
                     1,
+                    "minimal",
                     new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                     Keys.openAiAPI,
                     httpClient,
@@ -204,6 +209,7 @@ public class FCClientTests {
                     TestConstants.gpt4ModelName,
                     800,
                     1,
+                    "minimal",
                     new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                     Keys.openAiAPI,
                     httpClient,
