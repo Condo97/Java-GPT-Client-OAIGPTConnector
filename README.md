@@ -1,8 +1,23 @@
-# Java-GPT-Client-OAIGPTConnector
+# Java-GPT-Client
+### Connect Java to your favorite GPT model
 
-Actively maintaned library making GPT function calls easy in Java. 
+Actively maintaned library making GPT function calls easy in Java.  
 
 A Java library for interacting with OpenAI's GPT APIs, including support for chat completions, streaming responses, and function calls.
+
+## Table of Contents
+- [Features](#features)
+  - [Simple Function Call Demo](#simple-function-call-demo)
+- [Installation](#installation)
+- [Compilation](#compilation)
+- [Usage](#usage)
+  - [Basic Chat Completion](#basic-chat-completion)
+  - [Streaming Chat Completion](#streaming-chat-completion)
+  - [Using FCClient for Function Calls](#using-fcclient-for-function-calls)
+  - [Advanced Function Call Capability](#advanced-function-call-capability)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ## Features
 
@@ -77,20 +92,38 @@ System.out.println("Message: " + functionCall.getMessage());
 
 ## Installation
 
-Include the library in your project by adding the following dependency in your `pom.xml` for Maven or `build.gradle` for Gradle.
+### Prerequisites
+- Java JDK 8 or higher installed
+- Build tool (Maven/Gradle) configured (optional)
+- Basic understanding of dependency management
 
-### Maven
-```xml
-<dependency>
-    <groupId>com.yourgroup</groupId>
-    <artifactId>oaigptconnector</artifactId>
-    <version>1.0.0</version>
-</dependency>
+### Step 1: Download the Release
+
+#### Option 1: GitHub Releases
+1. Visit the [GitHub Releases page](https://github.com/Condo97/Java-GPT-Client-OAIGPTConnector/releases)
+2. Locate the desired version in the release list
+3. Download `OAIGPTConnector-1.0.0.jar` (compiled binary)
+
+#### Option 2: Direct Download
+```bash
+wget https://github.com/Condo97/Java-GPT-Client-OAIGPTConnector/releases/download/Release/OAIGPTConnector-1.0.0.jar
 ```
 
-### Gradle
-```groovy
-implementation 'com.yourgroup:oaigptconnector:1.0.0'
+## Compilation
+
+1. Clone project
+```sh
+git clone https://github.com/Condo97/Java-GPT-Client-OAIGPTConnector.git
+```
+2. **To pass tests,** create .env file in /lib
+```sh
+cd Java-GPT-Client-OAIGPTConnector
+cd lib
+touch .env
+```
+3. Add OPEN_AI_API_KEY={your OpenAI API key}
+```txt
+OPEN_AI_API_KEY=your_open_ai_api_key
 ```
 
 ## Usage
