@@ -185,7 +185,6 @@ public class OAIChatCompletionRequest {
         this.tools = tools;
     }
 
-
     @Override
     public String toString() {
         return "OAIGPTChatCompletionRequest{" +

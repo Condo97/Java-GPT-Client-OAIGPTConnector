@@ -61,7 +61,7 @@ public class Tests {
         final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
 
         // Get response
-        Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI, httpClient, false);
+        Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI, httpClient, Constants.OPENAI_CHAT_COMPLETION_URI, false);
 
         System.out.println(response);
 
@@ -101,7 +101,7 @@ public class Tests {
         final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
 
         // Get response stream
-        Stream<String> stream = OAIClient.postChatCompletionStream(completionRequest, Keys.openAiAPI, httpClient);
+        Stream<String> stream = OAIClient.postChatCompletionStream(completionRequest, Keys.openAiAPI, httpClient, Constants.OPENAI_CHAT_COMPLETION_URI);
 
         // Ensure stream is not null
         assert(stream != null);
@@ -195,7 +195,7 @@ public class Tests {
         final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
 
         // Get response stream
-        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI, httpClient);
+        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI, httpClient, Constants.OPENAI_CHAT_COMPLETION_URI);
 
         assertNotNull(stream);
 
@@ -228,7 +228,7 @@ public class Tests {
         final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
 
         // Get response stream
-        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI, httpClient);
+        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI, httpClient, Constants.OPENAI_CHAT_COMPLETION_URI);
 
         assertNotNull(stream);
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OAIGPTChatCompletionResponseChoiceMessage {
-    private String role, content;
+    private String role, content, reasoning;
     private List<OAIGPTChatCompletionResponseChoiceMessageToolCall> tool_calls;
 
     public OAIGPTChatCompletionResponseChoiceMessage() {
@@ -20,9 +20,22 @@ public class OAIGPTChatCompletionResponseChoiceMessage {
         this.content = content;
     }
 
+    public OAIGPTChatCompletionResponseChoiceMessage(String role, String content, String reasoning) {
+        this.role = role;
+        this.content = content;
+        this.reasoning = reasoning;
+    }
+
     public OAIGPTChatCompletionResponseChoiceMessage(String role, String content, List<OAIGPTChatCompletionResponseChoiceMessageToolCall> tool_calls) {
         this.role = role;
         this.content = content;
+        this.tool_calls = tool_calls;
+    }
+
+    public OAIGPTChatCompletionResponseChoiceMessage(String role, String content, String reasoning, List<OAIGPTChatCompletionResponseChoiceMessageToolCall> tool_calls) {
+        this.role = role;
+        this.content = content;
+        this.reasoning = reasoning;
         this.tool_calls = tool_calls;
     }
 
@@ -40,6 +53,14 @@ public class OAIGPTChatCompletionResponseChoiceMessage {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getReasoning() {
+        return reasoning;
+    }
+
+    public void setReasoning(String reasoning) {
+        this.reasoning = reasoning;
     }
 
     public List<OAIGPTChatCompletionResponseChoiceMessageToolCall> getTool_calls() {

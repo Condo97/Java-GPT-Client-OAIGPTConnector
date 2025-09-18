@@ -1,7 +1,9 @@
 package com.oaigptconnector.model.response.chat.completion.http.toolcall;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.oaigptconnector.model.response.chat.completion.http.toolcall.function.OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OAIGPTChatCompletionResponseChoiceMessageToolCall {
 
     private String id;

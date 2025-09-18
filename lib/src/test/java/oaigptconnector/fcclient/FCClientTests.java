@@ -3,6 +3,7 @@ package oaigptconnector.fcclient;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oaigptconnector.Constants;
 import com.oaigptconnector.model.*;
 import com.oaigptconnector.model.exception.OpenAIGPTException;
 import com.oaigptconnector.model.generation.OpenAIGPTModels;
@@ -95,6 +96,7 @@ public class FCClientTests {
                     new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                     Keys.openAiAPI,
                     httpClient,
+                    Constants.OPENAI_CHAT_COMPLETION_URI,
                     systemMessage,
                     userMessage
             );
@@ -149,6 +151,7 @@ public class FCClientTests {
                     new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                     Keys.openAiAPI,
                     httpClient,
+                    Constants.OPENAI_CHAT_COMPLETION_URI,
                     systemMessage,
                     userMessage
             );
@@ -204,6 +207,7 @@ public class FCClientTests {
                     new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
                     Keys.openAiAPI,
                     httpClient,
+                    Constants.OPENAI_CHAT_COMPLETION_URI,
                     systemMessage,
                     userMessage
             );
