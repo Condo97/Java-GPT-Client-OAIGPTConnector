@@ -12,15 +12,13 @@ public class OAIChatCompletionRequestMessageContentImageURL implements OAIChatCo
     public static class ImageURL {
 
         private String url;
-        private InputImageDetail detail;
 
         public ImageURL() {
 
         }
 
-        public ImageURL(String url, InputImageDetail detail) {
+        public ImageURL(String url) {
             this.url = url;
-            this.detail = detail;
         }
 
         public String getUrl() {
@@ -31,19 +29,10 @@ public class OAIChatCompletionRequestMessageContentImageURL implements OAIChatCo
             this.url = url;
         }
 
-        public InputImageDetail getDetail() {
-            return detail;
-        }
-
-        public void setDetail(InputImageDetail detail) {
-            this.detail = detail;
-        }
-
         @Override
         public String toString() {
             return "ImageURL{" +
                     "url='" + url + '\'' +
-                    ", detail=" + detail +
                     '}';
         }
 

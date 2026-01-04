@@ -1,7 +1,6 @@
 package com.oaigptconnector.model;
 
 import com.oaigptconnector.model.request.chat.completion.CompletionRole;
-import com.oaigptconnector.model.request.chat.completion.content.InputImageDetail;
 import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequestMessage;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentImageURL;
@@ -31,14 +30,13 @@ public class OAIChatCompletionRequestMessageBuilder {
         return this;
     }
 
-    public OAIChatCompletionRequestMessageBuilder addImage(String base64EncodedImage, InputImageDetail detail) {
+    public OAIChatCompletionRequestMessageBuilder addImage(String base64EncodedImage) {
         // Null check
         if (base64EncodedImage == null) return this;
 
         // Create contentImageURL child with base64EncodedImage and detail
         OAIChatCompletionRequestMessageContentImageURL.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImageURL.ImageURL(
-                base64EncodedImage,
-                detail
+                base64EncodedImage
         );
 
         // Add imageURL in image request parent
@@ -47,14 +45,13 @@ public class OAIChatCompletionRequestMessageBuilder {
         return this;
     }
 
-    public OAIChatCompletionRequestMessageBuilder addImageURL(String imageURL, InputImageDetail detail) {
+    public OAIChatCompletionRequestMessageBuilder addImageURL(String imageURL) {
         // Null check
-        if (imageURL == null || detail == null) return this;
+        if (imageURL == null) return this;
 
         // Create contentImageURL child with imageURL and detail
         OAIChatCompletionRequestMessageContentImageURL.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImageURL.ImageURL(
-                imageURL,
-                detail
+                imageURL
         );
         content.add(new OAIChatCompletionRequestMessageContentImageURL(contentImageURL));
 

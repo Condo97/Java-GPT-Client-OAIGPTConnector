@@ -7,7 +7,6 @@ import com.oaigptconnector.Constants;
 import com.oaigptconnector.model.*;
 import com.oaigptconnector.model.jsonschema.ifcbase.FCBase;
 import com.oaigptconnector.model.request.chat.completion.*;
-import com.oaigptconnector.model.request.chat.completion.content.InputImageDetail;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
 import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentText;
 import keys.Keys;
@@ -177,7 +176,7 @@ public class Tests {
         // Create user message with text and image
         OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
                 .addText("Describe the image")
-                .addImage(imageDataBase64EncodedString, InputImageDetail.fromString("AUTO"))
+                .addImage(imageDataBase64EncodedString)
                 .build();
 
         // Create request
@@ -211,7 +210,7 @@ public class Tests {
         // Create user message with text and image
         OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
                 .addText("Can you write out the text in the image for me?")
-                .addImageURL("https://images.squarespace-cdn.com/content/v1/57b71e086a49637a9109a3f9/1519796241690-Z9YNU20RXTK83JA4WQPH/A+Wrinkle+In+Time+First+Page.JPG", InputImageDetail.fromString("AUTO"))
+                .addImageURL("https://images.squarespace-cdn.com/content/v1/57b71e086a49637a9109a3f9/1519796241690-Z9YNU20RXTK83JA4WQPH/A+Wrinkle+In+Time+First+Page.JPG")
                 .build();
 
         // Create request

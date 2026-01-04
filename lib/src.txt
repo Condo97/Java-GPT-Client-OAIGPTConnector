@@ -1,0 +1,4159 @@
+test
+
+
+resources
+
+
+testImage.png
+
+
+java
+
+
+keys
+
+
+Keys.java
+package keys;
+
+public class Keys {
+
+    public static final String openAiAPI = "";
+
+}
+
+
+oaigptconnector
+
+
+serializer
+
+
+testobjects
+
+
+SimpleStringSerializable.java
+package oaigptconnector.serializer.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
+
+@FunctionCall(name = "Simple_String_Serializable")
+public class SimpleStringSerializable {
+
+    @FCParameter
+    private String firstString;
+
+    @FCParameter(name = "second_string_FCParameter_name")
+    private String secondString;
+
+    @FCParameter(description = "third string FCParameter description :)")
+    private String thirdString;
+
+    @FCParameter(name = "fourth_string_FCParameter_name", description = "fourth string FCParameter description!")
+    private String fourthString;
+
+    private String fifthStringNoParameter;
+
+    public SimpleStringSerializable() {
+
+    }
+
+    public SimpleStringSerializable(String firstString, String secondString, String thirdString, String fourthString, String fifthStringNoParameter) {
+        this.firstString = firstString;
+        this.secondString = secondString;
+        this.thirdString = thirdString;
+        this.fourthString = fourthString;
+        this.fifthStringNoParameter = fifthStringNoParameter;
+    }
+
+    public String getFirstString() {
+        return firstString;
+    }
+
+    public String getSecondString() {
+        return secondString;
+    }
+
+    public String getThirdString() {
+        return thirdString;
+    }
+
+    public String getFourthString() {
+        return fourthString;
+    }
+
+    public String getFifthStringNoParameter() {
+        return fifthStringNoParameter;
+    }
+
+}
+
+
+NonSerializableParameter.java
+package oaigptconnector.serializer.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
+
+@FunctionCall(name = "Non_Serializable_Parameter")
+public class NonSerializableParameter {
+
+    @FCParameter()
+    private Object nonSerializableObject;
+
+    @FCParameter()
+    private Double nonSerializableDouble;
+
+    public NonSerializableParameter() {
+
+    }
+
+    public NonSerializableParameter(Object nonSerializableObject, Double nonSerializableDouble) {
+        this.nonSerializableObject = nonSerializableObject;
+        this.nonSerializableDouble = nonSerializableDouble;
+    }
+
+    public Object getNonSerializableObject() {
+        return nonSerializableObject;
+    }
+
+    public Double getNonSerializableDouble() {
+        return nonSerializableDouble;
+    }
+
+}
+
+
+MissingFunctionCallAnnotation.java
+package oaigptconnector.serializer.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+
+public class MissingFunctionCallAnnotation {
+
+    @FCParameter()
+    private String baseString;
+
+    @FCParameter()
+    private Integer baseInteger;
+
+    public MissingFunctionCallAnnotation() {
+
+    }
+
+    public MissingFunctionCallAnnotation(String baseString, Integer baseInteger) {
+        this.baseString = baseString;
+        this.baseInteger = baseInteger;
+    }
+
+    public String getBaseString() {
+        return baseString;
+    }
+
+    public Integer getBaseInteger() {
+        return baseInteger;
+    }
+
+}
+
+
+MissingFCParameterAnnotation.java
+package oaigptconnector.serializer.testobjects;
+
+import com.oaigptconnector.model.JSONSchema;
+
+@FunctionCall(name = "Missing_FC_Parameter_Annotations")
+public class MissingFCParameterAnnotation {
+
+    private String baseString;
+    private Integer baseInteger;
+
+    public MissingFCParameterAnnotation() {
+
+    }
+
+    public MissingFCParameterAnnotation(String baseString, Integer baseInteger) {
+        this.baseString = baseString;
+        this.baseInteger = baseInteger;
+    }
+
+    public String getBaseString() {
+        return baseString;
+    }
+
+    public Integer getBaseInteger() {
+        return baseInteger;
+    }
+
+}
+
+
+NonSerializableParameterWithSerializableParameterObject.java
+package oaigptconnector.serializer.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
+
+@FunctionCall(name = "Non_Serializable_Parameter_With_Serializable_Parameter")
+public class NonSerializableParameterWithSerializableParameterObject {
+
+    @FCParameter()
+    private Object nonSerializableObject;
+
+    @FCParameter()
+    private String serializableString;
+
+    @FCParameter()
+    private Double nonSerializableDouble;
+
+    @FCParameter()
+    private Integer serializableInteger;
+
+    public NonSerializableParameterWithSerializableParameterObject() {
+
+    }
+
+    public NonSerializableParameterWithSerializableParameterObject(Object nonSerializableObject, String serializableString, Double nonSerializableDouble, Integer serializableInteger) {
+        this.nonSerializableObject = nonSerializableObject;
+        this.serializableString = serializableString;
+        this.nonSerializableDouble = nonSerializableDouble;
+        this.serializableInteger = serializableInteger;
+    }
+
+    public Object getNonSerializableObject() {
+        return nonSerializableObject;
+    }
+
+    public String getSerializableString() {
+        return serializableString;
+    }
+
+    public Double getNonSerializableDouble() {
+        return nonSerializableDouble;
+    }
+
+    public Integer getSerializableInteger() {
+        return serializableInteger;
+    }
+
+}
+
+
+ComplexTypeSerializable.java
+package oaigptconnector.serializer.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
+
+import java.util.List;
+
+@FunctionCall(name = "Complex_Type_Serializable", functionDescription = "Function Description :)", baseObjectDescription = "Base Object Description :)")
+public class ComplexTypeSerializable {
+
+    public class FirstInnerClass {
+
+        public class SecondInnerClass {
+
+            @FCParameter()
+            private String secondInnerString;
+
+            @FCParameter(description = "the second inner Integer description")
+            private Integer secondInnerInteger;
+
+            public SecondInnerClass() {
+
+            }
+
+            public SecondInnerClass(String secondInnerString, Integer secondInnerInteger) {
+                this.secondInnerString = secondInnerString;
+                this.secondInnerInteger = secondInnerInteger;
+            }
+
+            public String getSecondInnerString() {
+                return secondInnerString;
+            }
+
+            public Integer getSecondInnerInteger() {
+                return secondInnerInteger;
+            }
+
+        }
+
+        @FCParameter()
+        private List<SecondInnerClass> firstInnerSecondInnerClassList;
+
+        @FCParameter()
+        private SecondInnerClass firstInnerSecondInnerClass;
+
+        @FCParameter()
+        private String firstInnerString;
+
+        public FirstInnerClass() {
+
+        }
+
+        public FirstInnerClass(List<SecondInnerClass> firstInnerSecondInnerClassList, SecondInnerClass firstInnerSecondInnerClass, String firstInnerString) {
+            this.firstInnerSecondInnerClassList = firstInnerSecondInnerClassList;
+            this.firstInnerSecondInnerClass = firstInnerSecondInnerClass;
+            this.firstInnerString = firstInnerString;
+        }
+
+        public List<SecondInnerClass> getFirstInnerSecondInnerClassList() {
+            return firstInnerSecondInnerClassList;
+        }
+
+        public SecondInnerClass getFirstInnerSecondInnerClass() {
+            return firstInnerSecondInnerClass;
+        }
+
+        public String getFirstInnerString() {
+            return firstInnerString;
+        }
+
+    }
+
+    @FCParameter()
+    private List<FirstInnerClass> baseFirstInnerClassList;
+
+    @FCParameter()
+    private FirstInnerClass baseFirstInnerClass;
+
+    @FCParameter()
+    private FirstInnerClass.SecondInnerClass baseSecondInnerClass;
+
+    public ComplexTypeSerializable() {
+
+    }
+
+    public ComplexTypeSerializable(List<FirstInnerClass> baseFirstInnerClassList, FirstInnerClass baseFirstInnerClass, FirstInnerClass.SecondInnerClass baseSecondInnerClass) {
+        this.baseFirstInnerClassList = baseFirstInnerClassList;
+        this.baseFirstInnerClass = baseFirstInnerClass;
+        this.baseSecondInnerClass = baseSecondInnerClass;
+    }
+
+    public List<FirstInnerClass> getBaseFirstInnerClassList() {
+        return baseFirstInnerClassList;
+    }
+
+    public FirstInnerClass getBaseFirstInnerClass() {
+        return baseFirstInnerClass;
+    }
+
+    public FirstInnerClass.SecondInnerClass getBaseSecondInnerClass() {
+        return baseSecondInnerClass;
+    }
+
+}
+
+
+MultiTypeSerializable.java
+package oaigptconnector.serializer.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
+
+import java.util.List;
+
+@FunctionCall(name = "Multi_Type_Serializable", functionDescription = "multi type serializable function description")
+public class MultiTypeSerializable {
+
+    public class InnerClassSerializable {
+
+        @FCParameter(description = "Inner String type variable")
+        private String innerString;
+
+        @FCParameter(description = "Inner Boolean type variable")
+        private Boolean innerBooleanType;
+
+        @FCParameter(description = "Inner boolean type variable")
+        private boolean innerBooleanPrimitiveType;
+
+        @FCParameter(description = "Inner Integer type variable")
+        private Integer innerInteger;
+
+        @FCParameter(description = "Inner int type variable")
+        private int innerInt;
+
+        @FCParameter(description = "Inner List type variable")
+        private List<String> stringListType;
+
+        public InnerClassSerializable() {
+
+        }
+
+        public InnerClassSerializable(String innerString, Boolean innerBooleanType, boolean innerBooleanPrimitiveType, Integer innerInteger, int innerInt, List<String> stringListType) {
+            this.innerString = innerString;
+            this.innerBooleanType = innerBooleanType;
+            this.innerBooleanPrimitiveType = innerBooleanPrimitiveType;
+            this.innerInteger = innerInteger;
+            this.innerInt = innerInt;
+            this.stringListType = stringListType;
+        }
+
+        public String getInnerString() {
+            return innerString;
+        }
+
+        public Boolean getInnerBooleanType() {
+            return innerBooleanType;
+        }
+
+        public boolean isInnerBooleanPrimitiveType() {
+            return innerBooleanPrimitiveType;
+        }
+
+        public Integer getInnerInteger() {
+            return innerInteger;
+        }
+
+        public int getInnerInt() {
+            return innerInt;
+        }
+
+        public List<String> getStringListType() {
+            return stringListType;
+        }
+
+    }
+
+    @FCParameter(description = "String type variable")
+    private String stringType;
+
+    @FCParameter(description = "Boolean type variable")
+    private Boolean booleanType;
+
+    @FCParameter(description = "boolean type variable")
+    private boolean booleanPrimitiveType;
+
+    @FCParameter(description = "Integer type variable")
+    private Integer integerType;
+
+    @FCParameter(description = "int type variable")
+    private int intType;
+
+    @FCParameter(description = "String list type variable")
+    private List<String> stringListType;
+
+    @FCParameter(description = "Integer list type variable")
+    private List<Integer> integerListType;
+
+    @FCParameter(description = "Sub-object type variable")
+    private InnerClassSerializable subObjectType;
+
+    public MultiTypeSerializable() {
+
+    }
+
+    public MultiTypeSerializable(String stringType, Boolean booleanType, boolean booleanPrimitiveType, Integer integerType, int intType, List<String> stringListType, List<Integer> integerListType, InnerClassSerializable subObjectType) {
+        this.stringType = stringType;
+        this.booleanType = booleanType;
+        this.booleanPrimitiveType = booleanPrimitiveType;
+        this.integerType = integerType;
+        this.intType = intType;
+        this.stringListType = stringListType;
+        this.integerListType = integerListType;
+        this.subObjectType = subObjectType;
+    }
+
+    public String getStringType() {
+        return stringType;
+    }
+
+    public Boolean getBooleanType() {
+        return booleanType;
+    }
+
+    public boolean isBooleanPrimitiveType() {
+        return booleanPrimitiveType;
+    }
+
+    public Integer getIntegerType() {
+        return integerType;
+    }
+
+    public int getIntType() {
+        return intType;
+    }
+
+    public List<String> getStringListType() {
+        return stringListType;
+    }
+
+    public List<Integer> getIntegerListType() {
+        return integerListType;
+    }
+
+    public InnerClassSerializable getSubObjectType() {
+        return subObjectType;
+    }
+
+}
+
+
+NonAnnotatedNonSerializableTypesWithAnnotatedAndNonAnnotatedSerializableParameter.java
+package oaigptconnector.serializer.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
+
+@FunctionCall(name = "Non_Annotated_Non_Serializable_Types_With_Annotated_And_Non_Annotated_Serializable_Parameter")
+public class NonAnnotatedNonSerializableTypesWithAnnotatedAndNonAnnotatedSerializableParameter {
+
+    @FCParameter()
+    private String serializableString;
+
+    private String nonSerializedString;
+
+    private Object nonSerializedObject;
+
+    public NonAnnotatedNonSerializableTypesWithAnnotatedAndNonAnnotatedSerializableParameter() {
+
+    }
+
+    public NonAnnotatedNonSerializableTypesWithAnnotatedAndNonAnnotatedSerializableParameter(String serializableString, String nonSerializedString, Object nonSerializedObject) {
+        this.serializableString = serializableString;
+        this.nonSerializedString = nonSerializedString;
+        this.nonSerializedObject = nonSerializedObject;
+    }
+
+    public String getSerializableString() {
+        return serializableString;
+    }
+
+    public String getNonSerializedString() {
+        return nonSerializedString;
+    }
+
+    public Object getNonSerializedObject() {
+        return nonSerializedObject;
+    }
+
+}
+
+
+FCSerializerTests.java
+package oaigptconnector.serializer;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oaigptconnector.model.JSONSchemaSerializer;
+import com.oaigptconnector.model.OAISerializerException;
+import com.oaigptconnector.model.fcobjects.ifcbase.FCBase;
+import oaigptconnector.serializer.testobjects.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
+public class FCSerializerTests {
+
+    @Test
+    @DisplayName("Serialize Basic Object")
+    void testSerializeBasicObject() {
+        try {
+            FCBase base = OAIFunctionCallSerializer.objectify(SimpleStringSerializable.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(base));
+        } catch (OAISerializerException e) {
+            throw new RuntimeException(e);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Serialize Multi Type Object")
+    void testSerializeMultiTypeObject() {
+        try {
+            FCBase base = OAIFunctionCallSerializer.objectify(MultiTypeSerializable.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(base));
+        } catch (OAISerializerException e) {
+            throw new RuntimeException(e);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Serialize Complex Type Object")
+    void testSerializeComplexTypeObject() {
+        try {
+            FCBase base = OAIFunctionCallSerializer.objectify(ComplexTypeSerializable.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(base));
+        } catch (OAISerializerException e) {
+            throw new RuntimeException(e);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Serialize Missing Function Call Annotation Object")
+    void testSerializeMissingFunctionCallAnnotationObject() {
+        try {
+            FCBase base = OAIFunctionCallSerializer.objectify(MissingFunctionCallAnnotation.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(base));
+        } catch (OAISerializerException e) {
+            System.out.println("Expected output");
+            e.printStackTrace();
+
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Serialize Missing FCParameter Object")
+    void testSerializeMissingFCParameterObject() {
+        try {
+            FCBase base = OAIFunctionCallSerializer.objectify(MissingFCParameterAnnotation.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(base));
+        } catch (OAISerializerException e) {
+            System.out.println("Expected output");
+            e.printStackTrace();
+
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Serialize Non Serializable Parameter Object")
+    void testSerializeNonSerializableParameterObject() {
+        try {
+            FCBase base = OAIFunctionCallSerializer.objectify(NonSerializableParameter.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(base));
+        } catch (OAISerializerException e) {
+            System.out.println("Expected output");
+            e.printStackTrace();
+
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Serialize Non Serializable Parameter With Serializable Parameter Object")
+    void testSerializeNonSerializableParameterWithSerializableParameterObject() {
+        try {
+            FCBase base = OAIFunctionCallSerializer.objectify(NonSerializableParameterWithSerializableParameterObject.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(base));
+        } catch (OAISerializerException e) {
+            System.out.println("Expected output");
+            e.printStackTrace();
+
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Serialize Non Annotated Non Serializable Types With Annotated and Non Annotated Serializable Parameter Object")
+    void testSerializeNonAnnotatedNonSerializableTypesWithAnnotatedAndNonAnnotatedSerializableParameterObject() {
+        try {
+            FCBase base = OAIFunctionCallSerializer.objectify(NonAnnotatedNonSerializableTypesWithAnnotatedAndNonAnnotatedSerializableParameter.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(base));
+        } catch (OAISerializerException e) {
+            throw new RuntimeException(e);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}
+
+
+fcclient
+
+
+FCClientTests.java
+package oaigptconnector.fcclient;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oaigptconnector.model.*;
+import com.oaigptconnector.model.exception.OpenAIGPTException;
+import com.oaigptconnector.model.request.chat.completion.*;
+import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
+import keys.Keys;
+import oaigptconnector.TestConstants;
+import oaigptconnector.fcclient.testobjects.ComplexFunctionCall;
+import oaigptconnector.fcclient.testobjects.ComplexFunctionCallRoute;
+import oaigptconnector.fcclient.testobjects.SimpleFunctionCall;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.net.http.HttpClient;
+import java.time.Duration;
+
+public class FCClientTests {
+
+    @Test
+    @DisplayName("Test Simple Function Call Completion")
+    void testSimpleFunctionCallCompletion() {
+        // Create system message
+        OAIChatCompletionRequestMessage systemMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.SYSTEM)
+                .addText("You are a function call tester.")
+                .build();
+
+        // Create user message
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Fill the function with test values.")
+                .build();
+
+        // Get function call class
+        Class fcClass = SimpleFunctionCall.class;
+
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(com.oaigptconnector.Constants.AI_TIMEOUT_MINUTES)).build();
+
+        // Get response from FCClient
+        try {
+            OAIGPTChatCompletionResponse response = FCClient.serializedChatCompletion(
+                    fcClass,
+                    TestConstants.gpt4ModelName,
+                    800,
+                    1,
+                    new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                    Keys.openAiAPI,
+                    httpClient,
+                    systemMessage,
+                    userMessage
+            );
+
+            // Deserialize to the function call class :)
+            SimpleFunctionCall sfc = OAIFunctionCallDeserializer.deserialize(response.getChoices()[0].getMessage().getTool_calls().get(0).getFunction().getArguments(), SimpleFunctionCall.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(sfc));
+        } catch (OAISerializerException e) {
+            throw new RuntimeException(e);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (OpenAIGPTException e) {
+            throw new RuntimeException(e);
+        } catch (OAIDeserializerException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @DisplayName("Test Complex Function Call Completion")
+    void testComplexFunctionCallCompletion() {
+        // Create system message
+        OAIChatCompletionRequestMessage systemMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.SYSTEM)
+                .addText("You are a function call tester.")
+                .build();
+
+        // Create user message
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Fill the function with test values.")
+                .build();
+
+        // Get function call class and create messages
+        Class fcClass = ComplexFunctionCall.class;
+
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(com.oaigptconnector.Constants.AI_TIMEOUT_MINUTES)).build();
+
+        // Get the response from FCClient
+        try {
+            OAIGPTChatCompletionResponse response = FCClient.serializedChatCompletion(
+                    fcClass,
+                    TestConstants.gpt4ModelName,
+                    800,
+                    1,
+                    new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                    Keys.openAiAPI,
+                    httpClient,
+                    systemMessage,
+                    userMessage
+            );
+
+            // Deserialize to the function call class :)
+            ComplexFunctionCall cfc = OAIFunctionCallDeserializer.deserialize(response.getChoices()[0].getMessage().getTool_calls().get(0).getFunction().getArguments(), ComplexFunctionCall.class);
+
+            // Ensure first subroute is instanceof ComplexFunctionCallRoute
+            assert(cfc.getSubroutes().get(0) instanceof ComplexFunctionCallRoute);
+
+            System.out.println(new ObjectMapper().writeValueAsString(cfc));
+        } catch (OAISerializerException e) {
+            throw new RuntimeException(e);
+        } catch (OpenAIGPTException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (OAIDeserializerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}
+
+
+testobjects
+
+
+SimpleFunctionCall.java
+package oaigptconnector.fcclient.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
+
+import java.util.List;
+
+@FunctionCall(name = "bus_schedule", functionDescription = "Generates a bus schedule for a town bus route")
+public class SimpleFunctionCall {
+
+    @FCParameter(name = "route_name", description = "The name of the route")
+    private String routeName;
+
+    @FCParameter(name = "length_in_miles", description = "The length of the route in miles")
+    private Integer routeLength;
+
+    @FCParameter(description = "List of arrivals for the current day")
+    private List<String> arrivals;
+
+    public SimpleFunctionCall() {
+
+    }
+
+    public SimpleFunctionCall(String routeName, Integer routeLength, List<String> arrivals) {
+        this.routeName = routeName;
+        this.routeLength = routeLength;
+        this.arrivals = arrivals;
+    }
+
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public Integer getRouteLength() {
+        return routeLength;
+    }
+
+    public List<String> getArrivals() {
+        return arrivals;
+    }
+
+}
+
+
+ComplexFunctionCall.java
+package oaigptconnector.fcclient.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+import com.oaigptconnector.model.JSONSchema;
+
+import java.util.List;
+
+@FunctionCall(name = "train_schedule", functionDescription = "Generates a train schedule for multiple town train routes")
+public class ComplexFunctionCall {
+
+    @FCParameter(name = "city_name", description = "The name of the city the train is in")
+    private String cityName;
+
+    @FCParameter(description = "The sub routes the train will take")
+    private List<ComplexFunctionCallRoute> subroutes;
+
+    @FCParameter(name = "main_route", description = "The main route the train will take")
+    private ComplexFunctionCallRoute mainRoute;
+
+    @FCParameter(name = "all_train_numbers", description = "List of all train numbers")
+    private List<Integer> allTrainNumbers;
+
+//    @FCParameter()
+
+    public ComplexFunctionCall() {
+
+    }
+
+    public ComplexFunctionCall(String cityName, List<ComplexFunctionCallRoute> subroutes, ComplexFunctionCallRoute mainRoute, List<Integer> allTrainNumbers) {
+        this.cityName = cityName;
+        this.subroutes = subroutes;
+        this.mainRoute = mainRoute;
+        this.allTrainNumbers = allTrainNumbers;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public List<ComplexFunctionCallRoute> getSubroutes() {
+        return subroutes;
+    }
+
+    public ComplexFunctionCallRoute getMainRoute() {
+        return mainRoute;
+    }
+
+    public List<Integer> getAllTrainNumbers() {
+        return allTrainNumbers;
+    }
+
+}
+
+
+ComplexFunctionCallRoute.java
+package oaigptconnector.fcclient.testobjects;
+
+import com.oaigptconnector.model.JSONSchemaParameter;
+
+import java.util.List;
+
+public class ComplexFunctionCallRoute {
+
+    @FCParameter(name = "route_name", description = "The name of the route")
+    private String routeName;
+
+    @FCParameter(name = "length_in_miles", description = "The length of the route in miles")
+    private Integer routeLength;
+
+    @FCParameter(description = "List of arrivals for the current day")
+    private List<String> arrivals;
+
+    public ComplexFunctionCallRoute() {
+
+    }
+
+    public ComplexFunctionCallRoute(String routeName, Integer routeLength, List<String> arrivals) {
+        this.routeName = routeName;
+        this.routeLength = routeLength;
+        this.arrivals = arrivals;
+    }
+
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public Integer getRouteLength() {
+        return routeLength;
+    }
+
+    public List<String> getArrivals() {
+        return arrivals;
+    }
+
+}
+
+TestConstants.java
+package oaigptconnector;
+
+public class TestConstants {
+
+    public static String gpt4ModelName = "gpt-4";
+    public static String gpt3TurboModelName = "gpt-3-turbo";
+
+}
+
+
+Tests.java
+package oaigptconnector;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oaigptconnector.Constants;
+import com.oaigptconnector.model.*;
+import com.oaigptconnector.model.fcobjects.ifcbase.FCBase;
+import com.oaigptconnector.model.request.chat.completion.*;
+import com.oaigptconnector.model.request.chat.completion.content.InputImageDetail;
+import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
+import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentText;
+import keys.Keys;
+import com.oaigptconnector.model.generation.OpenAIGPTModels;
+import com.oaigptconnector.model.exception.OpenAIGPTException;
+import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.Duration;
+import java.util.Base64;
+import java.util.List;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+public class Tests {
+
+    static HttpClient client;
+
+    @BeforeAll
+    static void setUp() {
+        client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+    }
+
+    @Test
+    @DisplayName("Post Chat Completion Testing")
+    void testPostCompletion() throws IOException, InterruptedException, OpenAIGPTException {
+        // Create text content
+        List<OAIChatCompletionRequestMessageContent> content = List.of( new OAIChatCompletionRequestMessageContentText("Write a short joke about cats") );
+
+        // Create chat request message object
+        OAIChatCompletionRequestMessage completionMessage = new OAIChatCompletionRequestMessage(CompletionRole.USER, content);
+
+        // Create chat request object
+        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(
+                OpenAIGPTModels.GPT_3_5_TURBO.getName(),
+                400,
+                0.7,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                List.of(completionMessage));
+
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
+        // Get response
+        Object response = OAIClient.postChatCompletion(completionRequest, Keys.openAiAPI, httpClient, false);
+
+        System.out.println(response);
+
+        // Ensure response is OAIGPTChatCompletionResponse
+        assert(response instanceof OAIGPTChatCompletionResponse);
+
+        OAIGPTChatCompletionResponse completionResponse = (OAIGPTChatCompletionResponse)response;
+
+        // Ensure there is at least one choice
+        assert(completionResponse.getChoices().length > 0);
+
+        // Print response
+        System.out.println(completionResponse.getChoices()[0]);
+    }
+
+    @Test
+    @DisplayName("Stream Chat Completion Testing")
+    void testStreamCompletion() throws IOException, InterruptedException {
+        // Create chat request message object
+        OAIChatCompletionRequestMessage completionMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Write me a short joke about cats")
+                .build();
+
+        // Create chat request object
+        OAIChatCompletionRequest completionRequest = OAIChatCompletionRequest.build(
+                OpenAIGPTModels.GPT_3_5_TURBO.getName(),
+                400,
+                0.7,
+                true,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                new OAIChatCompletionRequestStreamOptions(true),
+                List.of(completionMessage));
+
+        System.out.println(new ObjectMapper().writeValueAsString(completionRequest));
+
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
+        // Get response stream
+        Stream<String> stream = OAIClient.postChatCompletionStream(completionRequest, Keys.openAiAPI, httpClient);
+
+        // Ensure stream is not null
+        assert(stream != null);
+
+        // Print each received object to console
+        stream.forEach(s -> System.out.println(s));
+    }
+
+    @Test
+    @DisplayName("Test OAIFunctionCallSerializer")
+    void testOAIFunctionCallSerializer() {
+        @FunctionCall(name = "test_function")
+        class SerializeTest {
+
+            class InnerClassTest {
+
+                @FCParameter
+                String innerParameterFirst;
+
+            }
+
+            @FCParameter
+            String firstParameter;
+
+            @FCParameter(name = "SecondParameter!", description = "asdfasdf")
+            String secondParameter;
+
+            @FCParameter
+            InnerClassTest thirdParameter;
+
+        }
+
+        // Get map from SerializeTest class using OAIFunctionCallSerializer
+        try {
+            FCBase map = OAIFunctionCallSerializer.objectify(SerializeTest.class);
+
+            System.out.println(new ObjectMapper().writeValueAsString(map));
+        } catch (OAISerializerException e) {
+            throw new RuntimeException(e);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonGenerationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    @Test
+    @DisplayName("Test Image Completion")
+    void testImageCompletion() throws IOException, InterruptedException {
+        // Get image data base64 encoded string
+        URL imageURL = getClass().getResource("/testImage.png");
+
+        assertNotNull(imageURL);
+
+        Path resourcePath = Path.of(imageURL.getPath());
+        String imageDataBase64EncodedString;
+        try {
+            byte imageData[] = Files.readAllBytes(resourcePath);
+            imageDataBase64EncodedString = Base64.getEncoder().encodeToString(imageData);
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Create user message with text and image
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Describe the image")
+                .addImage(imageDataBase64EncodedString, InputImageDetail.AUTO)
+                .build();
+
+        // Create request
+        OAIChatCompletionRequest request = OAIChatCompletionRequest.build(
+                OpenAIGPTModels.GPT_4_VISION.getName(),
+                800,
+                1,
+                true,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                new OAIChatCompletionRequestStreamOptions(true),
+                userMessage);
+
+
+        System.out.println(new ObjectMapper().writeValueAsString(request));
+
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
+        // Get response stream
+        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI, httpClient);
+
+        assertNotNull(stream);
+
+        stream.forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("Test Image URL Completion")
+    void testImageURLCompletion() throws IOException, InterruptedException {
+        // Create user message with text and image
+        OAIChatCompletionRequestMessage userMessage = new OAIChatCompletionRequestMessageBuilder(CompletionRole.USER)
+                .addText("Can you write out the text in the image for me?")
+                .addImageURL("https://images.squarespace-cdn.com/content/v1/57b71e086a49637a9109a3f9/1519796241690-Z9YNU20RXTK83JA4WQPH/A+Wrinkle+In+Time+First+Page.JPG", InputImageDetail.AUTO)
+                .build();
+
+        // Create request
+        OAIChatCompletionRequest request = OAIChatCompletionRequest.build(
+                OpenAIGPTModels.GPT_4_VISION.getName(),
+                800,
+                1,
+                true,
+                new OAIChatCompletionRequestResponseFormat(ResponseFormatType.TEXT),
+                new OAIChatCompletionRequestStreamOptions(true),
+                userMessage);
+
+
+        System.out.println(new ObjectMapper().writeValueAsString(request));
+
+        // Create HttpClient
+        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
+        // Get response stream
+        Stream<String> stream = OAIClient.postChatCompletionStream(request, Keys.openAiAPI, httpClient);
+
+        assertNotNull(stream);
+
+        stream.forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("Test deserializing OAIChatCompletionRequest")
+    void testDeserializingOAIChatCompletionRequest() throws IOException {
+        String testString = "{\"model\":\"gpt-4o\",\"stream\":true,\"messages\":[{\"role\":\"system\",\"content\":[{\"type\":\"text\",\"text\":\"You are an AI coding helper service in an IDE so you must format all your responses in tex code that would be valid in an IDE.\"}]},{\"role\":\"user\",\"content\":[{\"text\":\"You are an AI coding helper in an IDE so all responses must be in tex code that would be valid in an IDE.\nHere are other files from my project to reference\",\"type\":\"text\"}]},{\"role\":\"user\",\"content\":[{\"text\":\"You are an AI coding helper in an IDE so all responses must be in tex code that would be valid in an IDE.\nComment the following code.\nasdfasdfasdf\",\"type\":\"text\"}]}]}";
+
+        OAIChatCompletionRequest oaiChatCompletionRequest = new ObjectMapper().readValue(testString, OAIChatCompletionRequest.class);
+
+        String outputString = new ObjectMapper().writeValueAsString(oaiChatCompletionRequest);
+
+        System.out.println(outputString);
+    }
+
+    @Test
+    @DisplayName("Misc Modifyable")
+    void misc() {
+//        System.out.println("Here it is: " + Table.USER_AUTHTOKEN);
+    }
+}
+
+
+main
+
+
+resources
+
+
+java
+
+
+com
+
+
+oaigptconnector
+
+
+core
+
+
+OpenAIGPTHttpsHandler.java
+//package com.oaigptconnector.core;
+//
+//import com.fasterxml.jackson.databind.JsonMappingException;
+//import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.oaigptconnector.model.OAIClient;
+//import com.oaigptconnector.model.exception.OpenAIGPTException;
+//import com.oaigptconnector.model.request.chat.completion.OAIGPTChatCompletionRequest;
+//import com.oaigptconnector.model.response.error.OpenAIGPTErrorResponse;
+//import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
+//import com.oaigptconnector.Constants;
+//import httpson.Httpson;
+//
+//import java.io.IOException;
+//import java.net.http.HttpRequest;
+//import java.util.function.Consumer;
+//import java.util.stream.Stream;
+//
+//public class OpenAIGPTHttpsHandler extends Httpson {
+//
+//    public static OAIGPTChatCompletionResponse postChatCompletion(OAIGPTChatCompletionRequest requestObject, String apiKey) throws OpenAIGPTException, IOException, InterruptedException {
+//        Consumer<HttpRequest.Builder> c = requestBuilder -> {
+//            requestBuilder.setHeader("Authorization", "Bearer " + apiKey);
+//        };
+//
+//        JsonNode response = sendPOST(requestObject, OAIClient.getClient(), Constants.OPENAI_URI, c);
+//
+//        try {
+//            return new ObjectMapper().treeToValue(response, OAIGPTChatCompletionResponse.class);
+//        } catch (JsonMappingException e) {
+//            System.out.println("Issue Mapping OpenAIGPTErrorResponseJSON: " + response.asText());
+//            throw new OpenAIGPTException(new ObjectMapper().treeToValue(response, OpenAIGPTErrorResponse.class));
+//        }
+//    }
+//
+//    public static Stream<String> postChatCompletionStream(OAIGPTChatCompletionRequest requestObject, String apiKey) throws IOException, InterruptedException {
+//        // TODO: Make this better
+//        Consumer<HttpRequest.Builder> c = requestBuilder -> {
+//            requestBuilder.setHeader("Authorization", "Bearer " + apiKey);
+//        };
+//
+//        Stream<String> stream = sendPOSTStream(requestObject, OAIClient.getClient(), Constants.OPENAI_URI, c);
+//        return stream;
+//    }
+//
+//}
+
+
+model
+
+
+OAISerializerException.java
+package com.oaigptconnector.model;
+
+public class OAISerializerException extends Exception {
+
+    public OAISerializerException(String message) {
+        super(message);
+    }
+
+    public OAISerializerException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public OAISerializerException(Throwable cause) {
+        super(cause);
+    }
+
+}
+
+
+OAIFunctionCallDeserializer.java
+package com.oaigptconnector.model;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+public class OAIFunctionCallDeserializer {
+
+    public static <T> T deserialize(String jsonString, Class<T> fcClass) throws OAIDeserializerException {
+        try {
+            return deserialize(new ObjectMapper().readValue(jsonString, Map.class), fcClass);
+        } catch (IOException e) {
+            throw new OAIDeserializerException("Cannot convert provided jsonString to JsonNode!", e);
+        }
+    }
+
+    public static <T> T deserialize(Map<?, ?> json, Class<T> fcClass) throws OAIDeserializerException {
+        // Instantiate fcObject from fcClass
+        T fcObject = null;
+        try {
+            fcObject = fcClass.getDeclaredConstructor().newInstance();
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new OAIDeserializerException("Error creating new instance of target class " + fcClass, e);
+        }
+
+        // Loop through fcObject fields using annotation name value if provided and field name as keys for the json, setting with values from the json
+        for (Field field: fcObject.getClass().getDeclaredFields()) {
+            // Ensure FCParameter annotation is present, otherwise continue
+            if (!field.isAnnotationPresent(FCParameter.class))
+                continue;
+
+            // Set field to be accessible
+            field.setAccessible(true);
+
+            // If FCParameter annotation name is not blank, and it will never be null, and if the json value for the key is not null, set field value to json value and continue, catching unchecked IllegalArgumentException (to avoid runtime exception  and checked IllegalAccessException and throwing OAIDeserializerException
+            String fcParameterAnnotationName = field.getAnnotation(FCParameter.class).name();
+            if (!fcParameterAnnotationName.isBlank()) {
+                Object jsonValue = json.get(fcParameterAnnotationName);
+                if (jsonValue != null) {
+                    setField(field, fcObject, jsonValue);
+
+                    continue;
+                }
+            }
+
+            // Using the field name as the json key, if the value for that key is not null, set field value to json value and continue
+            String fieldName = field.getName();
+            Object jsonValue = json.get(fieldName);
+            if (jsonValue != null) {
+                setField(field, fcObject, jsonValue);
+
+                continue;
+            }
+        }
+
+        return fcObject;
+    }
+
+    private static void setField(Field field, Object object, Object value) throws OAIDeserializerException {
+        // Set field to be accessible
+        field.setAccessible(true);
+
+        try {
+            try {
+                // Custom Object List HANDLING - If field and value are List and field List parameter is not LinkedHashMap but value List parameter is LinkedHashMap, create a List, loop through value List objects deserializing each with the field List parameter as the class
+                if ((field.getType() == List.class && value instanceof List)) {
+                    // Due to Java type erasure, the parameterized type of value as a List is not available at runtime, so the type of the first object needs to be used instead
+                    List valueAsList = (List)value;
+                    if (valueAsList.size() > 0) {
+                        // Get value type from first element in list
+                        Class<?> valueType = valueAsList.get(0).getClass();
+
+                        if (TypeAdapter.getFirstParameterType(field.getGenericType()) != LinkedHashMap.class && valueType == LinkedHashMap.class) {
+                            // Field most likely expects a list of a custom object, so create that list by deserializing each LinkedHashMap in value list
+                            List<Object> customObjectList = new ArrayList<>();
+                            List valueList = (List)value;
+                            Class<?> fieldParameterClass = TypeAdapter.getClass(TypeAdapter.getFirstParameterType(field.getGenericType()));
+
+                            // Adapt valueList to customObjectList using deserialize to the fieldParameterClass
+                            for (Object valueListValue: valueList) {
+                                customObjectList.add(deserialize((LinkedHashMap)valueListValue, fieldParameterClass));
+                            }
+
+                            // Set value to customObjectList so it will be set by field.set :)
+                            value = customObjectList;
+                        }
+                    }
+                }
+
+                // Try to set field
+                field.set(object, value);
+
+            } catch (IllegalArgumentException e) {
+                // If field.set throws IllegalArgumentException meaning an object value mismatch, check to see if the field expects an Integer and it's trying to insert a Double, and see if it can be set after casting, otherwise throw e to have it caught by the enclosing try block TODO: It seems that Double is what ObjectMapper sets decimal numbers to pretty consistently, however this should be further tested to see if there are more cases of fixable type inconsistency :)
+                if (field.getType() == Integer.class && value.getClass() == Double.class) {
+                    field.set(object, Integer.valueOf((int)((Double)value).doubleValue()));
+                } else if (value.getClass() == LinkedHashMap.class) {
+                    field.set(object, deserialize((LinkedHashMap)value, field.getType()));
+                } else {
+                    throw e;
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            throw new OAIDeserializerException("Type mismatch for field " + field + " and json value " + value + (value != null ? " of type " + value.getClass() : "") + "!", e);
+        } catch (IllegalAccessException e) {
+            throw new OAIDeserializerException("Illegal access for field... this should never happen!", e);
+        }
+    }
+
+}
+
+
+response
+
+
+ResponseException.java
+package com.oaigptconnector.model.response;
+
+public abstract class ResponseException extends Exception {
+    private Object errorObject;
+
+    public ResponseException(Object errorObject) {
+        this.errorObject = errorObject;
+    }
+
+    public ResponseException(String message, Object errorObject) {
+        super(message);
+        this.errorObject = errorObject;
+    }
+
+    public ResponseException(String message, Throwable cause, Object errorObject) {
+        super(message, cause);
+        this.errorObject = errorObject;
+    }
+
+    public ResponseException(Throwable cause, Object errorObject) {
+        super(cause);
+        this.errorObject = errorObject;
+    }
+
+    public Object getErrorObject() {
+        return errorObject;
+    }
+
+    public void setErrorObject(Object errorObject) {
+        this.errorObject = errorObject;
+    }
+
+}
+
+
+chat
+
+
+completion
+
+
+stream
+
+
+OpenAIGPTPromptUsageResponse.java
+package com.oaigptconnector.model.response.chat.completion.stream;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OpenAIGPTPromptUsageResponse {
+    private Integer prompt_tokens, completion_tokens, total_tokens;
+
+    public OpenAIGPTPromptUsageResponse() {
+
+    }
+    public OpenAIGPTPromptUsageResponse(Integer prompt_tokens, Integer completion_tokens, Integer total_tokens) {
+        this.prompt_tokens = prompt_tokens;
+        this.completion_tokens = completion_tokens;
+        this.total_tokens = total_tokens;
+    }
+
+    public Integer getPrompt_tokens() {
+        return prompt_tokens;
+    }
+
+    public Integer getCompletion_tokens() {
+        return completion_tokens;
+    }
+
+    public Integer getTotal_tokens() {
+        return total_tokens;
+    }
+
+    public void setPrompt_tokens(Integer prompt_tokens) {
+        this.prompt_tokens = prompt_tokens;
+    }
+
+    public void setCompletion_tokens(Integer completion_tokens) {
+        this.completion_tokens = completion_tokens;
+    }
+
+    public void setTotal_tokens(Integer total_tokens) {
+        this.total_tokens = total_tokens;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OpenAIGPTPromptUsageResponse{" +
+                "prompt_tokens=" + prompt_tokens +
+                ", completion_tokens=" + completion_tokens +
+                ", total_tokens=" + total_tokens +
+                '}';
+    }
+
+}
+
+
+OpenAIGPTPromptChoiceDeltaStreamResponse.java
+package com.oaigptconnector.model.response.chat.completion.stream;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OpenAIGPTPromptChoiceDeltaStreamResponse {
+    private String role, content;
+
+    public OpenAIGPTPromptChoiceDeltaStreamResponse() {
+
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OpenAIGPTPromptChoiceDeltaStreamResponse{" +
+                "role='" + role + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
+
+}
+
+
+OpenAIGPTChatCompletionStreamResponse.java
+package com.oaigptconnector.model.response.chat.completion.stream;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Arrays;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OpenAIGPTChatCompletionStreamResponse {
+    private String id, object, model;
+    private Long created;
+    private OpenAIGPTPromptUsageResponse usage;
+    private OpenAIGPTPromptChoicesStreamResponse[] choices;
+
+    public OpenAIGPTChatCompletionStreamResponse() {
+
+    }
+
+    public OpenAIGPTChatCompletionStreamResponse(String id, String object, String model, Long created, OpenAIGPTPromptUsageResponse usage, OpenAIGPTPromptChoicesStreamResponse[] choices) {
+        this.id = id;
+        this.object = object;
+        this.model = model;
+        this.created = created;
+        this.usage = usage;
+        this.choices = choices;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
+    }
+
+    public OpenAIGPTPromptUsageResponse getUsage() {
+        return usage;
+    }
+
+    public void setUsage(OpenAIGPTPromptUsageResponse usage) {
+        this.usage = usage;
+    }
+
+    public OpenAIGPTPromptChoicesStreamResponse[] getChoices() {
+        return choices;
+    }
+
+    public void setChoices(OpenAIGPTPromptChoicesStreamResponse[] choices) {
+        this.choices = choices;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OpenAIGPTChatCompletionStreamResponse{" +
+                "id='" + id + '\'' +
+                ", object='" + object + '\'' +
+                ", model='" + model + '\'' +
+                ", created=" + created +
+                ", usage=" + usage +
+                ", choices=" + Arrays.toString(choices) +
+                '}';
+    }
+
+}
+
+
+OpenAIGPTPromptChoicesStreamResponse.java
+package com.oaigptconnector.model.response.chat.completion.stream;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OpenAIGPTPromptChoicesStreamResponse {
+    private String finish_reason;
+    private Integer index;
+    private OpenAIGPTPromptChoiceDeltaStreamResponse delta;
+
+    public OpenAIGPTPromptChoicesStreamResponse() {
+
+    }
+    public OpenAIGPTPromptChoicesStreamResponse(String finish_reason, Integer index, OpenAIGPTPromptChoiceDeltaStreamResponse elta) {
+        this.finish_reason = finish_reason;
+        this.index = index;
+        this.delta = delta;
+    }
+
+    public String getFinish_reason() {
+        return finish_reason;
+    }
+
+    public void setFinish_reason(String finish_reason) {
+        this.finish_reason = finish_reason;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public OpenAIGPTPromptChoiceDeltaStreamResponse getDelta() {
+        return delta;
+    }
+
+    public void setDelta(OpenAIGPTPromptChoiceDeltaStreamResponse delta) {
+        this.delta = delta;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OpenAIGPTPromptChoicesStreamResponse{" +
+                "finish_reason='" + finish_reason + '\'' +
+                ", index=" + index +
+                ", delta=" + delta +
+                '}';
+    }
+
+}
+
+
+http
+
+
+OAIGPTChatCompletionResponseChoice.java
+package com.oaigptconnector.model.response.chat.completion.http;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OAIGPTChatCompletionResponseChoice {
+    private String finish_reason;
+    private Integer index;
+    private OAIGPTChatCompletionResponseChoiceMessage message;
+
+    public OAIGPTChatCompletionResponseChoice() {
+
+    }
+    public OAIGPTChatCompletionResponseChoice(String finish_reason, Integer index, OAIGPTChatCompletionResponseChoiceMessage message) {
+        this.finish_reason = finish_reason;
+        this.index = index;
+        this.message = message;
+    }
+
+    public String getFinish_reason() {
+        return finish_reason;
+    }
+
+    public void setFinish_reason(String finish_reason) {
+        this.finish_reason = finish_reason;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public OAIGPTChatCompletionResponseChoiceMessage getMessage() {
+        return message;
+    }
+
+    public void setMessage(OAIGPTChatCompletionResponseChoiceMessage message) {
+        this.message = message;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OAIGPTChatCompletionResponseChoice{" +
+                "finish_reason='" + finish_reason + '\'' +
+                ", index=" + index +
+                ", message=" + message +
+                '}';
+    }
+
+}
+
+
+OAIGPTChatCompletionResponseUsage.java
+package com.oaigptconnector.model.response.chat.completion.http;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OAIGPTChatCompletionResponseUsage {
+    private Integer prompt_tokens, completion_tokens, total_tokens;
+
+    public OAIGPTChatCompletionResponseUsage() {
+
+    }
+    public OAIGPTChatCompletionResponseUsage(Integer prompt_tokens, Integer completion_tokens, Integer total_tokens) {
+        this.prompt_tokens = prompt_tokens;
+        this.completion_tokens = completion_tokens;
+        this.total_tokens = total_tokens;
+    }
+
+    public Integer getPrompt_tokens() {
+        return prompt_tokens;
+    }
+
+    public Integer getCompletion_tokens() {
+        return completion_tokens;
+    }
+
+    public Integer getTotal_tokens() {
+        return total_tokens;
+    }
+
+    public void setPrompt_tokens(Integer prompt_tokens) {
+        this.prompt_tokens = prompt_tokens;
+    }
+
+    public void setCompletion_tokens(Integer completion_tokens) {
+        this.completion_tokens = completion_tokens;
+    }
+
+    public void setTotal_tokens(Integer total_tokens) {
+        this.total_tokens = total_tokens;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OAIGPTChatCompletionResponseUsage{" +
+                "prompt_tokens=" + prompt_tokens +
+                ", completion_tokens=" + completion_tokens +
+                ", total_tokens=" + total_tokens +
+                '}';
+    }
+
+}
+
+
+OAIGPTChatCompletionResponseChoiceMessage.java
+package com.oaigptconnector.model.response.chat.completion.http;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.oaigptconnector.model.response.chat.completion.http.toolcall.OAIGPTChatCompletionResponseChoiceMessageToolCall;
+import com.oaigptconnector.model.response.chat.completion.http.toolcall.function.OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction;
+
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OAIGPTChatCompletionResponseChoiceMessage {
+    private String role, content;
+    private List<OAIGPTChatCompletionResponseChoiceMessageToolCall> tool_calls;
+
+    public OAIGPTChatCompletionResponseChoiceMessage() {
+
+    }
+
+    public OAIGPTChatCompletionResponseChoiceMessage(String role, String content) {
+        this.role = role;
+        this.content = content;
+    }
+
+    public OAIGPTChatCompletionResponseChoiceMessage(String role, String content, List<OAIGPTChatCompletionResponseChoiceMessageToolCall> tool_calls) {
+        this.role = role;
+        this.content = content;
+        this.tool_calls = tool_calls;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public List<OAIGPTChatCompletionResponseChoiceMessageToolCall> getTool_calls() {
+        return tool_calls;
+    }
+
+    public void setTool_calls(List<OAIGPTChatCompletionResponseChoiceMessageToolCall> tool_calls) {
+        this.tool_calls = tool_calls;
+    }
+
+    @Override
+    public String toString() {
+        return "OAIGPTChatCompletionResponseChoiceMessage{" +
+                "role='" + role + '\'' +
+                ", content='" + content + '\'' +
+                ", tool_calls=" + tool_calls +
+                '}';
+    }
+
+}
+
+
+toolcall
+
+
+function
+
+
+OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction.java
+package com.oaigptconnector.model.response.chat.completion.http.toolcall.function;
+
+public class OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction {
+
+    private String name;
+    private String arguments;
+
+    public OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction() {
+
+    }
+
+    public OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction(String name, String arguments) {
+        this.name = name;
+        this.arguments = arguments;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getArguments() {
+        return arguments;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OAIGPTChatCompletionResponseChoiceMessageFunctionCall{" +
+                "name='" + name + '\'' +
+                ", arguments='" + arguments + '\'' +
+                '}';
+    }
+
+}
+
+
+OAIGPTChatCompletionResponseChoiceMessageToolCall.java
+package com.oaigptconnector.model.response.chat.completion.http.toolcall;
+
+import com.oaigptconnector.model.response.chat.completion.http.toolcall.function.OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction;
+
+public class OAIGPTChatCompletionResponseChoiceMessageToolCall {
+
+    private String id;
+    private String type;
+    private OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction function;
+
+    public OAIGPTChatCompletionResponseChoiceMessageToolCall() {
+
+    }
+
+    public OAIGPTChatCompletionResponseChoiceMessageToolCall(String id, String type, OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction function) {
+        this.id = id;
+        this.type = type;
+        this.function = function;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public OAIGPTChatCompletionResponseChoiceMessageToolChoiceFunction getFunction() {
+        return function;
+    }
+
+}
+
+
+OAIGPTChatCompletionResponse.java
+package com.oaigptconnector.model.response.chat.completion.http;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Arrays;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OAIGPTChatCompletionResponse {
+    private String id, object, model;
+    private Long created;
+    private OAIGPTChatCompletionResponseUsage usage;
+    private OAIGPTChatCompletionResponseChoice[] choices;
+
+    public OAIGPTChatCompletionResponse() {
+
+    }
+
+    public OAIGPTChatCompletionResponse(String id, String object, String model, Long created, OAIGPTChatCompletionResponseUsage usage, OAIGPTChatCompletionResponseChoice[] choices) {
+        this.id = id;
+        this.object = object;
+        this.model = model;
+        this.created = created;
+        this.usage = usage;
+        this.choices = choices;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
+    }
+
+    public OAIGPTChatCompletionResponseUsage getUsage() {
+        return usage;
+    }
+
+    public void setUsage(OAIGPTChatCompletionResponseUsage usage) {
+        this.usage = usage;
+    }
+
+    public OAIGPTChatCompletionResponseChoice[] getChoices() {
+        return choices;
+    }
+
+    public void setChoices(OAIGPTChatCompletionResponseChoice[] choices) {
+        this.choices = choices;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OAIGPTChatCompletionResponse{" +
+                "id='" + id + '\'' +
+                ", object='" + object + '\'' +
+                ", model='" + model + '\'' +
+                ", created=" + created +
+                ", usage=" + usage +
+                ", choices=" + Arrays.toString(choices) +
+                '}';
+    }
+
+}
+
+
+error
+
+
+OpenAIGPTErrorSubResponse.java
+package com.oaigptconnector.model.response.error;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OpenAIGPTErrorSubResponse {
+    private String message, type, param, code;
+
+    public OpenAIGPTErrorSubResponse() {
+
+    }
+
+    public OpenAIGPTErrorSubResponse(String message, String type, String param, String code) {
+        this.message = message;
+        this.type = type;
+        this.param = param;
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getParam() {
+        return param;
+    }
+
+    public void setParam(String param) {
+        this.param = param;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+}
+
+
+OpenAIGPTErrorResponse.java
+package com.oaigptconnector.model.response.error;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OpenAIGPTErrorResponse {
+    private OpenAIGPTErrorSubResponse error;
+
+    public OpenAIGPTErrorResponse() {
+
+    }
+
+    public OpenAIGPTErrorResponse(OpenAIGPTErrorSubResponse error) {
+        this.error = error;
+    }
+
+    public OpenAIGPTErrorSubResponse getError() {
+        return error;
+    }
+
+    public void setError(OpenAIGPTErrorSubResponse error) {
+        this.error = error;
+    }
+}
+
+
+OAIChatCompletionRequestMessageBuilder.java
+package com.oaigptconnector.model;
+
+import com.oaigptconnector.model.request.chat.completion.CompletionRole;
+import com.oaigptconnector.model.request.chat.completion.content.InputImageDetail;
+import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequestMessage;
+import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
+import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentImageURL;
+import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContentText;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class OAIChatCompletionRequestMessageBuilder {
+
+    private CompletionRole role;
+    private List<OAIChatCompletionRequestMessageContent> content;
+
+    public OAIChatCompletionRequestMessageBuilder(CompletionRole role) {
+        this.role = role;
+
+        content = new ArrayList<>();
+    }
+
+    public OAIChatCompletionRequestMessageBuilder addText(String text) {
+        // Null check
+        if (text == null) return this;
+
+        // Add text
+        content.add(new OAIChatCompletionRequestMessageContentText(text));
+
+        return this;
+    }
+
+    public OAIChatCompletionRequestMessageBuilder addImage(String base64EncodedImage, InputImageDetail detail) {
+        // Null check
+        if (base64EncodedImage == null) return this;
+
+        // Create contentImageURL child with base64EncodedImage and detail
+        OAIChatCompletionRequestMessageContentImageURL.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImageURL.ImageURL(
+                base64EncodedImage,
+                detail
+        );
+
+        // Add imageURL in image request parent
+        content.add(new OAIChatCompletionRequestMessageContentImageURL(contentImageURL));
+
+        return this;
+    }
+
+    public OAIChatCompletionRequestMessageBuilder addImageURL(String imageURL, InputImageDetail detail) {
+        // Null check
+        if (imageURL == null || detail == null) return this;
+
+        // Create contentImageURL child with imageURL and detail
+        OAIChatCompletionRequestMessageContentImageURL.ImageURL contentImageURL = new OAIChatCompletionRequestMessageContentImageURL.ImageURL(
+                imageURL,
+                detail
+        );
+        content.add(new OAIChatCompletionRequestMessageContentImageURL(contentImageURL));
+
+        return this;
+    }
+
+    public OAIChatCompletionRequestMessage build() {
+        return new OAIChatCompletionRequestMessage(role, content);
+    }
+
+}
+
+
+OAIChatCompletionRequestMessagesBuilder_Legacy.java
+//package com.oaigptconnector.model;
+//
+//import com.oaigptconnector.model.request.chat.completion.OAIChatCompletionRequestMessage;
+//import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
+//
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//public class OAIChatCompletionRequestMessagesBuilder_Legacy {
+//
+//    private List<OAIChatCompletionRequestMessage> messages;
+//
+//    public OAIChatCompletionRequestMessagesBuilder_Legacy() {
+//        messages = new ArrayList<>();
+//    }
+//
+//    public OAIChatCompletionRequestMessagesBuilder_Legacy addAssistant(List<OAIChatCompletionRequestMessageContent> content) {
+//        messages.add(new OAIChatCompletionRequestMessage(CompletionRole.ASSISTANT, content));
+//
+//        return this;
+//    }
+//
+//    public OAIChatCompletionRequestMessagesBuilder_Legacy addSystem(List<OAIChatCompletionRequestMessageContent> content) {
+//        messages.add(new OAIChatCompletionRequestMessage(CompletionRole.SYSTEM, content));
+//
+//        return this;
+//    }
+//
+//    public OAIChatCompletionRequestMessagesBuilder_Legacy addUser(List<OAIChatCompletionRequestMessageContent> content) {
+//        messages.add(new OAIChatCompletionRequestMessage(CompletionRole.USER, content));
+//
+//        return this;
+//    }
+//
+//    public List<OAIChatCompletionRequestMessage> build() {
+//        return messages;
+//    }
+//
+//}
+
+
+OAIClient.java
+package com.oaigptconnector.model;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oaigptconnector.Constants;
+import com.oaigptconnector.model.exception.OpenAIGPTException;
+import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
+import com.oaigptconnector.model.response.error.OpenAIGPTErrorResponse;
+import httpson.Httpson;
+
+import java.io.IOException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.time.Duration;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+
+public final class OAIClient {
+
+    private OAIClient() {
+
+    }
+
+//    private static final HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
+//    private HttpClient getClient() {
+//        return client;
+//    }
+
+    public static OAIGPTChatCompletionResponse postChatCompletion(Object requestObject, String apiKey, HttpClient httpClient) throws OpenAIGPTException, IOException, InterruptedException {
+        return postChatCompletion(
+                requestObject,
+                apiKey,
+                httpClient,
+                false
+        );
+    }
+
+    public static OAIGPTChatCompletionResponse postChatCompletion(Object requestObject, String apiKey, HttpClient httpClient, boolean printResponse) throws OpenAIGPTException, IOException, InterruptedException {
+        Consumer<HttpRequest.Builder> c = requestBuilder -> {
+            requestBuilder.setHeader("Authorization", "Bearer " + apiKey);
+        };
+
+        JsonNode response = Httpson.sendPOST(requestObject, httpClient, Constants.OPENAI_CHAT_COMPLETION_URI, c);
+
+        if (printResponse)
+            System.out.println(new ObjectMapper().writeValueAsString(response));
+
+        try {
+            OAIGPTChatCompletionResponse oaiChatcompletionResponse = new ObjectMapper().treeToValue(response, OAIGPTChatCompletionResponse.class);
+            if (oaiChatcompletionResponse == null)
+                throw new RuntimeException("");
+
+            return oaiChatcompletionResponse;
+        } catch (JsonProcessingException e) {
+            System.out.println("Issue Mapping OAIGPTChatCompletionResponse: " + response);
+
+            throw new OpenAIGPTException(e, new ObjectMapper().treeToValue(response, OpenAIGPTErrorResponse.class));
+        }
+    }
+
+    public static Stream<String> postChatCompletionStream(Object requestObject, String apiKey, HttpClient httpClient) throws IOException, InterruptedException {
+        // TODO: Make this better
+        Consumer<HttpRequest.Builder> c = requestBuilder -> {
+            requestBuilder.setHeader("Authorization", "Bearer " + apiKey);
+        };
+
+        Stream<String> stream = Httpson.sendPOSTStream(requestObject, httpClient, Constants.OPENAI_CHAT_COMPLETION_URI, c);
+        return stream;
+    }
+
+}
+
+
+CompletionContentType.java
+package com.oaigptconnector.model;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+public enum CompletionContentType {
+
+    TEXT("text"),
+    IMAGE("image"),
+    IMAGE_URL("image_url");
+
+    private String string;
+
+    CompletionContentType(String string) {
+        this.string = string;
+    }
+
+    @JsonCreator
+    public static CompletionContentType fromString(@JsonProperty("type") String string) {
+        CompletionContentType[] values = CompletionContentType.values();
+        for (CompletionContentType value: values) {
+            if (value.string.equals(string))
+                return value;
+        }
+
+        throw new IllegalArgumentException("Could not find Completion Content Type from String");
+    }
+
+    @JsonValue
+    public String stringValue() {
+        return string;
+    }
+
+    @Override
+    public String toString() {
+        return string;
+    }
+}
+
+
+FCClient.java
+package com.oaigptconnector.model;
+
+import com.oaigptconnector.model.exception.OpenAIGPTException;
+import com.oaigptconnector.model.request.chat.completion.*;
+import com.oaigptconnector.model.response.chat.completion.http.OAIGPTChatCompletionResponse;
+
+import java.io.IOException;
+import java.net.http.HttpClient;
+import java.util.ArrayList;
+import java.util.List;
+
+public final class FCClient {
+
+    private FCClient() {
+
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClass, model, maxTokens, temperature, responseFormatType, apiKey, httpClient, List.of(messages));
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, boolean printResponse, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClass, model, maxTokens, temperature, responseFormatType, apiKey, httpClient, List.of(messages), printResponse);
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClass, model, maxTokens, 1, temperature, responseFormatType, apiKey, httpClient, messages);
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages, boolean printResponse) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClass, model, maxTokens, 1, temperature, responseFormatType, apiKey, httpClient, messages, printResponse);
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClass, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, List.of(messages));
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, boolean printResponse, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClass, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, List.of(messages), printResponse);
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        String fcName = OAIFunctionCallSerializer.getFunctionName(fcClass);
+        return serializedChatCompletion(List.of(fcClass), fcName, model, maxTokens, n, temperature, responseFormatType, apiKey, HttpClient.newHttpClient(), messages, false);
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(Class fcClass, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages, boolean printResponse) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        String fcName = OAIFunctionCallSerializer.getFunctionName(fcClass);
+        return serializedChatCompletion(List.of(fcClass), fcName, model, maxTokens, n, temperature, responseFormatType, apiKey, HttpClient.newHttpClient(), messages, printResponse);
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClasses, fcToCallName, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, List.of(messages));
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, boolean printResponse, OAIChatCompletionRequestMessage... messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClasses, fcToCallName, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, List.of(messages), printResponse);
+    }
+
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        return serializedChatCompletion(fcClasses, fcToCallName, model, maxTokens, n, temperature, responseFormatType, apiKey, httpClient, messages, false);
+    }
+
+
+    /***
+     * Takes an annotated FunctionCall class list and name of function call to call, serializes it, calls OAIClient to get response, and deserializes response setting fcObject fields
+     *
+     * @param fcClasses
+     * @param fcToCallName
+     * @param model
+     * @param maxTokens
+     * @param n
+     * @param temperature
+     * @param apiKey
+     * @param messages
+     * @return
+     * @throws OAISerializerException
+     * @throws OpenAIGPTException
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static OAIGPTChatCompletionResponse serializedChatCompletion(List<Class> fcClasses, String fcToCallName, String model, int maxTokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, String apiKey, HttpClient httpClient, List<OAIChatCompletionRequestMessage> messages, boolean printResponse) throws OAISerializerException, OpenAIGPTException, IOException, InterruptedException {
+        // Adapt to list of FCBase serializedFCObjects
+        List<Object> serializedFCObjects = new ArrayList<>();
+        for (Class fcClass: fcClasses) {
+            serializedFCObjects.add(OAIFunctionCallSerializer.objectify(fcClass));
+        }
+
+//        // Create requestFunctionCall
+//        OAIChatCompletionRequestFunctionCall requestFunctionCall = new OAIChatCompletionRequestFunctionCall(fcToCallName);
+
+        // Create requestToolChoiceFunction for function requestToolChoice
+        OAIChatCompletionRequestToolChoiceFunction.Function requestToolChoiceFunction = new OAIChatCompletionRequestToolChoiceFunction.Function(fcToCallName);
+
+        // Create requestToolChoice as Function tool choice
+        OAIChatCompletionRequestToolChoice requestToolChoice = new OAIChatCompletionRequestToolChoiceFunction(requestToolChoiceFunction);
+
+        // Create OAIChatCompletionRequest
+        OAIChatCompletionRequest request = OAIChatCompletionRequest.build(
+                model,
+                maxTokens,
+                temperature,
+                responseFormatType,
+                messages,
+                requestToolChoice,
+                serializedFCObjects
+        );
+
+//        // Create HttpClient
+//        final HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).connectTimeout(Duration.ofMinutes(Constants.AI_TIMEOUT_MINUTES)).build();
+
+        // Execute request and return response
+        OAIGPTChatCompletionResponse response = OAIClient.postChatCompletion(
+                request,
+                apiKey,
+                httpClient,
+                printResponse
+        );
+
+        return response;
+    }
+
+}
+
+
+OAIFunctionCallSerializer.java
+package com.oaigptconnector.model;
+
+import com.oaigptconnector.model.fcobjects.ifcbase.FCBase;
+import com.oaigptconnector.model.fcobjects.ifcobject.*;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class OAIFunctionCallSerializer {
+
+    // Converts to JSON from function call class
+
+    /***
+     * Converts a class annotated with FunctionCall and FCParameters into a FCBase object in the proper format for a GPT FunctionCall request
+     *
+     * @param fcClass - The annotated class to serialize
+     * @return - The serialized FCBase, ready for the function call
+     * @throws OAISerializerException - If no FunctionCall annotation or no FCParameters at all found
+     */
+    public static FCBase objectify(Class<?> fcClass) throws OAISerializerException {
+        // Ensure fcClass has FunctionCall annotation, otherwise throw OAISerializerException
+        if (!fcClass.isAnnotationPresent(FunctionCall.class))
+            throw new OAISerializerException("FunctionCall annotation not present in class");
+
+        // Get base object description, function name, and function description from FunctionCall annotation
+        String baseObjectDescription = fcClass.getAnnotation(FunctionCall.class).baseObjectDescription();
+        String functionName = fcClass.getAnnotation(FunctionCall.class).name();
+        String functionDescription = fcClass.getAnnotation(FunctionCall.class).functionDescription();
+
+        // First, create parameters FCObject with description from annotation, properties from getObjectProperties, and required with properties from getRequiredObjectProperties.. Note that any empty fields will not be included in the final JSON as per the JsonInclude NON_EMPTY annotation in the IFCObject and IFCBase interfaces, and since the FunctionCall annotation interface defaults to empty fields and not null, this should work properly :)
+        Map<String, IFCObject> objectProperties = mapObjectProperties(fcClass);
+
+        // Ensure there are object properties, otherwise throw OAISerializerException
+        if (objectProperties == null || objectProperties.isEmpty())
+            throw new OAISerializerException("No function call properties found to be serialized");
+
+        // Build FCObject parameters
+        FCObject parameters = new FCObject(
+                baseObjectDescription,
+                objectProperties,
+                getRequiredProperties(fcClass)
+        );
+
+
+        // After all that is assembled, create FCBase with name from annotation, description from annotation, and parameters as FCObject
+        FCBase base = new FCBase(
+                functionName,
+                functionDescription,
+                parameters
+        );
+
+        return base;
+    }
+
+    /***
+     * Gets the function name from the FunctionCall annotation in a FunctionCall annotated class
+     *
+     * @param fcClass - The annotated class to get the FunctionCall annotation name value
+     * @return - The FunctionCall annotation name value
+     * @throws OAISerializerException - If there is no FunctionCall annotation found
+     */
+    public static String getFunctionName(Class<?> fcClass) throws OAISerializerException {
+        // Ensure fcClass has FunctionCall annotation, otherwise throw OAISerializerException
+        if (!fcClass.isAnnotationPresent(FunctionCall.class))
+            throw new OAISerializerException("FunctionCall annotation not present in class");
+
+        // Get and return functionName
+        return fcClass.getAnnotation(FunctionCall.class).name();
+    }
+
+    /* Private Methods */
+
+    /***
+     * Maps object properties for a FunctionCall annotated class,
+     *
+     *
+     * @param dbClass
+     * @return
+     * @throws OAISerializerException
+     */
+    private static Map<String, IFCObject> mapObjectProperties(Class dbClass) throws OAISerializerException {
+        // Create object properties map
+        Map<String, IFCObject> op = new HashMap<>();
+
+        // Loop through each field, adding name and corresponding FCObject to op map
+        for (Field field: dbClass.getDeclaredFields()) {
+            // Ensure field annotation is present, otherwise continue
+            if (!field.isAnnotationPresent(FCParameter.class))
+                continue;
+
+            // Get name, IFCObject, and stringEnumValues from field
+            String name = getName(field);
+            IFCObject IJSONSchemaObject = getIFCObject(field);
+
+            // If IJSONSchemaObject is null, continue
+            if (IJSONSchemaObject == null)
+                continue;
+
+            // Put name as key and IFCObject for field as value in op
+            op.put(
+                    name,
+                    IJSONSchemaObject
+            );
+        }
+
+        // Return object properties map
+        return op;
+    }
+
+    private static String getName(Field field) throws OAISerializerException {
+        // If FCParameter is not present, throw OAISerializerException, the annotation should always be present in the getName function.. in the current logic this means it is checked in the field for loop in mapObjectProperties where it continues instead of throwing so that all the annotated fields will still be converted to the map and the non annotated fields will simply be not included in the map
+        if (!field.isAnnotationPresent(FCParameter.class))
+            throw new OAISerializerException("FCParameter annotation not found for field " + field);
+
+        // If the name is not blank, and it will never be null, return the name
+        String name = field.getAnnotation(FCParameter.class).name();
+        if (!name.isBlank())
+            return name;
+
+        // Return the name of the field otherwise
+        return field.getName();
+    }
+
+    private static IFCObject getIFCObject(Field field) throws OAISerializerException {
+        // Ensure FCParameter is present, otherwise throw OAISerializerException
+        if (!field.isAnnotationPresent(FCParameter.class))
+            throw new OAISerializerException("FCParameter annotation not present in field " + field);
+
+        // Get description, field type, and stringEnumValues and return getIFCObject
+        String description = field.getAnnotation(FCParameter.class).description();
+        Type genericType = field.getGenericType();
+        String[] stringEnumValues = field.getAnnotation(FCParameter.class).stringEnumValues();
+
+        return getIFCObject(genericType, description, stringEnumValues);
+    }
+
+    private static IFCObject getIFCObject(Type genericType, String description, String[] stringEnumValues) throws OAISerializerException {
+        // Get FCType from type
+        FCTypes fcType = FCTypeFactory.get(genericType);
+        return switch(fcType) {
+            case INTEGER -> new FCInteger(description);
+            case NUMBER -> new FCNumber(description);
+            case BOOLEAN -> new FCBoolean(description);
+            case STRING -> new FCString(description, stringEnumValues == null || stringEnumValues.length == 0 ? null : stringEnumValues);
+            case ARRAY -> new FCArray(
+                    description,
+                    getIFCObject(TypeAdapter.getFirstParameterType(genericType), null, null)
+            );
+            case OBJECT -> {
+                // Get object properties, throw OAISerializerException if null since there is a FCParameter annotation on a non-serializable type, otherwise yield FCObject with object properties
+                Map<String, IFCObject> objectProperties = mapObjectProperties(TypeAdapter.getClass(genericType));
+                if (objectProperties == null || objectProperties.isEmpty())
+                    throw new OAISerializerException("FCParameter on non-serializable type " + genericType);
+
+                yield new FCObject(
+                        description,
+                        objectProperties,
+                        getRequiredProperties(TypeAdapter.getClass(genericType))
+                );
+            }
+        };
+    }
+
+    private static List<String> getRequiredProperties(Class dbClass) throws OAISerializerException {
+        // Create list for required properties
+        List<String> requiredProperties = new ArrayList<>();
+
+        // Loop through each field in dbClass, and if the FCParameter annotation is exists and required is true, get and add name to requiredProperties
+        for (Field field: dbClass.getDeclaredFields())
+            if (field.isAnnotationPresent(FCParameter.class))
+                if (field.getAnnotation(FCParameter.class).required())
+                    requiredProperties.add(getName(field));
+
+        // Return required properties
+        return requiredProperties;
+    }
+
+}
+
+
+TypeAdapter.java
+package com.oaigptconnector.model;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.WildcardType;
+
+public class TypeAdapter {
+
+    public static Class<?> getClass(Type type) {
+        if (type instanceof Class<?>)
+            return (Class<?>)type;
+        if (type instanceof ParameterizedType)
+            return getClass(((ParameterizedType)type).getRawType());
+        if (type instanceof WildcardType) {
+            WildcardType wt = (WildcardType)type;
+            Type[] upperBounds = wt.getUpperBounds();
+            if (upperBounds.length > 0)
+                return getClass(upperBounds[0]);
+
+            throw new IllegalArgumentException("Wildcard has no upper bounds " + wt);
+        }
+
+        throw new IllegalArgumentException("Unsupported type " + type);
+    }
+
+    public static Type getFirstParameterType(Type genericType) {
+        // If genericType is ParameterizedType, get and return the first parameter type
+        if (genericType instanceof ParameterizedType) {
+            // Cast to ParameterizedType
+            ParameterizedType parameterizedType = (ParameterizedType)genericType;
+
+            // Get actual type arguments
+            Type[] typeArguments = parameterizedType.getActualTypeArguments();
+
+            // If typeArguments length is less than 1, return null, otherwise return first typeArgument
+            if (typeArguments.length < 1)
+                return null;
+
+            return typeArguments[0];
+        }
+
+        return null;
+    }
+
+}
+
+
+request
+
+
+chat
+
+
+completion
+
+
+OAIChatCompletionRequestToolChoiceRequired.java
+package com.oaigptconnector.model.request.chat.completion;
+
+public class OAIChatCompletionRequestToolChoiceRequired implements OAIChatCompletionRequestToolChoice {
+
+    @Override
+    public Object tool_choice() {
+        return "required";
+    }
+
+}
+
+
+OAIChatCompletionRequestMessage.java
+package com.oaigptconnector.model.request.chat.completion;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.oaigptconnector.model.request.chat.completion.content.OAIChatCompletionRequestMessageContent;
+
+import java.util.List;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class OAIChatCompletionRequestMessage {
+
+    private CompletionRole role;
+    private List<OAIChatCompletionRequestMessageContent> content;
+
+    public OAIChatCompletionRequestMessage() {
+
+    }
+
+    public OAIChatCompletionRequestMessage(CompletionRole role, List<OAIChatCompletionRequestMessageContent> content) {
+        this.role = role;
+        this.content = content;
+    }
+
+    public CompletionRole getRole() {
+        return role;
+    }
+
+    public void setRole(CompletionRole role) {
+        this.role = role;
+    }
+
+    public List<OAIChatCompletionRequestMessageContent> getContent() {
+        return content;
+    }
+
+    public void setContent(List<OAIChatCompletionRequestMessageContent> content) {
+        this.content = content;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OAIGPTChatCompletionRequestMessage{" +
+                "role=" + role +
+                ", content='" + content + '\'' +
+                '}';
+    }
+
+}
+
+
+OAIChatCompletionRequestToolChoiceNone.java
+package com.oaigptconnector.model.request.chat.completion;
+
+public class OAIChatCompletionRequestToolChoiceNone implements OAIChatCompletionRequestToolChoice {
+
+    @Override
+    public Object tool_choice() {
+        return "none";
+    }
+
+}
+
+
+OAIChatCompletionRequestStreamOptions.java
+package com.oaigptconnector.model.request.chat.completion;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class OAIChatCompletionRequestStreamOptions {
+
+    private Boolean include_usage;
+
+    public OAIChatCompletionRequestStreamOptions() {
+
+    }
+
+    public OAIChatCompletionRequestStreamOptions(Boolean include_usage) {
+        this.include_usage = include_usage;
+    }
+
+    public Boolean getInclude_usage() {
+        return include_usage;
+    }
+
+    public void setInclude_usage(Boolean include_usage) {
+        this.include_usage = include_usage;
+    }
+
+}
+
+
+OAIChatCompletionRequest.java
+package com.oaigptconnector.model.request.chat.completion;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.List;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class OAIChatCompletionRequest {
+    private String model;
+    private Integer max_tokens;
+    private Integer n;
+    private Double temperature;
+    private boolean stream;
+    private OAIChatCompletionRequestResponseFormat response_format;
+    private OAIChatCompletionRequestStreamOptions stream_options;
+    private List<OAIChatCompletionRequestMessage> messages;
+    private OAIChatCompletionRequestToolChoice tool_choice; // "none", "required", or OAIChatCompletionRequestToolChoiceFunction
+    private List<OAIChatCompletionRequestTool> tools;
+
+    private OAIChatCompletionRequest() {
+
+    }
+
+    private OAIChatCompletionRequest(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat response_format, OAIChatCompletionRequestStreamOptions stream_options, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice tool_choice, List<OAIChatCompletionRequestTool> tools) {
+        this.model = model;
+        this.max_tokens = max_tokens;
+        this.n = n;
+        this.temperature = temperature;
+        this.stream = stream;
+        this.response_format = response_format;
+        this.stream_options = stream_options;
+        this.messages = messages;
+        this.tool_choice = tool_choice;
+        this.tools = tools;
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, temperature, responseFormatType, List.of(messages));
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, List<OAIChatCompletionRequestMessage> messages) {
+        return build(model, max_tokens, temperature, false, responseFormatType, null, messages);
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, temperature, stream, responseFormatType, streamOptions, List.of(messages));
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages) {
+        return build(model, max_tokens, 1, temperature, stream, responseFormatType, streamOptions, messages);
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, n, temperature, responseFormatType, streamOptions, List.of(messages));
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages) {
+        return build(model, max_tokens, n, temperature, false, responseFormatType, streamOptions, messages);
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, OAIChatCompletionRequestMessage... messages) {
+        return build(model, max_tokens, n, temperature, stream, responseFormatType, streamOptions, List.of(messages));
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages) {
+        return build(model, max_tokens, n, temperature, stream, responseFormatType, streamOptions, messages, null, null);
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice toolChoice, List<Object> functions) {
+        return build(model, max_tokens, temperature, false, responseFormatType, null, messages, toolChoice, functions);
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice toolChoice, List<Object> functions) {
+        return build(model, max_tokens, 1, temperature, stream, responseFormatType, streamOptions, messages, toolChoice, functions);
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, OAIChatCompletionRequestResponseFormat responseFormatType, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice toolChoice, List<Object> functions) {
+        return build(model, max_tokens, n, temperature, false, responseFormatType, null, messages, toolChoice, functions);
+    }
+
+    public static OAIChatCompletionRequest build(String model, int max_tokens, int n, double temperature, boolean stream, OAIChatCompletionRequestResponseFormat responseFormatType, OAIChatCompletionRequestStreamOptions streamOptions, List<OAIChatCompletionRequestMessage> messages, OAIChatCompletionRequestToolChoice tool_choice, List<Object> functions) {
+        // TODO: Implement tools better.. right now it just translates functions to tools
+        List<OAIChatCompletionRequestTool> tools = null;
+
+        if (functions != null && !functions.isEmpty()) {
+            tools = functions.stream()
+                    .map(f -> new OAIChatCompletionRequestTool(
+                            OAIChatCompletionRequestToolType.FUNCTION,
+                            f
+                    ))
+                    .toList();
+        }
+
+        return new OAIChatCompletionRequest(
+                model,
+                max_tokens,
+                n,
+                temperature,
+                stream,
+                responseFormatType,
+                streamOptions,
+                messages,
+                tool_choice,
+                tools
+        );
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Integer getMax_tokens() {
+        return max_tokens;
+    }
+
+    public void setMax_tokens(Integer max_tokens) {
+        this.max_tokens = max_tokens;
+    }
+
+    public Integer getN() {
+        return n;
+    }
+
+    public void setN(Integer n) {
+        this.n = n;
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
+
+    public OAIChatCompletionRequestResponseFormat getResponse_format() {
+        return response_format;
+    }
+
+    public void setResponse_format(OAIChatCompletionRequestResponseFormat response_format) {
+        this.response_format = response_format;
+    }
+
+    public OAIChatCompletionRequestStreamOptions getStream_options() {
+        return stream_options;
+    }
+
+    public void setStream_options(OAIChatCompletionRequestStreamOptions stream_options) {
+        this.stream_options = stream_options;
+    }
+
+    public boolean isStream() {
+        return stream;
+    }
+
+    public void setStream(boolean stream) {
+        this.stream = stream;
+    }
+
+    public List<OAIChatCompletionRequestMessage> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<OAIChatCompletionRequestMessage> messages) {
+        this.messages = messages;
+    }
+
+    public OAIChatCompletionRequestToolChoice getTool_choice() {
+        return tool_choice;
+    }
+
+    public void setTool_choice(OAIChatCompletionRequestToolChoice tool_choice) {
+        this.tool_choice = tool_choice;
+    }
+
+    public List<OAIChatCompletionRequestTool> getTools() {
+        return tools;
+    }
+
+    public void setTools(List<OAIChatCompletionRequestTool> tools) {
+        this.tools = tools;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OAIGPTChatCompletionRequest{" +
+                "model='" + model + '\'' +
+                ", max_tokens=" + max_tokens +
+                ", n=" + n +
+                ", temperature=" + temperature +
+                ", stream=" + stream +
+                ", messages=" + messages +
+                ", tool_choice=" + tool_choice +
+                ", tools=" + tools +
+                '}';
+    }
+
+}
+
+
+OAIChatCompletionRequestResponseFormat.java
+package com.oaigptconnector.model.request.chat.completion;
+
+public class OAIChatCompletionRequestResponseFormat {
+
+    private ResponseFormatType type;
+
+    public OAIChatCompletionRequestResponseFormat() {
+
+    }
+
+    public OAIChatCompletionRequestResponseFormat(ResponseFormatType type) {
+        this.type = type;
+    }
+
+    public ResponseFormatType getType() {
+        return type;
+    }
+
+}
+
+
+ResponseFormatType.java
+package com.oaigptconnector.model.request.chat.completion;
+
+import com.fasterxml.jackson.annotation.*;
+
+public enum ResponseFormatType {
+
+    TEXT("text"),
+    JSON_OBJECT("json_object");
+
+    private String string;
+
+    ResponseFormatType(String string) {
+        this.string = string;
+    }
+
+    @JsonSetter
+    public static ResponseFormatType fromString(String string) {
+        // Null check or TEXT as default
+        if (string == null) {
+            return TEXT;
+        }
+
+        // Search for string from enums values' strings
+        ResponseFormatType[] values = ResponseFormatType.values();
+        for (ResponseFormatType value: values) {
+            if (value.string.equals(string))
+                return value;
+        }
+
+        // Default to TEXT
+        return TEXT;
+    }
+
+    @JsonValue
+    public String getString() {
+        return string;
+    }
+
+}
+
+
+content
+
+
+OAIChatCompletionRequestMessageContentText.java
+package com.oaigptconnector.model.request.chat.completion.content;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.oaigptconnector.model.CompletionContentType;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OAIChatCompletionRequestMessageContentText implements OAIChatCompletionRequestMessageContent {
+
+//    private final CompletionContentType type = CompletionContentType.TEXT;
+    private String text;
+
+    public OAIChatCompletionRequestMessageContentText() {
+
+    }
+
+    public OAIChatCompletionRequestMessageContentText(String text) {
+        this.text = text;
+    }
+
+//    @Override
+//    public CompletionContentType getType() {
+//        return type;
+//    }
+
+    public String getText() {
+        return text;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OAIChatCompletionRequestMessageContentText{" +
+//                "type=" + type +
+                ", text='" + text + '\'' +
+                '}';
+    }
+
+}
+
+
+OAIChatCompletionRequestMessageContentImageURL.java
+package com.oaigptconnector.model.request.chat.completion.content;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OAIChatCompletionRequestMessageContentImageURL implements OAIChatCompletionRequestMessageContent {
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class ImageURL {
+
+        private String url;
+        private InputImageDetail detail;
+
+        public ImageURL() {
+
+        }
+
+        public ImageURL(String url, InputImageDetail detail) {
+            this.url = url;
+            this.detail = detail;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public InputImageDetail getDetail() {
+            return detail;
+        }
+
+        @Override
+        public String toString() {
+            return "ImageURL{" +
+                    "url='" + url + '\'' +
+                    ", detail=" + detail +
+                    '}';
+        }
+
+    }
+
+//    private final CompletionContentType type = CompletionContentType.IMAGE_URL;
+    private ImageURL image_url;
+
+    public OAIChatCompletionRequestMessageContentImageURL() {
+
+    }
+
+    public OAIChatCompletionRequestMessageContentImageURL(ImageURL image_url) {
+        this.image_url = image_url;
+    }
+
+//    @Override
+//    public CompletionContentType getType() {
+//        return type;
+//    }
+
+    public ImageURL getImage_url() {
+        return image_url;
+    }
+
+    @Override
+    public String toString() {
+        return "OAIChatCompletionRequestMessageContentImage{" +
+//                "type=" + type +
+                ", image='" + image_url + '\'' +
+                '}';
+    }
+
+}
+
+
+OAIChatCompletionRequestMessageContent.java
+package com.oaigptconnector.model.request.chat.completion.content;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.oaigptconnector.model.CompletionContentType;
+
+
+// Serializing interfaces with Jackson: https://stackoverflow.com/questions/19379863/how-to-deserialize-interface-fields-using-jacksons-objectmapper
+// https://github.com/FasterXML/jackson-docs/wiki/JacksonPolymorphicDeserialization
+// https://web.archive.org/web/20200623023452/https://programmerbruce.blogspot.com/2011/05/deserialize-json-with-jackson-into.html
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = OAIChatCompletionRequestMessageContentText.class, name = "text"),
+        @JsonSubTypes.Type(value = OAIChatCompletionRequestMessageContentImageURL.class, name = "image_url") })
+public interface OAIChatCompletionRequestMessageContent {
+
+//    CompletionContentType getType(); TODO: Type is handled by JsonTypeInfo instead for both deserialization and serialization :)
+
+}
+
+
+InputImageDetail.java
+package com.oaigptconnector.model.request.chat.completion.content;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+public enum InputImageDetail {
+
+    LOW("low"),
+    HIGH("high"),
+    AUTO(null);
+
+    private String string;
+
+    InputImageDetail(String string) {
+        this.string = string;
+    }
+
+    @JsonSetter
+//    public static InputImageDetail fromString(@JsonProperty("detail") String string) {
+    public static InputImageDetail fromString(String string) {
+        // Null check though it doesn't matter in this case but still good practice and I'm nervous :)
+        if (string == null) {
+            return InputImageDetail.LOW;
+        }
+
+        // Search for parameter string from enum values' strings returning enum value when found
+        InputImageDetail[] values = InputImageDetail.values();
+        for (InputImageDetail value: values) {
+            if (value.string.equals(string))
+                return value;
+        }
+
+        // Default to low quality if not found
+        return InputImageDetail.LOW;
+    }
+
+    @JsonValue
+    public String stringValue() {
+        return string;
+    }
+
+    @Override
+    public String toString() {
+        return string;
+    }
+
+}
+
+
+OAIChatCompletionRequestToolChoiceAuto.java
+package com.oaigptconnector.model.request.chat.completion;
+
+public class OAIChatCompletionRequestToolChoiceAuto implements OAIChatCompletionRequestToolChoice {
+
+    @Override
+    public Object tool_choice() {
+        return "auto";
+    }
+
+}
+
+
+OAIChatCompletionRequestFunctionCall.java
+package com.oaigptconnector.model.request.chat.completion;
+
+public class OAIChatCompletionRequestFunctionCall {
+
+    private String name;
+
+    public OAIChatCompletionRequestFunctionCall() {
+
+    }
+
+    public OAIChatCompletionRequestFunctionCall(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+}
+
+
+OAIChatCompletionRequestTool.java
+package com.oaigptconnector.model.request.chat.completion;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class OAIChatCompletionRequestTool {
+
+    private OAIChatCompletionRequestToolType type;
+    private Object function;
+
+    public OAIChatCompletionRequestTool() {
+
+    }
+
+    public OAIChatCompletionRequestTool(OAIChatCompletionRequestToolType type, Object function) {
+        this.type = type;
+        this.function = function;
+    }
+
+    public OAIChatCompletionRequestToolType getType() {
+        return type;
+    }
+
+    public Object getFunction() {
+        return function;
+    }
+
+}
+
+
+OAIChatCompletionRequestToolType.java
+package com.oaigptconnector.model.request.chat.completion;
+
+import com.fasterxml.jackson.annotation.JsonValue;
+
+public enum OAIChatCompletionRequestToolType {
+
+    FUNCTION("function");
+
+    private String type;
+
+    OAIChatCompletionRequestToolType(String type) {
+        this.type = type;
+    }
+
+    @JsonValue
+    public String getType() {
+        return type;
+    }
+
+}
+
+
+OAIChatCompletionRequestToolChoice.java
+package com.oaigptconnector.model.request.chat.completion;
+
+import com.fasterxml.jackson.annotation.JsonValue;
+
+public interface OAIChatCompletionRequestToolChoice {
+
+//    @JsonValue
+    Object tool_choice();
+
+}
+
+
+OAIChatCompletionRequestToolChoiceFunction.java
+package com.oaigptconnector.model.request.chat.completion;
+
+public class OAIChatCompletionRequestToolChoiceFunction implements OAIChatCompletionRequestToolChoice {
+
+    public static class Function {
+
+        private String name;
+
+        public Function() {
+
+        }
+
+        public Function(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+    }
+
+    private String type = "function";
+    private Function function;
+
+    public OAIChatCompletionRequestToolChoiceFunction() {
+
+    }
+
+    public OAIChatCompletionRequestToolChoiceFunction(Function function) {
+        this.function = function;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Function getFunction() {
+        return function;
+    }
+
+    @Override
+    public Object tool_choice() {
+        return this;
+    }
+
+}
+
+
+CompletionRole.java
+package com.oaigptconnector.model.request.chat.completion;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonValue;
+public enum CompletionRole {
+
+    SYSTEM("system"),
+    USER("user"),
+    ASSISTANT("assistant");
+
+    private String string;
+
+    CompletionRole(String string) {
+        this.string = string;
+    }
+
+    @JsonSetter
+    public static CompletionRole fromString(@JsonProperty("role") String string) {
+        CompletionRole[] values = CompletionRole.values();
+        for (CompletionRole value: values) {
+            if (value.string.equals(string))
+                return value;
+        }
+
+        throw new IllegalArgumentException("Could not find Completion Role from String");
+    }
+
+    @JsonValue
+    public String stringValue() {
+        return string;
+    }
+
+    @Override
+    public String toString() {
+        return string;
+    }
+
+}
+
+
+OAIDeserializerException.java
+package com.oaigptconnector.model;
+
+public class OAIDeserializerException extends Exception {
+
+    public OAIDeserializerException(String message) {
+        super(message);
+    }
+
+    public OAIDeserializerException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public OAIDeserializerException(Throwable cause) {
+        super(cause);
+    }
+
+}
+
+
+FunctionCall.java
+package com.oaigptconnector.model;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.List;
+
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface FunctionCall {
+
+    String name();
+    String functionDescription() default "";
+    String baseObjectDescription() default "";
+
+}
+
+
+service
+
+
+GetChatCapReachedResponses.java
+package com.oaigptconnector.model.service;
+
+import java.util.Random;
+
+public class GetChatCapReachedResponses {
+
+    private static final String[] responses = {"I'd love to keep chatting, but my program uses a lot of computer power. Please upgrade to unlock unlimited chats.",
+            "Thank you for chatting with me. To continue, please upgrade to unlimited chats.",
+            "I hope I was able to help. If you'd like to keep chatting, please subscribe for unlimited chats. There's a 3 day free trial!",
+            "You are appreciated. You are loved. Show us some support and subscribe to keep chatting.",
+            "Upgrade today for unlimited chats and a free 3 day trial!"};
+
+    public static String getRandomResponse() {
+        int randomIndex = new Random().nextInt(responses.length - 1);
+        return responses[randomIndex];
+    }
+
+}
+
+
+FCTypes.java
+package com.oaigptconnector.model;
+
+import com.fasterxml.jackson.annotation.JsonValue;
+
+public enum FCTypes {
+
+    OBJECT("object"),
+    ARRAY("array"),
+    INTEGER("integer"),
+    NUMBER("number"),
+    BOOLEAN("boolean"),
+    STRING("string");
+
+    private String stringValue;
+
+    FCTypes(String stringValue) {
+        this.stringValue = stringValue;
+    }
+
+    public static FCTypes fromString(String string) {
+        for (FCTypes fcType: FCTypes.values())
+            if (fcType.getStringValue().equals(string))
+                return fcType;
+
+        return null;
+    }
+
+    @JsonValue
+    public String getStringValue() {
+        return stringValue;
+    }
+
+}
+
+
+FCTypeFactory.java
+package com.oaigptconnector.model;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
+public class FCTypeFactory {
+
+    public static FCTypes get(Type type) {
+        if (type == Integer.class || type == int.class)
+            return FCTypes.INTEGER;
+        if (type == Double.class || type == double.class || type == Float.class || type == float.class || type == Number.class)
+            return FCTypes.NUMBER;
+        if (type == Boolean.class || type == boolean.class)
+            return FCTypes.BOOLEAN;
+        if (type == String.class)
+            return FCTypes.STRING;
+        if (type instanceof ParameterizedType)
+            if (((ParameterizedType)type).getRawType() == List.class)
+                return FCTypes.ARRAY;
+
+        return FCTypes.OBJECT;
+    }
+
+}
+
+
+exception
+
+
+OpenAIGPTException.java
+package com.oaigptconnector.model.exception;
+
+import com.oaigptconnector.model.response.ResponseException;
+import com.oaigptconnector.model.response.error.OpenAIGPTErrorResponse;
+
+public class OpenAIGPTException extends ResponseException {
+
+    public OpenAIGPTException(Object errorObject) {
+        super(errorObject);
+    }
+
+    public OpenAIGPTException(String message, Object errorObject) {
+        super(message, errorObject);
+    }
+
+    public OpenAIGPTException(String message, Throwable cause, Object errorObject) {
+        super(message, cause, errorObject);
+    }
+
+    public OpenAIGPTException(Throwable cause, Object errorObject) {
+        super(cause, errorObject);
+    }
+
+    @Override
+    public OpenAIGPTErrorResponse getErrorObject() {
+        Object o = super.getErrorObject();
+        return (o instanceof OpenAIGPTErrorResponse) ? (OpenAIGPTErrorResponse)o : null;
+    }
+}
+
+
+fcobjects
+
+
+ifcbase
+
+
+FCBase.java
+package com.oaigptconnector.model.fcobjects.ifcbase;
+
+import com.oaigptconnector.model.fcobjects.ifcobject.FCObject;
+
+public class FCBase implements IFCBase {
+
+    private String name;
+    private String description;
+    private FCObject parameters;
+
+    public FCBase(String name, String description, FCObject parameters) {
+        this.name = name;
+        this.description = description;
+        this.parameters = parameters;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public FCObject getParameters() {
+        return parameters;
+    }
+
+}
+
+
+IFCBase.java
+package com.oaigptconnector.model.fcobjects.ifcbase;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.oaigptconnector.model.fcobjects.ifcobject.FCObject;
+import com.oaigptconnector.model.fcobjects.ifcobject.IFCObject;
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public interface IFCBase {
+
+    /***
+     * The base function call
+     *
+     * name - Required, used as the name of the function
+     * description - Optional, used as the description of the function
+     * parameters - Required, must be FCObject here, used as the base description of the function call's parameters
+     */
+
+    String getName();
+    String getDescription();
+    FCObject getParameters();
+
+}
+
+
+ifcobject
+
+
+FCNumber.java
+package com.oaigptconnector.model.fcobjects.ifcobject;
+
+import com.oaigptconnector.model.JSONSchemaTypes;
+
+public class FCNumber implements IFCObject {
+
+    private final FCTypes type = FCTypes.NUMBER;
+    private String description;
+
+    public FCNumber(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public FCTypes getType() {
+        return type;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+
+    @Override
+    public String toString() {
+        return "FCNumber{" +
+                "type=" + type +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+}
+
+
+FCInteger.java
+package com.oaigptconnector.model.fcobjects.ifcobject;
+
+import com.oaigptconnector.model.JSONSchemaTypes;
+
+public class FCInteger implements IFCObject {
+
+    private final FCTypes type = FCTypes.INTEGER;
+    private String description;
+
+    public FCInteger(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public FCTypes getType() {
+        return type;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+
+    @Override
+    public String toString() {
+        return "FCInteger{" +
+                "type=" + type +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+}
+
+
+IFCObject.java
+package com.oaigptconnector.model.fcobjects.ifcobject;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.oaigptconnector.model.JSONSchemaTypes;
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public interface IFCObject {
+
+    FCTypes getType();
+    String getDescription();
+
+}
+
+
+FCBoolean.java
+package com.oaigptconnector.model.fcobjects.ifcobject;
+
+import com.oaigptconnector.model.JSONSchemaTypes;
+
+public class FCBoolean implements IFCObject {
+
+    private final FCTypes type = FCTypes.BOOLEAN;
+    private String description;
+
+    public FCBoolean(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public FCTypes getType() {
+        return type;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+
+    @Override
+    public String toString() {
+        return "FCBoolean{" +
+                "type=" + type +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+}
+
+
+FCArray.java
+package com.oaigptconnector.model.fcobjects.ifcobject;
+
+import com.oaigptconnector.model.JSONSchemaTypes;
+
+import java.util.List;
+
+public class FCArray implements IFCObject {
+
+    private final FCTypes type = FCTypes.ARRAY;
+    private String description;
+    private IFCObject items;
+
+    public FCArray() {
+
+    }
+
+    public FCArray(String description, IFCObject items) {
+        this.description = description;
+        this.items = items;
+    }
+
+    @Override
+    public FCTypes getType() {
+        return type;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    public IFCObject getItems() {
+        return items;
+    }
+
+
+    @Override
+    public String toString() {
+        return "FCArray{" +
+                "type=" + type +
+                ", description='" + description + '\'' +
+                ", items=" + items +
+                '}';
+    }
+
+}
+
+
+FCObject.java
+package com.oaigptconnector.model.fcobjects.ifcobject;
+
+import com.oaigptconnector.model.JSONSchemaTypes;
+
+import java.util.List;
+import java.util.Map;
+
+public class FCObject implements IFCObject {
+
+    private final FCTypes type = FCTypes.OBJECT;
+    private String description;
+    private Map<String, IFCObject> properties;
+    private List<String> required;
+
+    public FCObject() {
+
+    }
+
+    public FCObject(String description, Map<String, IFCObject> properties, List<String> required) {
+        this.description = description;
+        this.properties = properties;
+        this.required = required;
+    }
+
+    @Override
+    public FCTypes getType() {
+        return type;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    public Map<String, IFCObject> getProperties() {
+        return properties;
+    }
+
+    public List<String> getRequired() {
+        return required;
+    }
+
+
+    @Override
+    public String toString() {
+        return "FCObject{" +
+                "type=" + type +
+                ", description='" + description + '\'' +
+                ", properties=" + properties +
+                ", required=" + required +
+                '}';
+    }
+
+}
+
+
+FCString.java
+package com.oaigptconnector.model.fcobjects.ifcobject;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.oaigptconnector.model.JSONSchemaTypes;
+
+import java.util.Arrays;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class FCString implements IFCObject {
+
+    private final FCTypes type = FCTypes.STRING;
+    private String description;
+    @JsonProperty("enum")
+    private String[] stringEnumValues;
+
+    public FCString() {
+
+    }
+
+    public FCString(String description, String[] stringEnumValues) {
+        this.description = description;
+        this.stringEnumValues = stringEnumValues;
+    }
+
+    @Override
+    public FCTypes getType() {
+        return type;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    public String[] getStringEnumValues() {
+        return stringEnumValues;
+    }
+
+    @Override
+    public String toString() {
+        return "FCString{" +
+                "type=" + type +
+                ", description='" + description + '\'' +
+                ", stringEnumValues=" + Arrays.toString(stringEnumValues) +
+                '}';
+    }
+
+}
+
+
+generation
+
+
+OpenAIGPTModels.java
+package com.oaigptconnector.model.generation;
+
+import com.fasterxml.jackson.annotation.JsonValue;
+
+public enum OpenAIGPTModels {
+
+    GPT_3_5_TURBO("gpt-3.5-turbo", false),
+//    GPT_3_5_TURBO_0613("gpt-3.5-turbo-0613", false),
+    GPT_4("gpt-4o", false),
+    GPT_4_VISION("gpt-4o", true),
+    GPT_4_LONGINPUT("gpt-4o", false),
+    GPT_4_TURBO("gpt-4o", false);
+
+    private String name;
+    private boolean isVision;
+
+    OpenAIGPTModels(String name, boolean isVision) {
+        this.name = name;
+        this.isVision = isVision;
+    }
+
+    @JsonValue
+    public String getName() {
+        return name;
+    }
+
+    public boolean isVision() {
+        return isVision;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+}
+
+
+FCParameter.java
+package com.oaigptconnector.model;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface FCParameter {
+
+    String name() default "";
+    String description() default "";
+    boolean required() default true;
+    String[] stringEnumValues() default {};
+
+}
+
+
+Constants.java
+package com.oaigptconnector;
+
+import java.net.URI;
+
+public final class Constants {
+
+    /* OpenAI Constants */
+    public static URI OPENAI_CHAT_COMPLETION_URI = URI.create("https://api.openai.com/v1/chat/completions");
+    public static URI OPENAI_IMAGE_GENERATION_URI = URI.create("https://api.openai.com/v1/images/generations");
+    public static URI OPENAI_SPEECH_GENERATION_URI = URI.create("https://api.openai.com/v1/audio/speech");
+    public static URI OPENAI_SPEECH_TRANSCRIPTION_URI = URI.create("https://api.openai.com/v1/audio/transcriptions");
+    public static long AI_TIMEOUT_MINUTES = 4;
+
+}
+
+

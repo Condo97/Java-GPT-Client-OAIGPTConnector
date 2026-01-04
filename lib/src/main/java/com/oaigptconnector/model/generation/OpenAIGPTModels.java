@@ -7,6 +7,8 @@ public enum OpenAIGPTModels implements ChatModel {
     // OpenRouter
     OPENROUTER_GPT_5("openai/gpt-5", true),
     OPENROUTER_GPT_5_MINI("openai/gpt-5-mini", true),
+    OPENROUTER_GPT_4o("openai/gpt-4o", true),
+    OPENROUTER_GPT_4o_MINI("openai/gpt-4o-mini", true),
 
     // OpenAI
 
